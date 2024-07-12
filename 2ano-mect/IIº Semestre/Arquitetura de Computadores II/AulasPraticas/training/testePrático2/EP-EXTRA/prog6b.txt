@@ -1,0 +1,137 @@
+#include <detpic32.h>
+
+volatile char ch = '0';
+volatile char lastChar = '0'
+volatile int counter = 0;
+volatile int value = 0;
+
+void configIO(){
+  TRISB = (TRISB & 0x80FF);
+  LATB = (LATB & 0x80FF);
+
+  TRISD = (TRISD & 0xF9FF);
+  LATD = (LATD & 0xF9FF);
+}
+void delay(int ms){
+  for(; ms > 0; ms--){
+     resetCoreTimer();
+     while(readCoreTimer() < 20000);
+  }
+}
+unsigned char toBCD(unsigned char value){
+ return ((value / 10) << 4) + (value % 10);
+}
+void send2display(unsigned char value){
+  static cons char display7code = {};
+  static char displayFlag = 0;
+  
+  int digit_low = value & 0x0F;
+  int digit_high = value >> 4;
+  
+  if(displayFlag == 0){
+   LATB = (LATB & 0x00FF) | (display7code[digit_low] << 8);
+   LATDbits.LATD5 = 0;
+   LATDbits.LATD6 = 1;
+  }else{
+   LATB = (LATB & 0x00FF) | (display7code[digit_high] << 8);
+   LATDbits.LATD5 = 1;
+   LATDbits.LATD6 = 0;
+  }
+
+ displayFlag = !displayFlag;
+
+}
+
+
+void configTimer3(){
+ T3CONbits.TCKPS = 5; // 1:32 prescaler (i.e. fout_presc = 625 KHz) 
+ PR3 = 62499; // Fout = 20MHz / (32 * (62499 + 1)) = 10 Hz 
+ TMR3 = 0; // Reset timer T3 count register 
+ T3CONbits.TON = 1; // Enable timer T3
+
+ IPC2bits.T3IP = 2; // Interrupt priority (must be in range [1..6]) 
+ IEC0bits.T3IE = 1; // Enable timer T2 interrupts 
+ IFS0bits.T3IF = 0; // Reset timer T2 interrupt flag 
+}
+void changeTimer3Config(int freq){
+  if(freq == 10){
+     T3CONbits.TCKPS = 5;
+     PR3 = 62499;
+   }else if(freq == 20){
+     T3CONbits.TCKPS = 4;
+     PR3 = 62499;
+   }else if(freq == 30){
+    T3CONbits.TCKPS = 4;
+     PR3 = 41666;
+  }else if(freq == 40){
+     T3CONbits.TCKPS = 3;
+     PR3 = 62499;
+  }
+}
+void _int_(4) isr_T3(void){
+  
+ printStr("\r");
+ if(counter >= 0 && counter <= 9){
+    printInt(0, 10);
+  }
+  printInt(counter, 10 | 2 << 10);
+  counter++;
+  if(counter == 100){
+     counter = 0;
+   }
+  IFS0bits.T3IF= 0;
+
+}
+int main(void){
+    
+  printStr("Preparation for PT2 - AC2\n");
+  
+  configIO();
+  configTimer3();
+  Enable Interrupts();//enable global interrupt
+ while(1){
+
+    ch = inKey();
+
+    switch(ch){
+     case '0':
+          changeTimer3Config(10);
+          lastChar = '0';
+          break;
+    case '1';
+          changeTimer3Config(20);
+          lastChar = '1';
+          break;
+   case '2':
+          changeTimer3Config(30);
+          lastChar = '2';
+          break;
+   case '3';
+         changeTimer3Config(40);
+          lastChar = '3';
+          break;
+   case '4':
+          changeTimer3Config(50);
+          lastChar = '4';
+          break;
+   case '\n':
+          printStr(" >> ");
+          if(counter >= 0 && counter <= 9){
+            printInt(0, 10);
+          }
+          printInt(counter,  10 | 2 << 10);
+          value = counter;
+          ch = lastChar ;
+          break;
+   case '\0':
+          ch = lastChar ;
+         break;
+      }
+
+    send2display(toBCD(value));
+    delay(20); //50Hz->20ms
+ 
+ }
+
+ return 0;
+}

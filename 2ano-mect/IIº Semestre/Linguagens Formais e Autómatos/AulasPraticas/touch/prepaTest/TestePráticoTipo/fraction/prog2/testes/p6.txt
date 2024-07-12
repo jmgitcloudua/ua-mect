@@ -1,0 +1,4 @@
+4/5 -> x;
+print 2^6;
+print 4^5;
+print x;

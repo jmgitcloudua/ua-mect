@@ -1,0 +1,50 @@
+ if(stopbits != 1 || stopbits != 2){
+    stopbits = 1
+ }
+ //UART2 config
+ U2BRG = ((PBCLK + 8*baud)/(16*baud)) - 1; //constat baudrate
+ U2MODEbits.BRGH = 0; //16x baud clock is enabled
+ //config parity | 8 bits
+ switch(parity){
+  case 'N':
+   U2MODEbits.PDSEL = 0; //no parity
+   break;
+   case 'E':
+   U2MODEbits.PDSEL = 1; //even parity
+   break;
+   case 'O':
+   U2MODEbits.PDSEL = 2; //odd parity
+   break;
+ }
+  //config stop bits
+   switch(stopbits){
+  case 2:
+   U2MODEbits.STSEL = 1; //2 stop bits
+   break;
+   case 1:
+   U2MODEbits.PDSEL = 0; //1 stop bits
+   break;
+ }
+ U2MODEbits.URXEN = 1;// U2 RX is enabled
+ U2MODEbits.UTXEN = 1;// U2 TX is enabled
+ U2MODEbits.ON = 1;// U2 is enabled
+ 
+}
+void putc(char byte2send){
+ while(U2STAbits.UTXBF == 1);
+  U2TXREG = byte2send;
+}
+void _int_(32) isr_uart2(void){
+  putc(U2TXREG);
+  IFS1bits.URXIF = 0; //reset URXIF flag
+}
+int main(void){
+    
+    //configUart(115200, 'N',  1); ///default "pterm" parameters
+
+    EnableInterrupts();//enable global interrupt
+    while (1);
+    
+
+    return 0;
+}

@@ -1,0 +1,26 @@
+#include <detpic32.h>
+
+volatile int counter = 0;
+
+void delay(int ms){
+ for(; ms > 0; ms--){
+    resetCoreTimer();
+    while(readCoreTimer() < 20000);
+  }
+}
+
+int main(void){
+    
+  printStr("Preparation for PT2 - AC2\n");
+ while(1){
+   printChar("\r");
+   printInt(counter,  10 | 2 << 10);
+   counter++;
+   if(counter == 99){
+      counter = 0;
+    }
+   delay(100);//10HZ=100ms
+ }
+
+ return 0;
+}

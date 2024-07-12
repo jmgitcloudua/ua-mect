@@ -1,0 +1,519 @@
+*************** Aula 4_5_6 ************
+Exercício 1
+Ler o valor do porto de entrada (RB2) e escrever esse 
+valor no porto de saída (RE2)
+
+	.equ SFR_BASE_HI, 0xBF88 
+
+	.equ TRISB, 0x6040		# TRISB address: 0xBF886040 
+	.equ PORTB, 0x6050		# PORB address: 0xBF886050 
+	.equ LATB, 0x6060		# LATB address: 0xBF886060 
+	
+	.equ TRISE, 0x6100		# TRISB address: 0xBF886100 
+	.equ PORTE, 0x6110		# PORB address: 0xBF886110 
+	.equ LATE, 0x6120		# LATB address: 0xBF886120 
+
+	.data
+	.text
+	.globl main
+main:					# void main(){
+	
+	lui	$t0, SFR_BASE_HI	# $t0 = 0xBF880000
+	
+	lw	$t1, TRISB($t0)		# $t1 = 0xBF880000+0x00006040
+	ori	$t1, $t1, 0x0004	# bit2 = 1 (input)
+	sw	$t1,TRISB($t0)		# RB2 is configured as input
+	
+	lw	$t1, TRISE($t0)		# $t1 = 0xBF880000+0x00006100
+	andi	$t1, $t1, 0xFFFB	# bit2 = 0 (output)
+	sw	$t1,TRISE($t0)		# RB2 is configured as output
+loop:
+	lw	$t1, PORTB($t0)		# Read PORTB register
+	andi	$t1, $t1,  0x0004	# Reset all bits except bit2
+	
+	lw	$t2, LATE($t0)		# Read LATE register
+	andi    $t2, $t2, 0xFFFB	# Reset bit2
+	or	$t2, $t2, $t1		# Merge data
+	sw	$t2, LATE($t0)		# Write LATE register
+	j	loop
+	jr	$ra			# end } 
+	
+
+ Exercício 2
+Gerar no bit 0 do porto D (RD0) um sinal de 1 Hz com 
+duty-cycle de 10% (i.e. RD0=1 durante 0.1s, RD0=0 durante 0.9s)
+
+	.equ	SFR_BASE_HI, 0xBF88
+
+	.equ	TRISD, 0x60C0		# TRISD address: 0xBF8860C0
+	.equ	PORTD, 0x60D0		# PORTD address: 0xBF8860D0
+	.equ	LATD, 0x60E0		# LATD address: 0xBF8860E0
+	.equ	RESET_CORE_TIMER, 12 
+	.equ	READ_CORE_TIMER, 11 
+	.equ	FREQUENCY_Hz, 1
+	.equ	TARGET_CORE_VAL, 20000000/FREQUENCY_Hz 
+
+	.data
+	.text
+	.globl main
+main:
+	lui	$t0, SFR_BASE_HI	# $t0 = 0xBF880000
+
+	lw	$t1, TRISD($t0)		# Read TRISD register
+	andi	$t1, $t1, 0xFFFE	# modify bit 0 (bit 0 is out)	
+	sw	$t1, TRISD($t0)		# Writer TRISD (port configured)
+loop:
+	lw	$t1, LATD($t0)		# Read LATD register
+	andi	$t1, $t1, 0x0001	# modify bit 0 (set) -> bit0 = 1
+	sw	$t1, LATD($t0)		# Writer LATD register
+	
+	# wait 100 ms (e.g., using MIPS core timer)
+	li	$a0, 100
+	jal	delay 
+
+	lw	$t1, LATD($t0)		# Read LATD register
+	andi	$t1, $t1, 0xFFFE	# modify bit 0 (set) -> bit0 = 1
+	sw	$t1, LATD($t0)		# Writer LATD register 
+
+	# wait 900 ms (e.g., using MIPS core timer)
+	li	$a0, 900
+	jal	delay
+	
+	j	loop
+
+	jr	$ra			# end } 
+
+# void delay(int ms){
+# for(; ms>0; ms--){
+# resetCoreTimer();
+# while(readCoreTimer() < k);
+#  }
+#}
+delay:					# void delay(int ms)
+while:	ble	$a0, 0, endw		# while(ms > 0){
+	li	$v0, RESET_CORE_TIMER	# resetCoreTimer();
+	syscall
+wait:	li	$v0, READ_CORE_TIMER	# 
+	syscall
+	blt	$v0, TARGET_CORE_VAL, wait	# readCoreTimer() < k; onde k = 20000
+	addi	$a0, $a0, -1		# ms--;
+	
+	j	while
+
+endw:	jr	$ra			# end }	
+
+Exercício 3
+Em ciclo infinito, ler o valor do porto de entrada (RE0) e 
+escrever esse valor, negado, no porto de saída (RE1)
+	.equ	0xBF88
+	.equ	TRISE, 0x6100		# TRISE address: 0xBF88000+0x00006100
+	.equ	PORTE, 0x6110		# TRISE address: 0xBF88000+0x00006110
+	.equ	LATE, 0x6120		# TRISE address: 0xBF88000+0x00006120
+	.data
+	.text
+	.globl main
+main:					# void main(){
+	lui	$t0, SFR_BASE_HI	
+
+	lw	$t1, TRISE($t0)		# Read TRISE register
+	ori	$t1, $t1, 0x0001	# bit0 = 1 (input)
+	andi	$t1, $t1, 0xFFFD	# bit1 = 0 (output)
+	sw	$t1, TRISE($t0)		#  TRISE configured
+
+loop:	
+	lw	$t1, PORTE($t0)		# Read PORTE register
+	andi	$t1, $t1, 0x0001	# Reset all bits except bit0
+	xori	$t1, $t1, 0x0001	# negate bit 0
+	
+	sll	$t1, $t1, 1		# 
+
+	
+	lw	$t2, LATE($t0)		# Read LATE register
+	andi	$t2, $t2, 0xFFFD	# Reset bit 1
+	or	$t2, $t2, $t1		# Merge data
+	sw	$t2, LATE($t0)		# Write LATE register
+	j	loop
+	jr	$ra			# end }
+
+-----------------------------------------------------------------
+Other Functions programing in c 
+
+//[1] delay
+#include <detpic32.h>
+void delay(int ms){
+	for(; ms>0; ms--){
+		reseCoreTimer();
+		while(readCoreTimer() < k);
+	}
+}
+//----
+//[2] toBCD
+unsigned char toBCD(unsigned char value){
+	return (value / 10) + (value % 10);
+}
+//#----
+//#[3] send2displays (v1)
+#include <detpic32.h>
+void send2displays(unsigned char value){
+	static const char display7Scodes[] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x67, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71};
+	static char displayFlag = 0;
+	
+	// configure RB8 to RB15 as outputs
+	TRISB = TRIB & 0x00FF;
+	
+	// configure RD5 and RD6 as outputs
+	TRISDbits.TRISD5 = 0;
+	TRISDbits.TRISD6 = 0;
+
+	// determine digits
+	int digit_low = value & 0x0F  // should be char but pcompile gives a warning and I 				      // don't like warnings :P
+	int digit_hight = value >> 4; // value >> 4 & 0x000F would be the same, obviously
+	
+	// send digit_low to display low
+	if(displayFlag == 0){
+		LATB = (LATB & 0x00FF) | (display7Scodes[displayFlag] << 8)
+		LATBbits.LATD5 = 1;
+		LATBbits.LATD6 = 0;
+	// send digit_higth to display hight
+	}else{
+		LATB = (LATB & 0x00FF) | (display7Scodes[displayFlag] << 8)
+		LATBbits.LATD5 = 0;
+		LATBbits.LATD6 = 1;
+	}
+
+	// Toggle displayFlag
+	displayFlag = !displayFlag;
+	
+}
+//#----
+//#[4] send2displays (v2) if we wanto convert to decimal number
+#include <detpic32.h>
+void send2displays(unsigned char value, unsigned char decimalFlag ){
+	static const char display7Scodes[] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 					0x07, 0x7F, 0x67, 0x77, 0x7C, 0x39, 0x5E, 0x79, 					0x71};
+	static char displayFlag = 0;
+
+	// Configure RB8 to RB15 as outputs
+	TRISB = TRISB & 0x00FF;
+
+	// Configure RD5 and RD6 as outputs
+	TRISDbits.TRID5 = 0;
+	TRISDbits.TRID6 = 0;
+
+	//Determine digits
+	int digit_low = value & 0x0F;
+	int digit_hight = value >> 4  // or 4 & 0x000F
+
+	//send digit_low to display low
+	if(displayFlag == 0){
+		LATB = (LATB & 0x00FF) | (display7Scodes[displayFlag] << 8);
+		LATBbits.LATB5 = 0;
+		LATBbits.LATB6 = 1;
+	//send digit_hight to display hight
+	}else{
+		LATB = (LATB & 0x00FF) | (display7Scodes[displayFlag] << 8);
+		LATBbits.LATB5 = 1;
+		LATBbits.LATB6 = 0;
+		
+		//Decimal point
+		if( decimalFlag == 1){
+			LATBbits.LATB15 = 1;	
+		}
+	}
+	
+	// Toggle displayFlag
+	displayFlag = !displayFlag;
+}
+-----------------------------------------------------------------
+Exercícios da Prática 5 -- Usando Linguage C
+//#[1]
+#inlude <detpic32.h>
+void main(void){
+	 // Step 1  - Configure the A/D module and port RB4 as analog input
+    	 TRISBbits.TRISB4 = 1;  // Step 1A - RB4 digital output disconnected
+    	AD1PCFGbits.PCFG4 = 0; // Step 1B - RB4 configured as analog input (AN4)
+	 AD1CHSbits.CH0SA = 4; // Step 2  - Desired input analog channel (0 to 15)
+	AD1CON2bits.SMPI = 0; // Step 3  - 1 samples will be converted and stored
+                             // in buffer locations ADC1BUF0 to ADC1BUF3
+
+    	AD1CON1bits.SSRC = 7; // Step 4  - Conversion trigger selection bits: in
+                             // this mode an internal counter ends sampling and
+                            // starts conversion
+
+    	AD1CON1bits.CLRASAM = 1; // Step 5 - Stop conversions when the 1st A/D
+                             // converter interrupt is generated. At the same
+                             // time, hardware clears the ASAM bit
+
+    	AD1CON3bits.SAMC = 16; // Step 6 - Sample time is 16 TAD (TAD = 100 ns)
+
+    	AD1CON1bits.ON = 1;  // Step 7 (see Page 4) - Enable A/D converter
+                            // This must the last command of the A/D
+                            // configuration sequence
+
+	while(1){
+		//start conversion
+		AD1CON1bits.ASAM = 1
+		
+		// Wait while conversion not done (AD1IF == 0)
+		while(IFS1bits.AD1IF == 0);
+
+		// Read conversion result (ADC1BUF0 value) and print it
+		printInt(ADC1BUF0, 16 | 3 << 16);
+
+		putChar(' ');
+
+		// Reset AD1IF
+		 IFS1bits.AD1IF = 0;
+	}
+	
+
+	retrun 0;
+}
+-----
+//#[2]
+#inlude <detpic32.h>
+void main(void){
+	 // Step 1  - Configure the A/D module and port RB4 as analog input
+    	 TRISBbits.TRISB4 = 1;  // Step 1A - RB4 digital output disconnected
+    	AD1PCFGbits.PCFG4 = 0; // Step 1B - RB4 configured as analog input (AN4)
+	 AD1CHSbits.CH0SA = 4; // Step 2  - Desired input analog channel (0 to 15)
+	AD1CON2bits.SMPI = 0; // Step 3  - 1 samples will be converted and stored
+                             // in buffer locations ADC1BUF0 to ADC1BUF3
+
+    	AD1CON1bits.SSRC = 7; // Step 4  - Conversion trigger selection bits: in
+                             // this mode an internal counter ends sampling and
+                            // starts conversion
+
+    	AD1CON1bits.CLRASAM = 1; // Step 5 - Stop conversions when the 1st A/D
+                             // converter interrupt is generated. At the same
+                             // time, hardware clears the ASAM bit
+
+    	AD1CON3bits.SAMC = 16; // Step 6 - Sample time is 16 TAD (TAD = 100 ns)
+
+    	AD1CON1bits.ON = 1;  // Step 7 (see Page 4) - Enable A/D converter
+                            // This must the last command of the A/D
+                            // configuration sequence
+
+	while(1){
+		//start conversion
+		AD1CON1bits.ASAM = 1
+		
+		// Wait while conversion not done (AD1IF == 0)
+		while(IFS1bits.AD1IF == 0);
+
+		// Read conversion result (ADC1BUF0 value) and print itint 
+		*p = (int *)(&ADC1BUF0); 
+		int i;
+		for( i = 0; i < 16; i++ ) 
+		{ 
+ 			printInt( p[i*4], 10 | 4 << 16 ); 
+ 			putChar(' ');
+		}
+		
+
+		// Reset AD1IF
+		 IFS1bits.AD1IF = 0;
+	}
+	
+
+	retrun 0;
+}
+---
+//#[3]
+#inlude <detpic32.h>
+#define numSamples 16
+void main(void){
+	 // Step 1  - Configure the A/D module and port RB4 as analog input
+    	 TRISBbits.TRISB4 = 1;  // Step 1A - RB4 digital output disconnected
+    	AD1PCFGbits.PCFG4 = 0; // Step 1B - RB4 configured as analog input (AN4)
+	 AD1CHSbits.CH0SA = 4; // Step 2  - Desired input analog channel (0 to 15)
+	AD1CON2bits.SMPI = numSamples-1; // Step 3  - 4 samples will be converted and stored
+                             // in buffer locations ADC1BUF0 to ADC1BUF3
+
+    	AD1CON1bits.SSRC = 7; // Step 4  - Conversion trigger selection bits: in
+                             // this mode an internal counter ends sampling and
+                            // starts conversion
+
+    	AD1CON1bits.CLRASAM = 1; // Step 5 - Stop conversions when the 1st A/D
+                             // converter interrupt is generated. At the same
+                             // time, hardware clears the ASAM bit
+
+    	AD1CON3bits.SAMC = 16; // Step 6 - Sample time is 16 TAD (TAD = 100 ns)
+
+    	AD1CON1bits.ON = 1;  // Step 7 (see Page 4) - Enable A/D converter
+                            // This must the last command of the A/D
+                            // configuration sequence
+	while(1){
+		//start conversion
+		AD1CON1bits.ASAM = 1
+		
+		// Wait while conversion not done (AD1IF == 0)
+		while(IFS1bits.AD1IF == 0);
+
+		// Read conversion result (ADC1BUF0 value) and print itint 
+		*p = (int *)(&ADC1BUF0); 
+		int i;
+		int VAL_AD = 0;
+		for( i = 0; i < numSamples; i++ ) 
+		{ 
+			int value = p[i*4]; 
+			VAL_AD += value;
+ 			printInt(value , 10 | 4 << 16 ); 
+ 			putChar(' ');
+		}
+		
+		// Get avarage sample
+		VAL_AD = VAL_AD / numSimples;
+		printf("AVG samples value = %d\n", VAL_AD);
+
+		// Get tension amplitude
+		double v = (VAL_AD*33+511)/1023;
+		printf("V_Amp = %f\n\n", v);
+
+		// Reset AD1IF
+		 IFS1bits.AD1IF = 0;
+	}
+	
+
+	retrun 0;
+}
+-----------------------------------------------------------------------------
+Refazer exercicios A ****aula4_5_6***
+Exercício 1
+Em um loop infito, Ler o valor do porto de entrada (RB2) e escrever esse 
+valor no porto de saída (RE2)-Em Assembly
+
+	.equ	SFR_BASE_HI, 0xBF88
+	.equ	TRISB, 0x6040
+	.equ	PORT, 0x6050
+	.equ	LATB, 0x6060
+	.equ	TRISE, 0x6100
+	.equ	PORE, 0x6110
+	.equ	LATE, 0x6120
+	.data
+	.text
+	.globl	main
+main:							# int main(void){
+	lui	$t0, SFR_BASE_HI
+
+	#Confirgurar TRIB2 como entrada
+	lw	$t1, TRISB($t0)				# $t1 = 0xBF880000+0x00006040
+	ori	$t1, $t1, 0x0004			# bit2 = 1 (input)
+	sw	$t1, TRISB($t0)				# TRIB configurado como entrada
+
+	#Confirgurar TRIB2 como saída
+	lw	$t1, TRISB($t0)				# $t1 = 0xBF880000+0x00006040
+	andi	$t1, $t1, 0xFFFB			# bit2 = 0 (output)
+	sw	$t1, TRISB($t0)				# TRIB configurado como saída
+
+loop:
+	lw	$t1, PORTB($t0)				# Ler o resgisto PORTB
+	andi	$t1, $t1, 0x0004			# bit2 = 1
+
+	#Escver RB2 em RE2
+	lw	$t2, LATE($t0)				# Ler o registo LATB	
+	andi	$t2, $t2, 0xFFFB			# bit2 = 0
+	or	$t2, $t2, $t1				# 
+	sw	$t2, LATE($t0)				# Ecrver o registo LATE (RE2=RB2)
+
+	j	loop
+	
+	li	$v0,0					# return 0
+	jr	$ra					#fim}
+-----
+Exercício 2
+Em um loop infinito, Gerar no bit 0 do porto D (RD0) um sinal de 1 Hz com 
+duty-cycle de 10% (i.e. RD0=1 durante 0.1s, RD0=0 durante 0.9s)	  
+	.equ	SFR_BASE_HI, 0xBF88
+	.equ	TRISD, 0x60C0	
+	.equ	PORTD, 0x60D0	
+	.equ	LATD, 0x60E0	
+	.equ	RESET_CORE_TIME, 12
+	.equ	READ_CORE_TIMER, 11
+	.data
+	.text
+	.glob	main
+main:							# int main(void){
+	addi	$sp, $sp, -12
+	sw	$ra, 0($sp)
+	sw	$s0, 4($sp)
+	sw	$s1, 8($sp)
+	
+	lui	$s0, SFR_BASE_HI
+	#Configurar TRID como saída
+	lw	$s1, TRISD($s0)				# $s1 = 0xBF880000+0x000060D0
+	andi	$s1, $s1, 0xFFFE			# bit0 = 0 (output)
+	sw	$s1, TRISD($s0)				# TRISD configurado como saída
+loop:
+	lw	$s1, LATD($s0)				# Ler o registo LATD
+	andi	$s1, $s1, 0x0001			# RD0=1
+	sw	$s1, LATD($s0)				# Escrever o registo LATD
+	
+	li	$a0, 100
+	jal	delay					# 0,1s=100ms
+
+	lw	$s1, LATD($s0)				# Ler o registo LATD
+	andi	$s1, $s1, 0xFFFE			# RD0=0
+	sw	$s1, LATD($s0)				# Escrever o registo LATD
+	
+	
+	li	$a0, 900
+	jal	delay					# 0,9s=900ms
+	
+	j	loop
+
+	lw	$ra, 0($sp)
+	lw	$s0, 4($sp)
+	lw	$s1, 8($sp)
+	addi	$sp, $sp, 12
+
+
+	li	$v0, 0					# return 0
+	jr	$ra					# fim}
+delay:							# void delay(int ms){
+ while:	blt	$a0, 0, endw
+	li	$v0, RESET_CORE_TIME
+	syscall						# resetCoreTimer();
+  wait: li	$v0, READ_CORE_TIMER
+	syscall						#
+	blt	$v0, 20000, wait			# while( readCoreTimer()<k);
+	
+	addi	$a0, $a0, -1				# ms--;
+	j	while
+	
+endw:	jr	$ra					# fim}	
+------------------
+Exercício 3
+Em ciclo infinito, ler o valor do porto de entrada (RE0) e 
+escrever esse valor, negado, no porto de saída (RE1)
+	
+	.equ	SFR_BASE_HI, 0xBF88
+	.equ	TRISE, 0x6100
+	.equ	PORTE, 0x6110
+	.equ	LATE, 0x6120
+	.data
+	.text
+	.globl	main
+main:							# int main(void){
+	lui	$t0, SFR_BASE_HI
+	
+	#Configurar RE como entrada e saída
+	lw	$t1, TRISE($t0)				# $t1 = 0xBF880000+0x00006100
+	ori	$t1, $t1, 0x0001			# bit0 = 1
+	andi	$t1, $t1, 0xFFFE			# bit1 = 0
+	sw	$t1, TRISE($t0)				# TRISE configurado como E/S
+loop:
+	lw	$t1, PORTE($t0)				# Ler o registo PORTE
+	andi	$t1, $t1, 0x0001			# bit0 = 1
+	xori	$t1, $t1, 0x0001
+	
+	sll	$t1, $t1, 1				# negar RE0
+
+	lw	$t2, LATE($t0)				# Ler o registo LATE
+	andi	$t2, $t2, 0xFFFE			# bit1 = 0
+	or	$t2, $t2, $t1				# fusão dos dados
+	sw	$t2, LATE($t0)				# Escrver o registo LATE
+
+	j	loop
+
+	jr	$ra					# fim}
+-----------------			

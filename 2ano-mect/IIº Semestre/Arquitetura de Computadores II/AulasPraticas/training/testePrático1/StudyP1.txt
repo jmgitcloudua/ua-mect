@@ -1,0 +1,607 @@
+1-Escreve um programa em assembly que executa em ciclo infinito e que me função
+da tecla premida no PC tenha o seguinte comportamento:
+-Quando é premida a tecla 0, liga o LED0(port RE0)
+-Quando é premida a tecla 1, liga o LED1(port RE1)
+-Quando é premida a tecla 2, liga o LED2(port RE2)
+-Quando é premida a tecla 3, liga o LED3(port RE3)
+-Quando é premida a tecla qualquer, liga o LED0(port RE4) durante 2 segundos e depois
+apaga todos 5 LEDs. 
+Comece por programar adequadamente os portos E/S para realizar esta tarefa
+TRISE=0xBF886100, PORTE=0xBF886110, LATE=0xBF886120
+TRISB=0xBF886040, PORTB=0xBF886050, LATB=0xBF886060
+	
+	.equ	enkey, 1
+	.equ	getChar
+	.equ	RESET_CORE_TIMER, 12
+	.equ	READ_CORE_TIMER, 11
+	.equ	FREQUENCY_Hz, 1000
+	.equ	TARGET_CORE_VAL, 20000000/FREQUENCY_Hz
+
+	.equ	SFR_BASE_HI, 0xBF88
+	.equ	TRISE, 0x6110
+	.equ	PORTE, 0x6110
+	.equ	LATE, 0x6120
+
+	.data
+	.text
+	.globl	main
+main:						# void main(){
+	addi	$sp, $sp, -20
+	sw	$ra, 0($sp)
+	sw	$s0, 4($sp)
+	sw	$s1, 8($)
+	sw	$s2, 12($)
+	sw	$s3, 16($)
+
+	lui	$t0, SFR_BASE_HI
+
+	lw	$t1, TRISE($t0) 		# $t0 =  0xBF880000+0x00006110
+	andi	$t1, $t1, 0xFFE0		# bit[0-4] = 0 (output)	
+	sw	$t1, TRISE($t0)			# Configured TRISE register
+	
+	li	$t2, inkey
+	syscall					# c = inkey();
+	#LED0
+if:	bne	$t2, '0', LED1
+	lw	$t1, LATE($t0)			# Read LATE register
+	ori	$t1, $t1, 0x0001		# bit0=1
+	sw	$t1, LATE($t0)			# Writer LATE register
+	j	loop
+	#LED1
+LED1	bne	$t2, '1', LED2
+	lw	$t1, LATE($t0)			# Read LATE register
+	ori	$t1, $t1, 0x0002		# bit1=1
+	sw	$t1, LATE($t0)			# Writer LATE register
+	j	loop
+	#LED2
+LED2	bne	$t2, '2', LED3
+	lw	$t1, LATE($t0)			# Read LATE register
+	ori	$t1, $t1, 0x0004		# bit2=1
+	sw	$t1, LATE($t0)			# Writer LATE register	
+	j	loop 
+	#LED3
+LED3	bne	$t2, '3', LED4
+	lw	$t1, LATE($t0)			# Read LATE register
+	ori	$t1, $t1, 0x0008		# bit0=1
+	sw	$t1, LATE($t0)			# Writer LATE register
+	j	loop
+	#LED4
+LED4:	#bne	$t2, '4', loop
+	lw	$t1, LATE($t0)			# Read LATE register
+	andi	$t1, $t1, 0xFFF0		# riset b3...b0
+	ori	$t1, $t1, 0x0010		# bit4=1
+	sw	$t1, LATE($t0)			# Writer LATE register
+	
+	move	$a0, 2000
+	jal	delay				# delay(2000ms) -> 2secods
+	#reset all bits
+ 	lw	$t1, LATE($t0)			# Read LATE register
+	andi	$t1, $t1, 0x0000		# bit[0-4]=0
+	sw	$t1, LATE($t0)			# Writer LATE register		
+	
+	j 	loop
+
+	lw	$ra, 0($sp)
+	lw	$s0, 4($sp)
+	sw	$s1, 8($)
+	sw	$s2, 12($)
+	sw	$s3, 16($)
+	addi	$sp, $sp, 20
+
+	
+	li	$v0, 0
+endif:	jr	$ra				# end }
+
+delay:
+while:	blt	$a0, 0, endw			# while(ms > 0){
+	li	$v0, RESET_CORE_TIMER
+	syscall					# resetCoreTimer();
+ wait:	li	$v0, READ_CORE_TIMER
+	syscall
+	blt	$v0,TARGET_CORE_VAL, wait	# while(readCoreTimer() < k);
+	
+	addi	$a0, $a0, -1			# ms--;	
+	j	while 
+
+endw:	jr	$ra				#end }
+	
+
+------------------------------------------------------------------------------------	
+2-Escreva um programa em linuagem C que executanem um ciclo infinito e que em funçaõ da tecla premida, tenha o seguninte comportamento:
+-Se a tecla premida estiver na gama de 0 a 3, o valor da tecla deve aparecer no display de 7 segmentos(por exemplo : 02)
+-Se for premida outra qualquer tecla deve aparecer o valor FF durante 1 segundo e a seguir os displays devem apagar-se(i.e, todos segmentos devem ser desligados)
+
+#include <detpic32.h>
+
+void send2displays(unsigned char value){
+	static const char display7segcodes = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x67, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71};
+	static char displayFlag = 0;
+
+	// configure RB8 to RB15, RD5 and RD6 as outputs
+	TRISB = (TRISB & 0x00FF);
+	TRISDbits.TRISD5 = 0;
+    RISDbits.TRISD6 = 0;
+
+	// Determine digit
+	int digit_low = value & 0x0F;
+	int digit_hight = value >> 4;
+	
+	//send digit_low 
+	if(displayFlag == 0){
+		LATB = (LATB & 0xFF) | (display7segcodes[digit_low] << 8);
+		TRISDbits.TRID5 = 1;
+        	TRISDbits.TRID6 = 0;
+	//send digit_hight
+	}else{
+		LATB = (LATB & 0xFF) | (display7segcodes[digit_hight] << 8);
+		TRISDbits.TRID5 = 0;
+        TRISDbits.TRID6 = 1;
+
+	}
+	
+	// Toggle displayFlag
+	displayFlag = !displayFlag;
+}
+void delay(unsigned int ms){
+	for(; ms > 0; ms--){
+		resetCoreTimer();
+		while(readCoreTimer() < PBCLK/1000);
+	}
+}
+void main(){
+	 int aux;
+	 int keyboard = -1; // if not valid
+	while(1){
+		keyboard = inkey();
+		if(aux != 0){
+			keyboard = aux;
+			putChar(keyboard);
+			
+			if(keyboard >= '0' && keyboard <= '3'){
+				keyboard = keyboard - '0';
+			}else{
+				for(int i = 0; i < 100; i++){
+					send2displays(0xFF);
+					delay(10); //10ms =  1 seconds
+				}
+				// reset displays, all will be off
+				LATB = LATB & 0x80FF;
+				keyboard = -1;
+			}
+		}
+		if(keyboard >= 0){
+			send2displays(keyboard);
+			delay(10); // 10ms = 1 seconds
+		}
+	}	
+return 0;
+}
+-------------------------------------------------------------------------
+3-Implemente em linguage C um contador descrescente MOD 20 e mostra seu valor atual da contagem nos dois displays de 7 segmentos. A frequência de decremento deve ser função 
+do valor da tensão de entrdada da ADC e, deve ser calculada pela seguinte expressão:
+freq = 1 + VAL_ADC/255 [Hz]
+Tenha em consideração que a ADC que utiliza é uma ADC de 10bits ou seja o valor da conversão pode variar entre 0 e 1023. A frequência de atualização dos displays deve ser 50Hz
+(utilize  o Core Timer dp pic32). Relembre que a entrada analógica proveniente do potenciamêntro está ligada ao porto RB4.
+Código dos 7 segmentos(0..F) : 0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x67, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71
+
+#inlude <detpic32.h>
+
+int toBCD(unsigned char value){
+	return ((value / 10) << 4) + (value % 10);
+}
+void send2displays(unsigned char value, unsigned char decimalFlag){
+	static const char display7segcodes = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x67, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71};
+	static char displayFlag = 0;
+
+	// Configure RB8 to RB15 as outputs
+    TRISB = (TRISB & 0x00FF);
+
+    // Configure RD5 and RD6 as outputs
+    TRISDbits.TRISD5 = 0;
+    TRISDbits.TRISD6 = 0;
+
+	// Determine digit
+	int digit_low = value & 0x0F;
+	int digit_hight = value >> 4;
+	
+	//send digit_low 
+	if(displayFlag == 0){
+		LATB = (LATB & 0x00FF) | (display7segcodes[digit_low] << 8);
+		TRISDbits.TRISD5 = 1;
+        TRISDbits.TRISD6 = 0;
+	//send digit_hight
+	}else{
+		LATB = (LATB & 0xFF) | (display7segcodes[digit_hight] << 8);
+		TRISDbits.TRISD5 = 0;
+        TRISDbits.TRISD6 = 1;
+		
+		if(decimalFlag == 1){
+			LATBbits.LATB15 = 1;
+		}
+	}
+	
+	// Toggle displayFlag
+	displayFlag = !displayFlag;
+}
+void delay(unsigned int ms){
+	for(; ms > 0; ms--){
+		resetCoreTimer();
+		while(readCoreTimer() < PBCLK/1000);
+	}
+}
+void main(){
+     	// Step 1  - Configure the A/D module and port RB4 as
+    // analog input
+    TRISBbits.TRISB4 = 1;  // Step 1A - RB4 digital output disconnected
+    AD1PCFGbits.PCFG4 = 0; // Step 1B - RB4 configured as analog input (AN4)
+
+    AD1CHSbits.CH0SA = 4; // Step 2  - Desired input analog channel (0 to 15)
+
+    AD1CON2bits.SMPI = 3; // Step 3  - 4 samples will be converted and stored
+                                       // in buffer locations ADC1BUF0 to ADC1BUF3
+
+    AD1CON1bits.SSRC = 7; // Step 4  - Conversion trigger selection bits: in
+                          // this mode an internal counter ends sampling and
+                          // starts conversion
+
+    AD1CON1bits.CLRASAM = 1; // Step 5 - Stop conversions when the 1st A/D
+                             // converter interrupt is generated. At the same
+                             // time, hardware clears the ASAM bit
+
+    AD1CON3bits.SAMC = 16; // Step 6 - Sample time is 16 TAD (TAD = 100 ns)
+
+    AD1CON1bits.ON = 1; // Step 7 (see Page 4) - Enable A/D converter
+                        // This must the last command of the A/D
+                        // configuration sequence
+	
+
+	int freq = 0;  
+	double v;
+	unsigned char c;
+	int i, j;
+	while(1){
+		//start conversion
+		AD1CON1bits.ASAM = 1;
+		
+		// Wait while conversion not done (AD1IF == 0)
+        	while (IFS1bits.AD1IF == 0);
+            
+	if(++i % 50 == 0){
+		
+  		// Read conversion result(ADC1BUF0 - FF value) and print it int VAL_AD = 0;
+            int *p = (int *)(&ADC1BUF0);
+            int VAL_ADC = 0;
+	    for(j = 0; j < 4; j++){
+		int value = p[j*4];
+		VAL_ADC +=value;
+	    }
+		
+		// Calculate buffer average
+		VAL_ADC = VAL_ADC/4;
+		printf("Avarage Sample = %d\n",VAL_AD);
+   
+          	// Calculate voltage amplitude
+		freq = 1 + VAL_ADC/255;
+	    	printf("Amplitude Frequency = %f\n",freq);
+
+		//  Convert voltage amplitude to decimal
+		c = toBCD((char) freq);
+		
+		freq--; // counter down
+
+		// Reset AD1IF
+           	 IFS1bits.AD1IF = 0;
+            	i = 0;
+	}
+		// sendo voltage to display
+		send2displays(c, 1);
+		delay(20); //50HZ = 20ms
+	    
+	}
+
+return 0;
+}
+-------------------------------------------------------------------------------
+			***Refazer teste****
+Exercício 1
+Escreve um programa em assembly que executa em ciclo infinito e que me função
+da tecla premida no PC tenha o seguinte comportamento:
+-Quando é premida a tecla 0, liga o LED0(port RE0)
+-Quando é premida a tecla 1, liga o LED1(port RE1)
+-Quando é premida a tecla 2, liga o LED2(port RE2)
+-Quando é premida a tecla 3, liga o LED3(port RE3)
+-Quando é premida a tecla qualquer, liga o LED4(port RE4) durante 2 segundos e depois
+apaga todos 5 LEDs. 
+Comece por programar adequadamente os portos E/S para realizar esta tarefa
+TRISE=0xBF886100, PORTE=0xBF886110, LATE=0xBF886120
+TRISB=0xBF886040, PORTB=0xBF886050, LATB=0xBF886060
+
+	.equ	SFR_BASE_HI, 0xBF88
+	.equ	TRISE, 0x6100
+	.equ	PORTE, 0x6110
+	.equ	LATE, 0x6120
+	.equ	RESET_CORE_TIMER, 12
+	.equ	READ_CORE_TIMER, 11
+	.equ	inkey, 1
+	.data
+	.text
+	.globl	main
+main:							# int main(void){
+	addi	$sp, $sp, -16
+	sw	$ra, 0($sp)
+	sw	$s0, 4($sp)
+	sw	$s1, 8($sp)
+	sw	$s2, 12($sp)
+	
+	lui	$s0, SFR_BASE_HI
+	
+	# Congurando TRISE como saída
+	lw	$s1, TRISE($s0)				# Ler o registo TRISE
+	andi	$s1, $s1, 0xFFE0			# bit[0-4] = 0 (output)
+ 	sw	$s1, TRISE($s0)				# TRIE configurado como saída
+
+	# Partindo de principio que todos bits estão a zero
+	lw	$s1, LATE($s0)				# Ler o registo LATE
+	andi	$s1, $s1, 0xFFE0			# bit[0-4] = 0 (output)
+ 	sw	$s1, LATE($s0)				# Escver o registo LATE
+	
+	li	$v0, inkey
+	syscall
+	move	$s2, $v0				# c = inkey();
+	
+loop:
+	#LED0
+if:	bne	$s2, '0', LED1
+	lw	$s1, LATE($s0)				# Ler o registo LATE
+	ori	$s1, $s1, 0x0001			# bit0 = 1
+	sw	$s1, LATE($s0)				# Escver o registo LATE
+	j	loop
+	#LED1
+LED1:	bne	$s2, '1', LED2
+	lw	$s1, LATE($s0)				# Ler o registo LATE
+	ori	$s1, $s1, 0x0002			# bit1 = 1
+	sw	$s1, LATE($s0)				# Escver o registo LATE
+	j	loop
+	#LED2
+LED2:	bne	$s2, '2', LED3
+	lw	$s1, LATE($s0)				# Ler o registo LATE
+	ori	$s1, $s1, 0x0004			# bit2 = 1
+	sw	$s1, LATE($s0)				# Escver o registo LATE
+	j	loop
+	#LED3
+LED3:	bne	$s2, '1', LED4
+	lw	$s1, LATE($s0)				# Ler o registo LATE
+	ori	$s1, $s1, 0x0008			# bit3 = 1
+	sw	$s1, LATE($s0)				# Escver o registo LATE
+	j	loop
+	#LED4
+LED4:	bne	$s2, '1', loop
+	lw	$s1, LATE($s0)				# Ler o registo LATE
+	ori	$s1, $s1, 0x0010			# bit4 = 1
+	sw	$s1, LATE($s0)				# Escver o registo LATE
+	
+	li	$a0, 2000	
+	jal	delay					# delay(2000); 2s=2000ms
+
+	# vamos apagar todos os 5 LEDS
+	lw	$s1, LATE($s0)				# Ler o registo LATE
+	andi	$s1, $s1, 0xFFE0			# bit[0-4] = 0
+	sw	$s1, LATE($s0)				# Escver o registo LATE
+
+	j	loop
+
+	lw	$ra, 0($sp)
+	lw	$s0, 4($sp)
+	lw	$s1, 8($sp)
+	lw	$s2, 12($sp)
+	addi	$sp, $sp, 16
+		
+
+
+	li	$v0, 0					# return 0;
+	jr	$ra					# fim}
+
+delay:							# void delay(int ms){
+ while:	blt	$a0 , 0, endw				# while(ms > 0){
+	li	$v0,RESET_CORE_TIMER
+	syscall						# resetCoreTimer();
+  wait:	li	$v0,  READ_CORE_TIMER
+	syscall					
+	blt	$v0, 20000, wait			# while(readCoreTimer() < k);
+	
+	addi	$a0, $a0, -1				# ms--;
+
+	j	while					 
+
+endw	jr	$ra					#}
+-------------------------
+Execício 2
+Escreva um programa em linuagem C que executanem um ciclo infinito e que em função da tecla premida, tenha o seguninte comportamento:
+-Se a tecla premida estiver na gama de 0 a 3, o valor da tecla deve aparecer no display de 7 segmentos(por exemplo : 02)
+-Se for premida outra qualquer tecla deve aparecer o valor FF durante 1 segundo e a seguir os displays devem apagar-se(i.e, todos segmentos devem ser desligados)
+	
+#include <detpic32.h>
+void send2displays(unsigned char value){
+	static const char display7codes[] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x67, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71};
+	static char displayFlag = 0;
+
+	//Configurando RB8 - RB15 como saída
+	TRISB = TRISB & 0x00FF;
+	
+	// configurando RD5 e RD6 como saída
+	TRISDbits.TRISD5 = 0;
+	TRISDbits.TRISD6 = 0;
+
+	//determinar os digitos
+	int digit_low = value & 0x0F;
+	int  digit_hight = value >> 4;
+
+	//enviar digit_low para o display como low
+	if(displayFlag == 0){
+		LATB = (LATB & 0x00FF) | (display7codes[digit_low] << 8);
+		TRISDbits.TRISD5 = 1;
+		TRISDbits.TRISD6 = 0;
+	}else{
+		LATB = (LATB & 0x00FF) | (display7codes[digit_hight] << 8);
+		TRISDbits.TRISD5 = 0;
+		TRISDbits.TRISD6 = 1;
+	}
+
+	displayFlag = !displayFlag;
+}
+void delay(int ms){
+	for(; ms > 0; ms--){
+		resetCoreTimer();
+		while(readCoreTimer() < 20000);
+	}
+}
+int void(void){
+	int keyboard;
+	int aux = -1;
+	int i;
+	while(1){
+		keyboard = inkey();
+		putChar(keyboard);
+		if(aux != -1){
+			keyboard = aux;
+			if(keyboard >= '0' && keyboard <= '3'){
+				 keyboard =  keyboard - '0';
+			
+			// se for premida outra qualquer tecla
+			}else{
+				for(i = 0; i< 1000, i++){
+					send2displays(0xFF);
+					delay(1000); // 1s = 1000ms
+				}
+				// apagar todos displays
+				LATB = LATB & 0x80FF;
+				keyboard = -1;
+			}
+		}
+		if( keyboard >= 0){
+			send2displays(keyboard);
+			delay(1000);
+		}
+		
+	}
+
+	return 0;
+}
+----------------------------
+Excercício 3
+Implemente em linguage C um contador descrescente MOD 20 e mostra seu valor atual da contagem nos dois displays de 7 segmentos. A frequência de decremento deve ser função 
+do valor da tensão de entrdada da ADC e, deve ser calculada pela seguinte expressão:
+freq = 1 + VAL_ADC/255 [Hz]
+Tenha em consideração que a ADC que utiliza é uma ADC de 10bits ou seja o valor da conversão pode variar entre 0 e 1023. A frequência de atualização dos displays deve ser 50Hz
+(utilize  o Core Timer dp pic32). Relembre que a entrada analógica proveniente do potenciamêntro está ligada ao porto RB4.
+Código dos 7 segmentos(0..F) : 0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x67, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71
+
+#include <detpic32.h>
+
+int toBCD(unsigned char value){
+	return ((value / 10) << 4)+(value % 10);
+}
+void send2displays(unsigned char value, unsigned char decimalFlag){
+	static const char display7codes[] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x67, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71};
+	static char displayFlag = 0;
+
+	//Configurando RB8 - RB15 como saída
+	TRISB = TRISB & 0x00FF;
+	
+	// configurando RD5 e RD6 como saída
+	TRISDbits.TRISD5 = 0;
+	TRISDbits.TRISD6 = 0;
+
+	//determinar os digitos
+	int digit_low = value & 0x0F;
+	int  digit_hight = value >> 4;
+
+	//enviar digit_low para o display como low
+	if(displayFlag == 0){
+		LATB = (LATB & 0x00FF) | (display7codes[digit_low] << 8);
+		TRISDbits.TRISD5 = 1;
+		TRISDbits.TRISD6 = 0;
+	}else{
+		LATB = (LATB & 0x00FF) | (display7codes[digit_hight] << 8);
+		TRISDbits.TRISD5 = 0;
+		TRISDbits.TRISD6 = 1;
+
+		if(decimalFlag == 1){
+		  LATBbits.LATB15 = 1;
+		}
+	}
+
+	displayFlag = !displayFlag;
+}
+void delay(int ms){
+	for(; ms > 0; ms--){
+		resetCoreTimer();
+		while(readCoreTimer() < 20000);
+	}
+}
+int main(void){
+	TRISBbits.TRISBx = 1; //step1A- digital output disconnected 
+ 	AD1PCFGbits.PCFGx= 0; //step1B-configured as analog input (AN4)
+	AD1CHSbits.CH0SA = 4; //Step2-  analog channel (0 to 15) 
+	AD1CON2bits.SMPI = 3; //Step3 - Interrupt is generated after 4 samples 
+ 				 
+ 	AD1CON1bits.SSRC = 7; //Step4- Conversion trigger selection bits: in this 
+ 				// mode an internal counter ends sampling and 
+ 				// starts conversion 
+	AD1CON1bits.CLRASAM = 1; //Step5 Stop conversions when the 1st A/D converter 
+ 				// interrupt is generated. At the same time, 
+				 // hardware clears the ASAM bit 
+ 	AD1CON3bits.SAMC = 16;  //Step6- Sample time is 16 TAD (TAD = 100 ns) 
+ 	
+	 
+	AD1CON1bits.ON = 1;     //Step7- Enable A/D converter 
+ 				// This must the last command of the A/D
+				// configuration sequence
+
+
+	int i = 0, j;
+	int period = 50; //50Hz
+	int VAL_ADC = 0;
+	int counter = 19; // MODUELO 20
+	double freq;
+	unsigned char c;
+	while(1){
+		// Start conversion
+		AD1CON1bits.ASAM = 1
+		
+		// Wait while conversion not done
+		while( IFS1bits.AD1IF == 0 ); 
+
+		if(++i >= period){
+			int *p = (int *)(&ADC1BUF0);
+			for( j = 0; j < 4; j++ ) { 
+ 				int value = p[j*4]; 
+				VAL_ADC += value;
+			}
+			// Calculate buffer average
+			VAL_ADC = VAL_ADC/4;
+
+			// Calculate voltage amplitude	- freq
+			freq = 1 + (VAL_ADC/255);
+			period = 50/freq;
+
+			counter--; // contador decrescente
+			//Convert voltage amplitude to decimal
+			c = toBCD(counter)
+
+			if(counter == 0){
+				counter = 19;
+			}
+
+			 // Reset AD1IF
+            		IFS1bits.AD1IF = 0;
+           		 i = 0;
+		}
+		// Send voltage value to displays
+		send2dispalys(c,1);
+		delay(20); // 20ms = 50Hz
+	}
+
+return 0;
+}
+-------------------------------------------------------------------------

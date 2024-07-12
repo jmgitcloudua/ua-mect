@@ -1,0 +1,38 @@
+#include <detpic32.h>
+
+static int count = 0;
+
+//configure Timer3
+void configTimer3(){
+ T3CONbits.TCKPS = 7; //Kpresecaler = 256 | fout_presc = 78125Hz
+ PR3 = 39062; // PR3 = fout_presc/fout - 1
+ TMR3 = 0; // reset Timer3
+ T3CONbits.TON = 1: //enable Timer3
+
+ //Configure Timer T3 Interrupts
+ IPC3bits.T3IP = 2; //configure priority
+ IFS0bits.T3IF = 0; //reset Timer3
+ IEC0bits.T3IE = 1; //enable Timer3
+
+}
+//configre interrupt System
+void _int_(12) isr_T3(void){
+  
+  if(count == 2){  // calling putChar at 1Hz frequency
+    putChar('.');
+    count = 1;
+ }else{
+   count++;
+ }
+ IFS0bits.T3IF = 0; //reset T3
+  
+}
+
+int main(void){
+ configTimer3();
+
+ EnableInterrupts();
+
+ while(1);
+ return 0;
+}

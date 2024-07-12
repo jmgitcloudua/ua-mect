@@ -1,0 +1,281 @@
+1.
+(a)
+abcd \in L3 \and abcd \in L4
+
+abcd \in L3
+
+1 -> a -> 1 -> b -> 2 -> c -> 1 -> d -> 3
+
+abcd \in L4
+
+S => X => X O => O => a X O d => a O d => a R d => a R b R c d
+  => a b R c d => a b c d
+note: S é simbolo não terminal
+
+(b)
+Todas as palavras de L1 também pertencem a L4 e há pelo menos 1 palavra de L4 que não pertencem a L1
+
+S=> X
+
+X => X O => O => a X d
+X => X O => O => R
+
+X =>* a^n X d^n =>* a^n R d^n , n >= 0
+
+R => R b R c => R b c
+R => \e 
+
+R =>* R (bc)^k => (bc)^k , k >= 0
+
+S =>* a^n (bc)^k d^n  k,n >= 0
+
+(c)
+S -> X Y Z não é solução, porque não é regular
+
+S -> a S | X  onde X representa (b|C)*(cd)*
+X -> b X | c X | Y onde Y representa (cd)*
+Y -> cd Y | \e
+
+(d)
+
+L = L3 . L2
+
+INI: 1 onde INI é estado inicial
+
+1 -> a -> 1
+1 -> b -> 2
+1 -> d -> 3
+2 -> c -> 1
+2 -> a -> 2
+3 -> \e -> 2
+
+ACC: {3} onde ACC é o estado de aceitação
+
+----
+
+INI: \a onde INI é estado inicial
+
+\a -> \e -> 1 onde \a representa alpha e \e palavra vazia
+1 -> a -> 1
+1 -> b -> 2
+1 -> d -> 3
+2 -> c -> 1
+2 -> a -> 2
+3 -> \e -> 2
+3 -> \e -> \b onde \b  representa beta
+
+ACC: {\b} onde ACC é o estado de aceitação
+
+---
+
+eliminar o estado 2
+
+
+INI: \a 
+
+
+1 -> b -> 2
+3 -> \e -> 2
+2 -> a -> 1
+2 -> c -> 1
+
+\a -> \e -> 1
+1 -> (a | x1) -> 1
+1 -> d -> 3
+3 -> \e -> \b
+3 -> x2 -> 1
+
+x1 = b(a)*c
+x2 = \e (a)*c = (a)*c
+
+
+---
+
+
+
+eliminar o estado 1
+
+
+INI: \a 
+
+
+\a -> b\e -> 1
+3 -> x2 -> 1
+1 -> (a | x1) -> 1
+1 -> d -> 3
+
+\a -> x3 -> 3
+3 -> x4 -> 3
+3 -> \e -> \b
+
+x3 = \e (a|x1)*d
+x4 = x2 (a|x1)*d
+
+x1 = b(a)*c
+x2 = \e (a)*c = (a)*c
+
+ACC: {\b} 
+
+----
+ eliminar 3 
+
+e3 = x3 (x4)*\e = \e (a|x1)*d (x2(a|x1)*d)*\e= (a|ba*c)d (a*c(a|ba*c)*d)*
+
+---
+
+e = e3 e2
+
+
+
+(e)
+
+INI: 1 
+
+1 -> a -> 1
+1 -> b -> 2
+1 -> d -> 3
+2 -> c -> 1
+2 -> a -> 2
+3 -> \e -> 2
+
+ACC: {3} 
+--------
+
+\eclosure(1) = {1}
+\eclosure(2) = {2}
+\eclosure(2) = {2,3}
+
+INI: {1}
+
+{1} -> a -> {1}
+{1} -> b -> {2}
+{1} -> c -> {}
+{1} -> d -> {2,3}
+
+{2} -> a -> {2}
+{2} -> b -> {}
+{2} -> c -> {1}
+{2} -> d -> {}
+
+{} -> a -> {}
+{} -> b -> {}
+{} -> c -> {}
+{} -> d -> {}
+
+{2,3} -> a -> {2} \cup {} = {2}  onde \cup é reunião
+{2,3} -> b -> {} \cup {} = {}
+{2,3} -> c -> {1} \cup {} ={1}
+{2,3} -> d -> {} \cup {} = {}
+
+ACC: {{2,3}}
+
+No complementar
+
+ACC: {{1}, {2}, {}}
+
+
+(f)
+
+S = a^n (bc)^k d^n
+a^(n+1) (bc)^k d^(n+1) = a a ^n (bc)^k d^n d = a S d
+X = (bc)^k
+(bc)^(k+1) = (bc) (bc)^k
+
+S -> a S d | X
+X -> bc X | bc
+
+(g)
+
+X -> X O => follow(O) contém o follow(X)
+S -> X => follow(X) contém o follow(S)
+porque S é o simbolo inicial => $ \in follow(S)
+
+follow(O) contém o follow(X) contém follow(S) contém $
+
+S$ => X$ => XO$ => XOO$ => XOR$ => XORbRc
+
+X => XO => follow(X) contém (first(O) - {\e}) U follow(X)
+
+first(O) = first(R) U first(aXd) = {\e, b, a}
+first(R) = first(\e) U first(RbRc) = {\e, b}
+
+(h)  
+Gramática G4
+
+caso 1
+X => XO => XOO => XOOO => ... => XO^n => \e O^n
+X -> \e Y
+Y -> \e | O Y
+-------------
+caso 2
+R => R(bRc) => R(bRc)(bRc) => ... => R(bRc)^n => (bRc)^n
+R -> \e Z
+Z -> \e | bRcZ
+
+*************************************
+
+(2)
+
+(a)
+
+S => D => c t L2 => c t V2 => c t i = e
+
+(b)
+Parser ascendent(colunas -> indexadas por T +$ + alguns N; linhas -> indexadas por simbolos N)
+
+	c	t	s	i	=	e	$	D	L1	L2	 V1	V2	
+Z0   s,Z3     s,Z2                                             Z1    
+Z1						       ACC
+Z2                             s,Z6
+Z3            s,Z8             
+Z4                    s,Z9			   r,D->t L1		Z4               Z5     Z7
+Z5                  r,L1->V1                       r,L1->V1 
+
+
+
+(c)
+Z6 = §(Z2, i) = {V1 -> i . , V2 -> i . = e}
+Z7 = §(Z2, V2) = {V1 -> V2 .}
+Z8 = §(Z3, t) = {D -> c t . L2} U {L2 -> . V2 , L2 -> . L2 s V2, V2 -> . i = e}
+Z9 = §(Z4, s) = {L1 -> L1 s . i} como o ponto ficou a esquerda de um simbolo terminal, então chegamos ao fim.
+
+Z10 = \delta(Z6, =) = {V2 -> i = . e}
+Z11 = \delta(Z10, e) = {V2 -> i = . e}
+
+
+
+
+****************************************
+Comprreendendo (1)e
+
+1 -> a -> 1
+1 -> b -> 2
+1 -> c -> - ou x por exemplo
+1 -> d -> 2,3
+
+- -> a,b,c,d -> -
+
+2 -> a -> 2
+2 -> b -> -
+2 -> c -> 1
+2 -> d -> -
+
+2,3 -> a -> 2 U - = 2 
+2,3 -> b -> - U - = -
+2,3 -> c -> 1 U - = 1
+2,3 -> d -> - U - = -
+
+ACCEPT = 2,3
+
+mas porque se quer o complementar
+
+ACCEPT = - 2,3
+
+X1 = {}
+X2 = {1}
+X3 = {2}
+X4 = {2,3}
+
+ACCEPT = X1,X2,X3
+
+NOTA: negar o conjunto de um automato determista é negar o conjunto de aceitação

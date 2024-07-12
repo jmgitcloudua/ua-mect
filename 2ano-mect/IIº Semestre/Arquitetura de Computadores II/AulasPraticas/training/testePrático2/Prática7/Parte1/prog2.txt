@@ -1,0 +1,33 @@
+#include <detpic32.h>
+
+//configure Timer3
+void configTimer3(){
+ T3CONbits.TCKPS = 7; // 1:256 prescaler (i.e. fout_presc = 78125 KHz) 
+ PR3 = 39062;         // PR2 = fout_presc/fout-1
+ TMR3 = 0;           // Reset timer T2 count register 
+ T2CONbits.TON = 1; // Enable timer T2 (must be the last command of the 
+                    // timer configuration sequence)
+//interrupt config
+IPC3bits.T3IP = 2; //configure priority
+IEC0bits.T3IE = 1; //enable Timer3 interrupts
+IFS0bits.T3IF = 0; //reset  timer3 iterrupts flag
+}
+//configure Interrupts System
+void _int_(12) isr_T3(void){
+
+	 putChar('.');
+
+	IFS0bits.T3IF = 0; //reset T3IF
+
+       
+}
+int main(void){
+
+ configureTimer3();
+
+ EnableInterrupts();//configure global interrupts
+
+ while(1);
+
+ return 0;
+}

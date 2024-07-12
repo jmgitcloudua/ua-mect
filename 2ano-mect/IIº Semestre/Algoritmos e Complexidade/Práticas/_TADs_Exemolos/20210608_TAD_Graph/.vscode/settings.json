@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "graph.h": "c",
+        "graphdfsrec.h": "c",
+        "sortedlist.h": "c",
+        "integersstack.h": "c"
+    }
+}

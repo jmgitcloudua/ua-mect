@@ -1,0 +1,69 @@
+import java.util.HashMap;
+import java.util.Map;
+import org.antlr.v4.runtime.tree.ParseTreeProperty;
+
+public class InterpreterV extends CalculatorBaseVisitor<Object> {
+
+  ParseTreeProperty<String> values = new ParseTreeProperty<String>();
+  protected Map<String, Double> map = new HashMap<String, Double>();
+
+  @Override
+  public Object visitMain(CalculatorParser.MainContext ctx) {
+    return visitChildren(ctx);
+  }
+
+  /** expr NEWLINE  */
+  @Override
+  public Object visitStat(CalculatorParser.StatContext ctx) {
+     Double exprstat = Double.parseDouble(values.get(ctx.expr()));
+    return exprstat;
+  }
+
+  /**  ID '=' expr  */
+  @Override
+  public Object visitExprAssignment(CalculatorParser.ExprAssignmentContext ctx) {
+   //symbols.put(ctx.ID().getText(), values.get(ctx.expr()));
+   System.out.println(map.get(ctx.ID().getText()));
+    return null;
+  }
+
+  /** expr op=('*' | '/') expr */
+  @Override
+  public Object visitExprMultDiv(CalculatorParser.ExprMultDivContext ctx) {
+   Double  v1 = (Double) visit(ctx.expr(0));
+   Double  v2 = (Double) visit(ctx.expr(1));
+   return values.put(ctx, values.get(v1) + " " + values.get(v2) + " " + ctx.op.getText());
+   
+  }
+
+  /** expr op=('+' | '-') expr */
+  @Override
+  public Object visitExprAddSub(CalculatorParser.ExprAddSubContext ctx) {
+    return values.put(ctx, values.get(ctx.expr(0)) + " " + values.get(ctx.expr(1)) + " " + ctx.op.getText());
+  }
+
+  /**  '(' expr ')'  */
+  @Override
+  public Object visitExprParent(CalculatorParser.ExprParentContext ctx) {
+    return visit(values.put(ctx, values.get(ctx.expr()).toString()));
+  }
+
+  /** Integer */
+  @Override
+  public Object visitExprInteger(CalculatorParser.ExprIntegerContext ctx) {
+     Double exprInt = Double.parseDouble(values.put(ctx, ctx.Integer().getText()));
+    return exprInt;
+  }
+
+  /** ID */
+  @Override
+  public Object visitExprId(CalculatorParser.ExprIdContext ctx) {
+   if (map.containsKey(ctx.ID().getText())) {
+     return values.put(ctx, map.get(ctx.ID().getText()).toString());
+   } else {
+      System.out.println("YOU FOOL! \"" + ctx.ID().getText() + "\" hasn't been defined yet!");
+      System.exit(1);
+   }
+    return null;
+  }
+}

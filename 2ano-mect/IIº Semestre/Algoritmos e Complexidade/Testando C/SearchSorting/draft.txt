@@ -1,0 +1,55 @@
+void mergeListSort(int seq[], unsigned int start, unsigned int middle, unsigned int end)
+{
+
+    unsigned int start_a = start, start_b = middle + 1, i = 0, indexc;
+
+    /*Memory attribution to household */
+    int *seqtmp = (int *)calloc(end - start + 1, sizeof(int));
+    while (start_a <= middle && start_b <= end)
+    {
+        if (seq[start_a] < seq[start_b])
+        {
+            seqtmp[i++] = seq[start_a++]; //element of the first part
+        }
+        else
+        {
+            seqtmp[i++] = seq[start_b++]; //element of the second part
+        }
+    }
+    /*Copy the rest elements of the first part of the array*/
+    while (start_a <= middle)
+    {
+        seqtmp[i++] = seq[start_a++];
+    }
+    /*Copy the rest elements of the second part of the array*/
+    while (start_b <= end)
+    {
+        seqtmp[i++] = seq[start_b++];
+    }
+
+    /*Copy the rsult to sort the array*/
+    for (indexc = 0, start_a = start; indexc < i; indexc++, start_a++)
+    {
+        seq[start_a] = seqtmp[indexc];
+    }
+
+    free(seqtmp); // freeing the local household memory
+}
+// merge sort verion 1.0 - recursion
+void mergeSort(int seq[], unsigned int start, unsigned int end)
+{
+    unsigned int middle;
+    if (start < end) //stop condition
+    {
+        middle = (start + end) / 2; // divide array
+
+        /* recursive call to sort the first half array*/
+        mergeSort(seq, start, end);
+
+        /* recursive call to sort the second half array*/
+        mergeSort(seq, middle + 1, end);
+
+        /*merge the two of half sorted arrat*/
+        mergeListSort(seq, start, middle, end);
+    }
+}

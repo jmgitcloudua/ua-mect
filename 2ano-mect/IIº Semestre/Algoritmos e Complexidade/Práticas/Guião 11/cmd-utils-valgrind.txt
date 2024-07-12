@@ -1,0 +1,18 @@
+ 
+ 2001  valgrind --show-error-list=yes ./Tests 12
+ 2002  valgrind --sigill-diagnostics=yes ./Tests 12
+ 2003  valgrind --leak-check=full ./Tests 12
+ 2004  clear
+ 2005  valgrind --leak-check=full ./Tests 12
+ 2006  valgrind --show-leak-kinds=all ./Tests 12
+ 2007  valgrind --show-leak-kinds=reachable ./Tests 12
+ 2008  valgrind --leak-check=full --gen-suppressions=all ./Tests 12
+ 2009  clear
+ 2010  valgrind --suppressions=./local.supp --leak-check=full ./Tests 12
+ 2011  valgrind ./Tests 12
+ 2012  valgrind --suppressions=./local.supp --leak-check=full ./Tests 12
+ 2013  make clean 
+ 2014  make
+ 2015  valgrind --suppressions=./local.supp --leak-check=full ./Tests 12
+ 2016  valgrind --leak-check=full --gen-suppressions=all ./Tests 12
+ 2017  history > history.txt

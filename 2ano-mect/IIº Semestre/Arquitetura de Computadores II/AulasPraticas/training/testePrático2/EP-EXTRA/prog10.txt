@@ -1,0 +1,168 @@
+#include <detpic32.h>
+
+#define DisableUart1RxInterrupt() IEC0bits.U1RXIE = 0
+#define EnableUart1RxInterrupt() IEC0bits.U1RXIE = 1
+#define DisableUart1TxInterrupt() IEC0bits.U1TXIE = 0
+#define EnableUart1TxInterrupt() IEC0bits.U1TXIE = 1
+#define BUF_SIZE 32
+#define INDEX_MASK (BUF_SIZE - 1)
+#define FALSE 0
+#define TRUE 1
+
+typedef struct{
+ unsigend char data[BUF_SIZE];
+ unsigend int head;
+ unsigend int tail;
+ unsigend int count;
+
+} circularBuffer;
+
+ volatile circularBuffer rxb;
+ volatile circularBuffer txb;
+
+void comDrv_flushRx(){
+  //initialize variable - RX
+  rxb.head = 0;
+  rxb.tail = 0;
+  rxb.count = 0;
+}
+void comDrv_flushTx(){
+  //initialize variable - TX
+  txb.head = 0;
+  txb.tail = 0;
+  txb.count = 0;
+}
+void comDrv_putc(char ch){//TX
+  while(txb.count == BUF_SIZE){}
+  txb.data[txb.tail] = ch;
+  txb.tail = (txb.tail + 1) & INDEX_MASK;
+  DisableUart1TxInterrupt();
+  txb.count++; 
+  EnableUart1TxInterrupt();
+}
+void comDrv_getc(char *pChar){
+ if(rxb.count == 0){
+    return FALSE;
+   }
+    DisableUart1RxInterrupt();
+   *pChar = rxb.data[rxb.head];
+    rxb.count--;
+    rxb.head = (rxb.head + 1) & INDEX_MASK;
+    EnableUart1RxInterrupt();
+    return TRUE;
+}
+void comDrv_config(unsigned int baud, char parity, unsigned int stopbits){
+   if(baud < 600 || baud 115200){
+     baud = 115200;
+   }
+  if(parity != 'N' || parity != 'E' parity != 'O'){
+     parity = 'N'
+   }
+  if(stopbits != 1 || stopbits != 2){
+      stopbits = 1;
+   }
+  U1BRG = ((PBCLK + 8*baud)/(baud*16)) - 1;
+  U1MODEbits.BRGH = 0;
+
+  //config parity, NºBits = 8
+  switch(parity){
+   case 'N':
+      U1MODEbits.PDSEL = 0;
+      break;
+   case 'E':
+      U1MODEbits.PDSEL = 1;
+      break;
+   case 'O':
+      U1MODEbits.PDSEL = 2;
+      break;
+  }
+  //config stopbits
+    switch(stopbits){
+   case 2:
+      U1MODEbits.STSEL = 1;
+      break;
+   case 1:
+      U1MODEbits.PDSEL = 0;
+      break;
+  }
+  U1STAbits.U1RXEN = 1;
+  U1STAbits.U1TXEN = 1;
+
+  IPC6bits.U1IP = 2;
+  IEC0bits.U1RXIE = 1;
+  IEC0bits.U1TXIE = 1;
+  IFS0bits.U1RXIF = 0;
+  IFS0bits.U1TXIF = 0;
+ 
+  U1MODEbits.ON = 1; //UART1 is enable
+}
+
+void _int_(24) isr_uart1(void){
+  //TX
+  if(IFS0bits.U1TXIF == 1){
+     if(txb.count > 0){
+        U1TXREG = txb.data[txb.head];
+        txb.head = (txb.head + 1) & INDEX_MASK;
+        txb.count--;
+      }
+     if(txb.count == 0){
+        DisableUart1TxInterrupt();
+      }
+    IFS0bits.U1TXIF == 0; 
+  }
+  //RX
+  if(IFS0bits.U1RXIF == 1){
+      rxb.data[rxb.tail] =  U1RXREG;
+      rxb.tail = (txb.tail + 1) & INDEX_MASK;
+      if(rxb.count < BUF_SIZE){
+       rxb.count++;
+      }else{
+      rxb.head = (txb.head + 1) & INDEX_MASK;
+      }
+  }
+}
+void delay(int ms){
+  for(; ms > 0; ms--){
+    resetCoreTimer();
+    while(readCoreTimer() < 20000);
+  }
+}
+
+void putc(char byte2send){
+ while(U1STAbits.U1TXBF == 0);
+  U1TXRG = byte2send;
+}
+void putS(String *str){ 
+  if(*str != '\0'){
+    putc(*str);
+    str++;
+   }
+}
+
+int main(void){
+  printStr("Preparation for Test2 - AC2");
+
+  comDrv_config(11520, 'N', 1);//default
+  comDrv_flushRx();
+  comDrv_flushTx();
+
+  EnableInterrupts();//enable global interrupt
+
+ char str;
+ putS("PIC32 UART1 Device Driver\n");
+
+ while(1){
+    if(comDrv_getc(&str)){
+    
+      if(str == 'E'){
+         comDrv_putc("Write a String with 20 charater");
+       }else{
+            comDrv_putc("\n1234");
+       }
+     } 
+     delay(100);//10Hz->100ms
+  
+ }
+
+ return 0;
+}

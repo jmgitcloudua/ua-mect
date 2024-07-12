@@ -1,0 +1,69 @@
+#include <detpic32.h>
+
+volatile int counter = 0;
+volatile int freq = 0;
+volatile char number = '0';
+volatile char currentNumber = '0';
+
+
+void delay(int ms){
+ for(; ms > 0; ms--){
+    resetCoreTimer();
+    while(readCoreTimer() < 20000);
+  }
+}
+
+int main(void){
+    
+  printStr("Preparation for PT2 - AC2\n");
+ while(1){
+
+   number = inKey();
+
+   printChar("\r");
+   if(counter >= 0 counter <= 9){
+      printInt(0, 10);
+    }
+    printInt(counter,  10 | 2 << 10);
+    switch(number){
+     case '0':
+          freq = 10;
+          currentNumber = '0';
+          break;
+    case '1';
+          freq = 20;
+          currentNumber = '1';
+          break;
+   case '2':
+          freq = 30;
+          currentNumber = '2';
+          break;
+   case '3';
+          freq = 40;
+          currentNumber = '3';
+          break;
+   case '4':
+          freq = 50;
+          currentNumber = '4';
+          break;
+   case '\n':
+          printStr(" >> ");
+          if(counter >= 0 counter <= 9){
+            printInt(0, 10);
+          }
+          printInt(counter,  10 | 2 << 10);
+          number = currentNumber ;
+          break;
+   case '\0':
+         number = currentNumber ;
+         break;
+      }
+     counter++;  
+     if(counter == 99){
+         counter = 0;  
+      }   
+   delay(1000/freq);
+ }
+
+ return 0;
+}

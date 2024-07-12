@@ -1,0 +1,52 @@
+/*******************************************************************************
+
+ Ficheiro de implementacao do TAD ASTRONOMICO (Astronomico.c).
+
+ Autor: Nome e numero do autor    Data : setembro 2021
+
+*******************************************************************************/
+
+#include "Astronomico.h" /* Ficheiro de interface do TAD */
+
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+/*********** Definicao da Estrutura de Dados Interna do ASTRONOMICO ***********/
+
+struct astronomico {
+  /* COMPLETAR */
+
+  char *Algarismo;
+};
+
+/************************ Alusao as Funcoes Auxiliares ************************/
+
+static int AstronomicosValidos(PtAstronomico, PtAstronomico);
+
+/* ACRESCENTAR MAIS FUNCOES AUXILIARES, SE NECESSARIO */
+
+/*************************** Definicao das Funcoes ****************************/
+
+PtAstronomico CriarAstronomicoNulo(unsigned int numalg) {
+  /* insira o seu codigo */
+}
+
+void ApagarAstronomico(PtAstronomico *pAstro) { /* insira o seu codigo */ }
+
+/* DESENVOLVER AQUI AS SUAS FUNCOES */
+
+/*******************************************************************************
+  FUNCOES AUXILIARES
+*******************************************************************************/
+
+static int AstronomicosValidos(PtAstronomico pAstro1, PtAstronomico pAstro2) {
+  /* verifica se os dois astronomicos existem */
+  if ((pAstro1 == NULL) || (pAstro2 == NULL)) {
+    return 0;
+  }
+
+  return 1;
+}
+
+/* DESENVOLVER AQUI AS SUAS FUN��ES AUXILIARES */

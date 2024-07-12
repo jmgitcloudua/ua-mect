@@ -1,0 +1,22 @@
+#include <detpic32.h>
+
+//configure Timer2 - interrupt disabled
+void configTimer3(){
+ T2CONbits.TCKPS = 7; // 1:256 prescaler (i.e. fout_presc = 78125 KHz) 
+ PR2 = 39062;         // PR2 = fout_presc/fout-1
+ TMR2 = 0;           // Reset timer T2 count register 
+ T2CONbits.TON = 1; // Enable timer T2 (must be the last command of the 
+                    // timer configuration sequence)
+}
+
+int main(void){
+ configTimer3();
+ 
+  while(IFS0bits.T2IF == 1);
+
+  IFS0bits.T3IF = 0; //reset T3IF
+
+  putChar('.');
+
+ return 0;
+}

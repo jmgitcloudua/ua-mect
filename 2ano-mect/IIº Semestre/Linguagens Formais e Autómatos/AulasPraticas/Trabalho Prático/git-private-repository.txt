@@ -1,0 +1,9 @@
+https://github.com/detiuaveiro/geometrics-lfa-08.git
+
+
+
+git clone https://$token:x-oauth-basic@github.com/$username/$repo.git
+
+
+
+git clone https://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:x-oauth-basic@github.com/detiuaveiro/geometrics-lfa-08.git

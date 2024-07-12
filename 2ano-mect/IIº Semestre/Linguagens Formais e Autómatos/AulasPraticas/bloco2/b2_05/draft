@@ -1,0 +1,115 @@
+import java.io.*;
+import java.util.*;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.TerminalNode;
+
+public class NumbersMaping extends NumbersBaseListener {
+
+  public Map<String, Integer> map = new HashMap<>();
+
+  @Override
+  public void exitFile(NumbersParser.FileContext ctx) {}
+
+  @Override
+  public void exitLine(NumbersParser.LineContext ctx) {
+    String key = ctx.Word().getText();
+    Integer value = Integer.parseInt(ctx.Number().getText());
+
+    if (exists(key)) {
+      System.err.println("ERROR: Key " + key + " is repeated!");
+      System.exit(1);
+    }
+
+    map.put(key, value);
+    /*System.out.println(
+      "HELLO!!! Key " + key + " with value " + map.get(key) + " added"
+    );*/
+  }
+
+  // auxiliary functions
+  public boolean exists(String key) {
+    assert key != null;
+    return map.containsKey(key);
+  }
+
+  public Integer value(String key) {
+    assert key != null;
+    assert exists(key);
+    return map.get(key);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.io.*;
+import java.lang.*;
+import java.util.*;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.*;
+
+public class NumbersMain {
+
+  public static void main(String[] args) throws Exception {
+    // read file
+    InputStream in_stream = null;
+    try {
+      in_stream = new FileInputStream(new File("numbers.txt"));
+    } catch (FileNotFoundException e) {
+      System.err.println("ERROR: reading number file!");
+      System.exit(1);
+    }
+
+    // create a CharStream that reads from in_stream:
+    ANTLRInputStream input = new ANTLRInputStream(in_stream);
+
+    // create a lexer that feeds off of input CharStream:
+    NumbersLexer lexer = new NumbersLexer(input);
+    // create a buffer of tokens pulled from the lexer:
+    CommonTokenStream tokens = new CommonTokenStream(lexer);
+    // create a parser that feeds off the tokens buffer:
+    NumbersParser parser = new NumbersParser(tokens);
+    // replace error listener:
+    //parser.removeErrorListeners(); // remove ConsoleErrorListener
+    //parser.addErrorListener(new ErrorHandlingListener());
+
+    // begin parsing at file rule:
+    ParseTree tree = parser.file();
+    if (parser.getNumberOfSyntaxErrors() == 0) {
+      // print LISP-style tree:
+
+      // System.out.println(tree.toStringTree(parser));
+      ParseTreeWalker walker = new ParseTreeWalker();
+      NumbersMaping mappings = new NumbersMaping();
+      walker.walk(mappings, tree);
+
+      Scanner in = new Scanner(System.in);
+      while (in.hasNextLine()) {
+        String line = in.nextLine();
+        String[] words = line.replace('-', ' ').toLowerCase().split(" ");
+
+        for (int i = 0; i < words.length; i++) {
+          if (i != 0) System.out.print(" ");
+
+          if (mappings.exists(words[i])) System.out.print(
+            mappings.value(words[i]).toString()
+          ); else System.out.print(words[i]);
+        }
+        System.out.println();
+      }
+    }
+  }
+}

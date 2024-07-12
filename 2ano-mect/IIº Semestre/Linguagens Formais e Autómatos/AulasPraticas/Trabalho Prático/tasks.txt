@@ -1,0 +1,10 @@
+			Grupo lfa-08
+		Tema: Linguagem geometrics
+
+		Tarefas:
+  ---> Duas Gramáticas (uma para operações/funções e outra para o compilador)~
+	ou podemos juntar e fazer tudo em único ficheiro
+  ---> Duas lingugens (uma principal/compilador e outra secundária/BD para figuras 2D)
+  ---> String Template para ligar com os visitors
+  ---> Análise semântica
+  ---> Report 

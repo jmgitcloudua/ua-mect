@@ -1,0 +1,131 @@
+#include <detpic32.h>
+
+volatile int voltage = 0;//global variable
+
+//Configure I/O analg input
+void configIO(){
+  TRISB = TRISB & 0x80FF; //configure RB14-RB8 as output
+  LATB = LATB & 0x80FF; //set initial value
+
+  TRISD = TRISD & 0xF9FF; //configure RD6-RD5 as output
+  LATB = LATB & 0xF9FF; //set initial value
+ 
+}
+//configure A/D module
+void configAD(){
+   TRISBbits.TRISB4 = 1;  // Step 1A - RB4 digital output disconnected
+    AD1PCFGbits.PCFG4 = 0; // Step 1B - RB4 configured as analog input (AN4)
+
+    AD1CHSbits.CH0SA = 4; // Step 2  - Desired input analog channel (0 to 15)
+
+    AD1CON2bits.SMPI = 3; // Step 3  - 4 samples will be converted and stored
+                          // in buffer locations ADC1BUF0 to ADC1BUF3
+
+    AD1CON1bits.SSRC = 7; // Step 4  - Conversion trigger selection bits: in
+                          // this mode an internal counter ends sampling and
+                          // starts conversion
+
+    AD1CON1bits.CLRASAM = 1; // Step 5 - Stop conversions when the 1st A/D
+                             // converter interrupt is generated. At the same
+                             // time, hardware clears the ASAM bit
+
+    AD1CON3bits.SAMC = 16; // Step 6 - Sample time is 16 TAD (TAD = 100 ns)
+
+    AD1CON1bits.ON = 1; // Step 7 (see Page 4) - Enable A/D converter
+                        // This must the last command of the A/D
+                        // configuration sequence
+}
+//configure display 7segments
+void send2displays(unsigned char value){
+       static const char display7Scodes[] =     {0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F,0x77,0x7C,0x39,0x5E,0x79,0x71};
+    static char displayFlag = 0;
+
+  int digit_low = value & 0x0F ;
+  int digit_high = value >> 4;
+  
+  if(displayFlag == 0){
+    LATB = (LATB & 0x00FF) | (display7Scodes[digit_low] << 8);
+    LATD5bits.LATD5 = 1;
+    LATD6bits.LATD6 = 0;
+  }else{
+    LATB = (LATB & 0x00FF) | (display7Scodes[digit_high] << 8);
+    LATD5bits.LATD5 = 0;
+    LATD6bits.LATD6 = 1;
+  }
+
+//toggle display flag
+displayFlag = !displayFlag;
+}
+unsigned char toBCD(unsigned char value){
+ return ((value/10) << 4) + (value%10);
+}
+//delay function
+void delay(int ms){
+ for(; ms > 0; ms--){
+   resetCoreTimer();
+   while(readCoreTimer() < 20000);
+ }
+}
+//configure Timer1
+void configTimer1(){
+ T1CONbits.TCKPS = 3 ; Kpres= 256 | fout_presc = 78125Hz
+ PR1 = 69062 ; //PR1 = fout_presc/fout - 1
+ TMR1 = 0; //reset Timer1
+ T1CONbits.TON = 1; //enale Timer1
+
+ //Configure Timer T1 Interrupts
+ IPC1.bits.T1IP = 1;/configure priority
+ IFS0bits.T1IF = 0; reset Timer1
+ IEC0bits.T1IE = 1; //enalbe Timer1 interrupt
+}
+//configure Tmer3
+void configTimer3(){
+ T1CONbits.TCKPS = 2 ; Kpres= 4 | fout_presc = 5MHz
+ PR3 = 49999; //PR3 = fout_presc/fout - 1
+ TMR3 = 0; //reset Timer3
+ T1CONbits.TON = 1; //enale Timer3
+
+ //Configure Timer T3 Interrupts
+ IPC1.bits.T3IP = 1;/configure priority
+ IFS0bits.T3IF = 0; reset Timer1
+ IEC0bits.T3IE = 1; //enalbe Timer3 interrupt
+}
+//congigure Interrupts System T1 and T3
+void _int_(4) isr_T1(void){
+   AD1CON1bits.ASAM = 1; //start converstion
+   IFS0btis.T1IS = 1; //reset T2IF flag
+}
+void _int_(12) isr_T3(void){
+   int i = 0;
+   if(i++ == 25){ // 250 ms (4 samples/second)
+   AD1CON1bitd.ASAM = 1; start conversion
+ }
+ send2displays(toBCD(voltage & 0xFF));
+ delay(10);//10ms->100Hz
+   
+  IFS0btis.T1IS = 1; //reset T2IF flag
+}
+void _int_(27) isr_adc(void){
+ int *p (int *)ADC1BUF0;
+ int i, sum = 0 ;
+ for(i = 0; i < 8; i++){
+   int value = p[i*4];
+        sum += value;
+  }
+  double avg = (double)sum/8.0; //buffer avarage
+        voltage = (char)(avg*33 + 511)/1023;
+  IFS1bits.AD1IF = 0;//reset AD1IF
+}
+
+int main(void){
+  configIO();
+  configAD();
+  configTimer1();
+  configTimer3();
+ 
+  EnableInterrupts();//enable global interrupts
+  
+ while(1);
+
+ return 0;
+}

@@ -1,0 +1,59 @@
+/*******************************************************************************
+
+ Ficheiro de interface do TAD ASTRONOMICO (Astronomico.h).
+
+ Autor: Nome e numero do autor    Data : setembro 2021
+
+*******************************************************************************/
+
+#ifndef _ASTRONOMICO
+#define _ASTRONOMICO
+
+/************** Definicao do Tipo Ponteiro para um ASTRONOMICO ****************/
+
+typedef struct Astronomico *PtAstronomico;
+
+/*************************** Prototipos das Funcoes ***************************/
+
+PtAstronomico CriarAstronomicoNulo(unsigned int numAlg);
+
+void ApagarAstronomico(PtAstronomico *pAstro);
+
+PtAstronomico CopiarAstronomico(PtAstronomico pAstro);
+
+int NumAlgarismosAstronomico(PtAstronomico pAstro);
+
+void EscreverAlgAstronomico(PtAstronomico pAstro, unsigned int pos, char val);
+
+char LerAlgAstronomico(PtAstronomico pAstro, unsigned int pos);
+
+int AstronomicoNulo(PtAstronomico pAstro);
+
+PtAstronomico SomarAstronomicos(PtAstronomico pAstro1, PtAstronomico pAstro2);
+
+/* SUBTRAIR */
+
+/* MULTIPLICAR */
+
+PtAstronomico QuocienteAstronomicos(PtAstronomico pAstro1,
+                                    PtAstronomico pAstro2);
+
+/* IDEIA: para a divisao inteira podemos efectuar subtracoes sucessivas */
+
+PtAstronomico RestoAstronomicos(PtAstronomico pAstro1, PtAstronomico pAstro2);
+
+/* EXPONENCIACAO */
+
+int AstronomicosIguais(PtAstronomico pAstro1, PtAstronomico pAstro2);
+
+int AstronomicosDiferentes(PtAstronomico pAstro1, PtAstronomico pAstro2);
+
+/* RESTANTES OPERADORES DE COMPARACAO */
+
+/* OPERACOES ADICIONAIS ? */
+
+void ArmazenarAstronomicoFicheiro(PtAstronomico pAstro, char *nomef);
+
+PtAstronomico CriarAstronomicoFicheiro(char *nomef);
+
+#endif

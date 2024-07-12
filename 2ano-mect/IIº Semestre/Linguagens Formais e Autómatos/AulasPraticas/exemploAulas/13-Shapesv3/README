@@ -1,0 +1,32 @@
+- First install ANTLR-v4 and  scripts in file antlr4-bin.zip
+
+- ShapesMain.java created with command:
+
+  antlr4-main -l MyListener -l MyListener2 -v MyVisitor.java Shapes main
+
+- Compile with:
+
+   ./build
+
+- Test with:
+
+   ./run p1.txt
+
+- Clean garbage with:
+
+   ./clean
+#------------------------------------------
+Using visitor (Usage: antlr4-visitor [-indent <N>] [<grammar>] <visitor-class-name> <visitor-type>)
+(user)$ antlr4-visitor Shapes InterpreterV object -> used when there is many grammars
+or
+(user)$ antlr4-visitor InterpreterV object  -> used when there is only one grammar
+
+generate main
+((user)$ antlr4-main -i -v InterpreterV.java
+generate main with visitor and listener
+(user)$ antlr4-main -i -v InterpreterV.java -l InterpreterL.java
+
+to create a listener Usage: antlr4-listener [-indent <N>] [<grammar>] <listener-class-name>
+$ antlr4-listener  Shapes InterpreterL
+
+

@@ -1,0 +1,19 @@
+build a specific grammar
+$ antlr4 Hello_v2.g4 
+
+compile grammar
+$ antlr4-javac Hello_v2*.java
+or you can compile and build all program
+$ antlr4-build
+
+to generate base visitor
+$ antlr4 -visitor Hello.g4
+create a visitor
+$  antlr4-visitor Hello Execute String
+or $ antlr4-visitor Hello.g4
+
+create a specific main with visitor
+$ antlr4-main -i -v  Execute.java Hello main
+
+to run a program
+$ antlr4-run

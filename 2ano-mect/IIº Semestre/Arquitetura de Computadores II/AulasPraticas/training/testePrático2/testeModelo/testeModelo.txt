@@ -1,0 +1,117 @@
+#include <detpic32.h>
+
+volatile int dutyCycle = 50;
+
+void delay(int ms){
+ for(; ms > 0; ms--){
+     resetCoreTimer();
+     while(readCoreTimer() < 20000);
+  }
+}
+void send2display(unsigned char value){
+   static cons char display7seg = {};
+   static char displayFlag = 0;
+
+   int digit_low = value & 0x0F;
+   int digit_high = value >> 4;
+
+  if(displayFlag == 0){
+    LATB = (LATB & 0x00FF) | (display7seg[digit_low] << 8); 
+    LATBbits.LATB5 = 0;
+    LATBbits.LATB6 = 1;
+   }else{
+    LATB = (LATB & 0x00FF) | (display7seg[digit_high] << 8); 
+    LATBbits.LATB5 = 1;
+    LATBbits.LATB6 = 0;
+   }
+
+  
+   displayFlag = !displayFlag;
+}
+
+//configure UART1
+void configUART1(){
+ U1BRG = (PBCLK + 8*1920)/(16*1920 - 1);
+ U1MODEbits.U1BRGH = 0;
+ U1STAbits.URXEN = 1; 
+ U1STAbits.UTXEN = 1;
+ U1MODEbits.STSEL = 2; // 2 stop bit
+ U1MODEbits.PDSEL = 1; //even parity
+ U1MODEbits.TON = 1;//UART1 enabled
+}
+//Configure OC1
+void OC1(){
+ OC1CONbits.OCM = 6; // PWM mode on OCx; fault pin disabled 
+ OC1CONbits.OCTSEL = 0;// Use timer T2 as the time base for PWM generation 
+ OC1RS = ((PR2 + 1) * 50)/100; // 25000 -> PR2 = 49999 
+ OC1CONbits.ON = 1; // Enable OC1 module
+}
+//Configure Timer2
+void configTimer2(){
+  T2CONbits.TCKPS = 2; // 1:4 prescaler (i.e Fout_presc = 5MHz) 
+  PR2 = 49999; // Fout = 20MHz / (4 * (49999 + 1)) = 100 Hz 
+  TMR2 = 0; // Reset timer T2 count register 
+  T2CONbits.TON = 1; // Enable timer T2 (must be the last command of the
+}
+void setPWM(unsigned int duty){
+ OCRS = ((PR2 + 1) * duty)/100;
+}
+void configInterrupts(){
+ IPC2bits.T2IP = 0;
+ IEC0bits.T2IE = 1;
+ IFS0bits.T2IF = 0;
+}
+char getc(void){
+ return U1RXREG;
+}
+void putc(char c){
+ while(U1STAbits.UTXBF == 1);
+ U1RXREG = c;
+}
+void puts(char *str){
+  if(*str != '\0'){
+   putc(*str);
+   str++;
+  }
+}
+void _int_(24) isr_uart1(){
+ char in = getc();
+  if(in == '+'){
+     if(dutyCyle < 95){
+        dutyCyle += 5;
+       }else{
+        puts("Impossível aumentar mais o dutyCycle!");
+       }
+   }
+  if(in == '-'){
+     if(dutyCycle > 5){
+        dutyCyle -= 5;
+       }else{
+        puts("Impossível diminuir mais o dutyCycle!");
+       }
+   }
+   setPWM(dutyCycle);
+   IFS0bits.U1RXIF = 0;
+}
+void _int_(8) isr_timer2(void){
+    send2display((char) dutyCycle);
+    IFS0bits.T2IF = 0;
+}
+int main(void){
+ configUART1();
+ configTimer2();
+ configOC();
+ configInterrupts();
+
+ EnableInterrupt();
+
+ while(1){
+   puts("O valor atual do duty-cycle eh");
+   putc('0' + dutyCycle / 10);
+   putc('0' + dutyCycle % 10);
+   puts("%\n");
+   delay(100);
+  }
+ 
+ return 0;
+}

@@ -1,0 +1,18 @@
+Follow this rules to make work this progammer
+
+1-Write in your cli 
+(user)$ antlr4-build
+
+2-Write this command
+(user)$ antlr4 -no-listener Rows.g4 # -visitor is required!!!
+
+3-Type this command
+(user)$ antlr4-javac Col.java Rows*.java
+
+4-Write this cmd
+(user)$ antlr4-java Col 1 < t.rows
+
+5-You can clean unproper files
+(user)$ antlr4-clean
+
+

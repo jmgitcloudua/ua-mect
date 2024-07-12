@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+   int v52;
+   int v53;
+   int v54;
+   double v55;
+   int v56;
+   int v57 = 10;
+   v52 = v57;
+   double v58 = 1.5;
+   v55 = v58;
+   int v59 = 0;
+   v56 = v59;
+   int v60 = v52;
+   printf("%d\n", v60);
+   double v61 = v55;
+   double v62 = -v61;
+   printf("%lg\n", v62);
+   int v63 = v56;
+   printf("%d\n", v63);
+   int v66 = 2;
+   int v67 = 3;
+   int v65 = v66 + v67;
+   int v68 = 4;
+   int v64 = v65 - v68;
+   printf("%d\n", v64);
+   int v71 = v52;
+   int v73 = 4;
+   double v74 = v55;
+   double v72 = v73 * v74;
+   double v70 = v71 + v72;
+   int v76 = v52;
+   int v77 = 3;
+   int v75 = v76 / v77;
+   double v69 = v70 - v75;
+   printf("%lg\n", v69);
+   int v79 = v52;
+   double v80 = v55;
+   int v78 = v79 == v80;
+   printf("%d\n", v78);
+   int v82 = v52;
+   double v83 = v55;
+   int v81 = v82 != v83;
+   printf("%d\n", v81);
+   int v85 = 2;
+   int v86 = 2;
+   int v84 = (int)pow(v85,v86);
+   printf("%d\n", v84);
+   double v88 = v55;
+   int v90 = v52;
+   double v91 = 1.5;
+   double v89 = v90 * v91;
+   double v87 = pow(v88,v89);
+   printf("%lg\n", v87);
+   int v93 = v52;
+   int v94 = 10;
+   int v92 = v93 == v94;
+   if (!v92) goto Lv921;
+   int v96 = 2;
+   int v97 = v52;
+   int v95 = v96 * v97;
+   printf("%d\n", v95);
+   goto Lv922;
+   Lv921:;
+   int v99 = v52;
+   int v100 = 2;
+   int v98 = v99 / v100;
+   printf("%d\n", v98);
+   Lv922:;
+   int v101 = 5;
+   int v102 = -v101;
+   printf("%d\n", v102);
+}

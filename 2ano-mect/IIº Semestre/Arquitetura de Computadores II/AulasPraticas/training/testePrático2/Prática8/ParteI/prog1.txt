@@ -1,0 +1,33 @@
+#include <detpic32.h>
+
+void delay(int ms){
+  for(; ms > 0; ms-- ){
+    resetCoreTimer();
+    while(readCoreTimer() < 20000);
+  }
+}
+//configure UART2 - without interruption
+configU2(){
+ U2BRG = ((PBCLK + 8*115200)/(16*11520)) - 1; //constant baudrate
+ U2MODEbits.BRGH = 0; //16x baud clock enabled
+ U2MODEbits.PDSEL = 0; //8 bits, no parity
+ U2MODEbits.STSEL = 1; // 1 stop bits
+ U2MODEbits.URXEN = 1; UART Receiver is enabled
+ U2MODEbits.UTXEN = 1; UART Transmitter is enabled
+ U2MODEbits.ON = 1; UART is enabled
+}
+void putc(char byte2send){
+ while(U2STAbits.UTXBF == 1);
+ U2TXREG = byte2send;
+}
+int main(void){
+ 
+ configU2();
+
+ while(1){
+  putc('+');
+  delay(1000); //wait 1 second
+ }
+
+ return 0;
+}

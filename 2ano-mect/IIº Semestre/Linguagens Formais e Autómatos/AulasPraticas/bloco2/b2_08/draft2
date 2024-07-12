@@ -1,0 +1,71 @@
+import java.util.HashMap;
+import java.util.Map;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.ParseTreeProperty;
+
+public class InterpreterL extends CalculatorBaseListener {
+
+  ParseTreeProperty<String> values = new ParseTreeProperty<String>();
+  protected Map<String, Double> map = new HashMap<String, Double>();
+
+  @Override
+  public void exitMain(CalculatorParser.MainContext ctx) {}
+
+  /** expr NEWLINE */
+  @Override
+  public void exitStat(CalculatorParser.StatContext ctx) {
+    System.out.print(" -> " + values.get(ctx.expr()));
+  }
+
+  /** expr op=('*' | '/') expr  */
+  @Override
+  public void exitExprMultDiv(CalculatorParser.ExprMultDivContext ctx) {
+    values.put(ctx, values.get(ctx.expr(0)) +" " +values.get(ctx.expr(1)) + " " +ctx.op.getText());
+  }
+
+  /**  expr op=('+' | '-') expr  */
+  @Override
+  public void exitExprAddSub(CalculatorParser.ExprAddSubContext ctx) {
+    values.put(
+      ctx,
+      values.get(ctx.expr(0)) +
+      " " +
+      values.get(ctx.expr(1)) +
+      " " +
+      ctx.op.getText()
+    );
+  }
+
+  @Override
+  public void exitExprParent(CalculatorParser.ExprParentContext ctx) {
+    values.put(ctx, values.get(ctx.expr()).toString());
+  }
+
+  /** Integer */
+  @Override
+  public void exitExprInteger(CalculatorParser.ExprIntegerContext ctx) {
+    values.put(ctx, ctx.Integer().getText());
+  }
+
+  /** ID '=' expr  */
+  @Override
+  public void exitExprAssignment(CalculatorParser.ExprAssignmentContext ctx) {
+    //map.put(ctx.ID().getText(), values.get(ctx.expr()));
+    System.out.print(map.get(ctx.ID().getText()));
+  }
+
+  /** ID */
+  @Override
+  public void exitExprId(CalculatorParser.ExprIdContext ctx) {
+    if (map.containsKey(ctx.ID().getText())) {
+      values.put(ctx, map.get(ctx.ID().getText()).toString());
+    } else {
+      System.out.println(
+        "YOU FOOL! \"" + ctx.ID().getText() + "\" hasn't been defined yet!"
+      );
+      System.exit(1);
+    }
+    /*String id = ctx.ID().getText();
+    if (map.containsKey(id)) map.get(id);*/
+  }
+}

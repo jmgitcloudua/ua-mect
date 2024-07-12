@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Created-By: javac 1.8.0_201
+Main-Class: b1_7
+
