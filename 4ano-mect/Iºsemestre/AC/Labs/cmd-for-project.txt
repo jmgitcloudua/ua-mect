@@ -1,0 +1,53 @@
+MPBGP-Intro-Guide-2
+
+Router1# show bgp summary
+Router1# show ip route
+Router1# show ip bgp
+show ip route, show ipv6 route
+show ip bgp, show bgp ipv6 unicast
+-------------------------------------
+MPBGP-Adv-Guide-3
+
+Router1# show bgp summary
+Router1# show ip route
+Router1# show ip bgp !Verify Network (valid * and best >), Next Hop and Path
+Router1# show ip bgp neighbors
+ip bgp-community new-format
+
+RouterB# show ip bgp community 300:1 !with community filter
+RouterB# show ip bgp community 300:2 !with community filter
+Router2(config)# ip bgp-community new-format
+Router2# show ip bgp !all entries
+Router2# show ip bgp community 300:1 !with community filter
+Router2# show ip bgp community 300:2 !with community filter
+
+show ipv6 route
+show bgp ipv6 unicast summary
+show ip bgp all
+show bgp ipv6 unicast
+show ip bgp ipv6 unicast
+------------------------------------------
+MPLS-Guide-4
+
+show ip ospf mpls traffic-eng link
+show ip ospf database opaque-area
+show mpls traffic-eng tunnels
+(show mpls traffic-eng tunnels, show ip interface brief)
+
+#show ip route
+#show ip route vrf VPN-1
+#show ip route vrf VPN-2
+#show ip cef vrf VPN-1 detail
+#show ip cef vrf VPN-2 detail
+
+#show ip bgp all
+#show ip bgp vpnv4 all !VPNv4 address family routes
+#show ip bgp vpnv4 all labels !VPNv4 address family routes with MPLS labels info
+----------------------------------------------
+VXLAN-EVPN-Guide-5 - VyOS
+
+show configuration
+show configuration commands
+
+$ show bgp neighbors
+$ show bgp l2vpn evpn

@@ -1,0 +1,338 @@
+Router #1
+
+Router1(config)#router bgp 200
+Router1(config-router)# address-family ipv4 unicast
+Router1(config-router-af)# neighbor 192.2.12.2 remote-as 200 !IBGP Neighboring with R2
+Router1(config-router-af)# neighbor 192.2.13.3 remote-as 200 !IBGP Neighboring with R3
+Router1(config-router-af)# neighbor 200.10.1.2 remote-as 300 !EBGP Neighboring with RA
+
+Router1(config)# router bgp 200
+Router1(config-router)# address-family ipv4 unicast
+Router1(config-router-af)# network 192.2.12.0 mask 255.255.255.0
+Router1(config-router-af)# network 192.2.13.0 mask 255.255.255.0
+Router1(config-router-af)# network 192.2.0.1 mask 255.255.255.255
+
+
+Router1(config)# router bgp 200
+Router1(config-router)# address-family ipv4 unicast
+Router1(config-router-af)# neighbor 192.2.12.2 next-hop-self
+Router1(config-router-af)# neighbor 192.2.13.3 next-hop-self
+
+Establish Router1-Router2 IBGP relations using as neighbor IP address the respective Loopback
+addresses
+Router1(config)# router bgp 200
+Router1(config-router)# address-family ipv4 unicast
+Router1(config-router-af)# no neighbor 192.2.12.2 remote-as 200
+Router1(config-router-af)# neighbor 192.2.0.2 remote-as 200
+Router1(config-router-af)# neighbor 192.2.0.2 next-hop-self
+Router1(config-router-af)# neighbor 192.2.0.2 update-source Loopback 0
+
+
+
+ Router1# show bgp summary
+ Router1# show ip route
+ Router1# show ip bgp !Verify Network (valid * and best >), Next Hop and Path
+ Router1# show ip bgp neighbors
+---------------------------------------------------------------------------------------
+
+Router #2
+
+Router2(config)#router bgp 200
+Router2(config-router)# address-family ipv4 unicast
+Router2(config-router-af)# neighbor 192.2.12.1 remote-as 200 !IBGP Neighboring with R1
+Router2(config-router-af)# neighbor 192.2.23.3 remote-as 200 !IBGP Neighboring with R3
+Router2(config-router-af)# neighbor 200.11.1.3 remote-as 100 !EBGP Neighboring with RB
+
+Router2(config)# router bgp 200
+Router2(config-router)# address-family ipv4 unicast
+Router2(config-router-af)# network 192.2.12.0 mask 255.255.255.0
+Router2(config-router-af)# network 192.2.23.0 mask 255.255.255.0
+Router2(config-router-af)# network 192.2.0.2 mask 255.255.255.255
+
+Router2(config)# router bgp 200
+Router2(config-router)# address-family ipv4 unicast
+Router2(config-router-af)# neighbor 192.2.12.1 next-hop-self
+Router2(config-router-af)# neighbor 192.2.23.3 next-hop-self
+
+
+Establish Router1-Router2 IBGP relations using as neighbor IP address the respective Loopback
+addresses
+Router2(config)# router bgp 200
+Router2(config-router)# address-family ipv4 unicast
+Router2(config-router-af)# no neighbor 192.2.12.1 remote-as 200
+Router2(config-router-af)# neighbor 192.2.0.1 remote-as 200
+Router2(config-router-af)# neighbor 192.2.0.1 next-hop-self
+Router2(config-router-af)# neighbor 192.2.0.1 update-source Loopback 0
+--------------------------------------------------------------------------------------
+
+Router #3
+
+Router3(config)#router bgp 200
+Router3(config-router)# address-family ipv4 unicast
+Router3(config-router-af)# neighbor 192.2.13.1 remote-as 200 !IBGP Neighboring with R1
+Router3(config-router-af)# neighbor 192.2.23.2 remote-as 200 !IBGP Neighboring with R2
+
+
+Router3(config)# router bgp 200
+Router3(config-router)# address-family ipv4 unicast
+Router3(config-router-af)# network 192.2.13.0 mask 255.255.255.0
+Router3(config-router-af)# network 192.2.23.0 mask 255.255.255.0
+---------------------------------------------------------------------------------------
+
+Router #RA
+
+RouterA(config)#router bgp 300
+RouterA(config-router)# address-family ipv4 unicast
+RouterA(config-router-af)# neighbor 200.10.1.1 remote-as 200 !IBGP Neighboring with R1
+RouterA(config-router-af)# neighbor 200.10.11.3 remote-as 100 !IBGP Neighboring with RB
+
+RouterA(config)# router bgp 300
+RouterA(config-router)# address-family ipv4 unicast
+RouterA(config-router-af)# network 200.10.11.0 mask 255.255.255.0
+RouterA(config-router-af)# network 200.10.1.0 mask 255.255.255.0
+RouterA(config-router-af)# network 192.3.1.0 mask 255.255.255.0
+RouterA(config-router-af)# network 192.3.2.0 mask 255.255.255.0
+---------------------------------------------------------------------------------------
+
+Router #RB
+
+RouterB(config)#router bgp 100
+RouterB(config-router)# address-family ipv4 unicast
+RouterB(config-router-af)# neighbor 200.2.11.2 remote-as 200 !IBGP Neighboring with R2
+RouterB(config-router-af)# neighbor 200.10.11.2 remote-as 300 !IBGP Neighboring with RA
+
+
+RouterB(config)# router bgp 100
+RouterB(config-router)# address-family ipv4 unicast
+RouterB(config-router-af)# network 200.2.11.0 mask 255.255.255.0
+RouterB(config-router-af)# network 200.10.11.0 mask 255.255.255.0
+RouterB(config-router-af)# network 192.1.1.0 mask 255.255.255.128
+RouterB(config-router-af)# network 192.1.1.128 mask 255.255.255.128
+--------------------------------------------------------------------
+
+
+EBGP and IBGP with OSPF
+Redistribution of BGP routes into OSPF
+
+Router #3
+Router3(config)# router ospf 100
+Router3(config-router)# network 192.2.13.0 0.0.0.255 area 0
+Router3(config-router)# network 192.2.23.0 0.0.0.255 area 0
+---
+
+Router #1
+Router1(config)# router ospf 100
+Router1(config-router)# network 192.2.12.0 0.0.0.255 area 0
+Router1(config-router)# network 192.2.13.0 0.0.0.255 area 0
+Router1(config-router)# network 192.2.0.1 0.0.0.0 area 0
+Router1(config-router)# redistribute bgp 200
+
+Router1(config)# router ospf 100
+Router1(config-router)# no redistribute bgp 200
+Router1(config-router)# redistribute bgp 200 subnets
+---
+
+Router #2
+Router2(config)# router ospf 100
+Router2(config-router)# network 192.2.12.0 0.0.0.255 area 0
+Router2(config-router)# network 192.2.23.0 0.0.0.255 area 0
+Router2(config-router)# network 192.2.0.2 0.0.0.0 area 0
+Router2(config-router)# redistribute bgp 200
+
+Router2(config)# router ospf 100
+Router2(config-router)# no redistribute bgp 200
+Router2(config-router)# redistribute bgp 200 subnets
+---------------------------------------------------------------
+
+Redistribution of OSPF routes into BGP
+
+Router1(config)# router bgp 200
+Router1(config-router)# address-family ipv4 unicast
+Router1(config-router-af)# redistribute ospf 100
+
+Router2(config)# router bgp 200
+Router2(config-router)# address-family ipv4 unicast
+Router2(config-router-af)# redistribute ospf 100
+---------------------------------------------------------------
+
+Route Maps
+
+Router1(config)# ip as-path access-list 1 permit ^$ !Empty BGP AS path. Only local routes!
+Router1(config)# route-map routes-out
+Router1(config-route-map)# match as-path 1
+Router1(config)# router bgp 200
+Router1(config-router)# address-family ipv4 unicast
+Router1(config-router-af)# neighbor 200.10.1.2 route-map routes-out out
+
+Router2(config)# ip as-path access-list 1 permit ^$ !Empty BGP AS path. Only local routes!
+Router2(config)# route-map routes-out
+Router2(config-route-map)# match as-path 1
+Router2(config)# router bgp 200
+Router2(config-router)# address-family ipv4 unicast
+Router2(config-router-af)# neighbor 200.2.11.3 route-map routes-out out
+--------------------------------------------------------------------------
+
+Communities
+
+RouterA(config)# ip bgp-community new-format
+RouterA(config)# route-map changeClink1 permit 10
+RouterA(config-route-map)# set community 300:1 !Community 1
+RouterA(config)# route-map changeClink2 permit 10
+RouterA(config-route-map)# set community 300:2 !Community 2
+RouterA(config)# router bgp 300
+RouterA(config-router)# address-family ipv4 unicast
+RouterA(config-router-af)# neighbor 200.10.11.3 route-map changeClink1 out
+RouterA(config-router-af)# neighbor 200.10.11.3 send-community
+RouterA(config-router-af)# neighbor 200.0.0.3 route-map changeClink2 out
+RouterA(config-router-af)# neighbor 200.0.0.3 send-community
+
+
+RouterB# show ip bgp community 300:1 !with community filter
+RouterB# show ip bgp community 300:2 !with community filter
+Router2(config)# ip bgp-community new-format
+Router2# show ip bgp !all entries
+Router2# show ip bgp community 300:1 !with community filter
+Router2# show ip bgp community 300:2 !with community filter
+-------------------------------------------------------------------------------
+
+“Local Preference” based on “Community” value
+
+Router2(config)# ip bgp-community new-format
+Router2(config)# ip community-list 1 permit 300:1
+Router2(config)# ip community-list 2 permit 300:2
+Router2(config)# route-map routes-in permit 10
+Router2(config-route-map)# match community 1
+Router2(config-route-map)# set local-preference 22
+Router2(config-route-map)# route-map routes-in permit 20
+Router2(config-route-map)# match community 2
+Router2(config-route-map)# set local-preference 111
+Router2(config)# router bgp 200
+Router2(config-router)# address-family ipv4 unicast
+Router2(config-router-af)# neighbor 200.2.11.11 route-map routes-in in
+-----------------------------------------------------------------------------------
+
+Establishing BGP Neighbor relations over IP-IP tunnels
+
+Router1(config)# interface Tunnel 0 
+Router1(config-if)# ip address 10.0.0.1 255.255.255.252 
+Router1(config-if)# tunnel source Loopback 0
+Router1(config-if)# tunnel destination 192.2.0.2
+Router1(config-if)# tunnel mode ipip 
+Perform a similar configuration in Router2:
+Router2(config)# interface Tunnel 0 
+Router2(config-if)# ip address 10.0.0.2 255.255.255.252 
+Router2(config-if)# tunnel source Loopback 0
+Router2(config-if)# tunnel destination 192.2.0.1
+Router2(config-if)# tunnel mode ipip
+
+
+Re-establish Router1-Router2 IBGP relations using as neighbor IP address the respective Tunnel 0
+addresses:
+Router1(config)# router bgp 200
+Router1(config-router)# address-family ipv4 unicast
+Router1(config-router-af)# no neighbor 192.2.0.2 remote-as 200
+Router1(config-router-af)# neighbor 10.0.0.2 remote-as 200
+Router1(config-router-af)# neighbor 10.0.0.2 next-hop-self
+
+Router2(config)# router bgp 200
+Router2(config-router)# address-family ipv4 unicast
+Router2(config-router-af)# no neighbor 192.2.0.1 remote-as 200
+Router2(config-router-af)# neighbor 10.0.0.1 remote-as 200
+Router2(config-router-af)# neighbor 10.0.0.1 next-hop-self
+
+----------------------------------------------------------------------
+
+IPv6 MP-BGP
+
+Router #1
+
+Router1(config)#router bgp 200
+Router1(config-router)# address-family ipv6 unicast
+Router1(config-router-af)# neighbor 2001:2:12::2 remote-as 200 !IBGP Neighboring with R2
+Router1(config-router-af)# neighbor 2001:2:13::3 remote-as 200 !IBGP Neighboring with R3
+Router1(config-router-af)# neighbor 2001:A:A:1::2 remote-as 300 !EBGP Neighboring with RA
+
+Router1(config)# router bgp 200
+Router1(config-router)# address-family ipv6 unicast
+Router1(config-router-af)# network 2001:2:12::/64
+Router1(config-router-af)# network 2001:2:13::/64
+Router1(config-router-af)# network 2001:A:A:1::/64
+
+Router1(config)# router bgp 200
+Router1(config-router)# address-family ipv6 unicast
+Router1(config-router-af)# neighbor 2001:2:12::2 next-hop-self
+Router1(config-router-af)# neighbor 2001:2:13::3 next-hop-self
+-------
+
+Router #2
+
+Router2(config)#router bgp 200
+Router2(config-router)# address-family ipv6 unicast
+Router2(config-router-af)# neighbor 2001:2:12::1 remote-as 200 !IBGP Neighboring with R1
+Router2(config-router-af)# neighbor 2001:2:23::3 remote-as 200 !IBGP Neighboring with R3
+Router2(config-router-af)# neighbor 2001:A:2:B::3 remote-as 100 !EBGP Neighboring with RB
+
+Router2(config)# router bgp 200
+Router2(config-router)# address-family ipv6 unicast
+Router2(config-router-af)# network 2001:2:12::/64
+Router2(config-router-af)# network 2001:2:23::/64
+Router2(config-router-af)# network  2001:A:2:B::/64
+
+
+Router2(config)# router bgp 200
+Router2(config-router)# address-family ipv6 unicast
+Router2(config-router-af)# neighbor 2001:2:12::1 next-hop-self
+Router2(config-router-af)# neighbor 2001:2:23::3 next-hop-self
+-------
+
+Router #3
+
+Router3(config)#router bgp 200
+Router3(config-router)# address-family ipv6 unicast
+Router3(config-router-af)# neighbor 2001:2:13::1 remote-as 200 !IBGP Neighboring with R1
+Router3(config-router-af)# neighbor 2001:2:23::2 remote-as 200 !IBGP Neighboring with R2
+
+Router3(config)# router bgp 200
+Router3(config-router)# address-family ipv6 unicast
+Router3(config-router-af)# network 2001:2:13::/64
+Router3(config-router-af)# network 2001:2:23::/64
+--------
+
+Router #RA
+
+RouterA(config)#router bgp 300
+RouterA(config-router)# address-family ipv6 unicast
+RouterA(config-router-af)# neighbor 2001:A:A:1::1 remote-as 200 !IBGP Neighboring with R1
+RouterA(config-router-af)# neighbor 2001:A:A:B::3 remote-as 100 !IBGP Neighboring with RB
+
+RouterA(config)# router bgp 300
+RouterA(config-router)# address-family ipv6 unicast
+RouterA(config-router-af)# network 2001:A:A:B::/64
+RouterA(config-router-af)# network 2001:A:A:1::/64
+RouterA(config-router-af)# network 2001:3:1::/64
+RouterA(config-router-af)# network 2001:3:2::/64
+---------
+
+Router #RB
+
+RouterB(config)#router bgp 100
+RouterB(config-router)# address-family ipv6 unicast
+RouterB(config-router-af)# neighbor 2001:A:2:B::2 remote-as 200 !IBGP Neighboring with R2
+RouterB(config-router-af)# neighbor 2001:A:A:B::2 remote-as 300 !IBGP Neighboring with RA
+
+
+RouterB(config)# router bgp 100
+RouterB(config-router)# address-family ipv6 unicast
+RouterB(config-router-af)# network 2001:A:2:B::/64
+RouterB(config-router-af)# network 2001:A:A:B::/64
+RouterB(config-router-af)# network 2001:1:1:0::/64
+RouterB(config-router-af)# network 2001:1:1:1::/64
+
+
+
+show ipv6 route
+show bgp ipv6 unicast summary
+show ip bgp all
+show bgp ipv6 unicast  
+show ip bgp ipv6 unicast
+show bgp ipv6 unicast neighbours

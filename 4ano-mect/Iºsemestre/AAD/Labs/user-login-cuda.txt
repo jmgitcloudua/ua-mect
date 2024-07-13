@@ -1,0 +1,53 @@
+user login: aad35
+password: t9Ydkvmwji
+host: banana.ua.pt
+
+ssh user@host
+
+#some commands
+sftp aad35@banana.ua.pt
+>put codeSimples.zip
+>bye
+
+gcc -Wall -02 -o fileClumCPU inORdeColumn.c
+gcc -Wall -02 -o fileRowsCPU inORdeRows.c
+
+make all
+./inOrderRow
+./inOrderColumn
+
+lscpu
+
+
+
+https://www.cprogramming.com/tutorial/computersciencetheory/sorting1.html
+https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html
+[see occupancy]
+https://developer.nvidia.com/gpugems/gpugems2/part-vi-simulation-and-numerical-algorithms/chapter-46-improved-gpu-sorting
+
+https://stackoverflow.com/questions/42688288/parallelise-bubble-sort-using-cuda
+[look it]
+https://github.com/znahman/parallel-comparison-bubblesort
+[look it too]
+https://github.com/domkris/CUDA-Bubble-Sort/blob/master/CUDABubbleSort/kernel.cu
+[----]
+
+https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7943115&tag=1
+https://www.researchgate.net/publication/307180851_Implementation_of_Sorting_Algorithms_with_CUDA_An_Empirical_Study
+
+odd-even strategy - for bubble sort in CUDA
+[https://airccse.org/journal/ijdps/papers/3612ijdps09.pdf]
+
+
+===Bubble sort não optimizado===
+Array com 256 elementos
+nº comparações(WC) = n(n-1)/2 = 32640  O(n^2)
+              (BC) = n - 1 = 255       O(n)
+nº de trocas (WC) = nº de comp
+             (BC) = 0                  O(1)
+nº comparções - caso médio
+             (Ac) = 1/3*n^2 - 1/6*n = ~ 21803 O(n^2)
+
+===Bubble sort optimizado===
+se o array estiver ordenado, não há trocas
+então, complexidade temporal(BC) =  O(n)

@@ -1,0 +1,40 @@
+• Point-to-point networks(Redes ponto a ponto)
+Os pontos de comunicação precisam estar na linha de visão (Line Of Sight - LoS) (por exemplo, satélite).
+
+• Diffusion networks(Redes de difusão)
+Não há relação física específica entre os dois pontos de comunicação (por exemplo, padrão 802.11).
+
+• Semi-diffusion networks(Redes de semidifusão)
+Requer algumas limitações no posicionamento relativo do pontos de comunicação (por exemplo, infravermelho).
+
+• Cell(célula)
+Menor entidade física que permite o acesso a entidades móveis. Pode ter terminal orientado ou definido numa BS(base station)
+- Célula ≠ conexão ponto a ponto
+- Associado ao mecanismo físico de transferência de informações (tecnologias de rádio ou infravermelho)
+- Há sobreposição de células diferentes em uma rede sem fio
+
+O tamanho da cubertura da célula é
+- Altamente variável
+- Depende da tecnologia
+- Depende do número de utilizadores
+
+As céluas possuem as seguintes caraterísticas:
+- Tamanho da cobertura: 100m a 35km(GSM)
+- Formato: teoricamente em forma de um hexágono. Mas na realidade depende do lugar
+- Posicionamento da BS: céluas fortemente centralizadas(com BS central e antenas omni-direcional) e células lado animado
+(com BS de 3 vértices antenas direcionais). Cell centrally excited e Cell side excited.
+
+Vantages das células:
+- Maior capacidade
+- Maior número de utilizadores
+- Menor potência/energia
+- Maior sobustez(em sistemas distribuidos)
+Destantagens das células:
+- Usam redes cabladas entre células
+- Possui muitos handovers(transferências)
+- Tem Interferência entre células
+
+•Exponential Backoff
+Forçar as estações a esperar por um período aleatório de tempo para reduzir a chance de colisão.
+-O período de recuo(backoff) aumenta exponencialmente após cada colisão
+-Semelhante à Ethernet
