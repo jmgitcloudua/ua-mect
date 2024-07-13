@@ -1,0 +1,32 @@
+#!/bin/bash
+
+IPFS_PATH="$HOME/emucd_ipfs/"
+TORRENT_PATH="$HOME/emucd_bittorrent/"
+
+DATA_PATH="dataset/"
+DOCKER_PATH="docker/"
+SIM_PATH="sim_manager/"
+
+if [ $1 == "ipfs" ]; then
+    echo "IPFS"
+    DATA_PATH="${IPFS_PATH}${DATA_PATH}"
+    DOCKER_PATH="${IPFS_PATH}${DOCKER_PATH}"
+    SIM_PATH="${IPFS_PATH}${SIM_PATH}"
+else
+    echo "BITTORRENT"
+    DATA_PATH="${TORRENT_PATH}${DATA_PATH}"
+    DOCKER_PATH="${TORRENT_PATH}${DOCKER_PATH}"
+    SIM_PATH="${TORRENT_PATH}${SIM_PATH}"
+fi
+
+cd "${DATA_PATH}"
+rm -rf "${DATA_PATH}out/"
+python3 "${DATA_PATH}invertData.py" "${2}"
+
+cd "${DOCKER_PATH}"
+./build.sh
+
+firefox http://localhost:5050/ &
+
+cd "${SIM_PATH}"
+python3 app.p

@@ -1,0 +1,43 @@
+Engenharia e Gestão de Serviços. Implemente um projeto que envolva SMS(Short Message Service), IMS(IP Multimedia Subsystem), docker, kubernetes, monitorização.
+
+*Desenvolva uma plaforma que permita a marcação de consultas online e que envolva as seguintes tecnologias: SMS(Short Message Service), WebRTC(Web Real Time Communication), docker, kubernetes, observabilidade e monitoramento.
+ 
+
+
+*Desenvolva uma plaforma que permita a marcação online para doação de sangue e que envolva as seguintes tecnologias: SMS(Short Message Service), IMS(IP Multimedia Subsystem), docker, kubernetes, observabilidade e monitoramento.
+
+
+-> Crie um sistema de Gestão de Base de dados(modelo relacional) de uma plataforma que permita a marcação de consultas online.
+-> Crie um Sistema de Gestão de Base de dados(modelo relacional) de uma plataforma que permita a marcação online para doação de sangue.
+-> Crie o código em ASP.NET para autenticação (Register and Login) de uma plataforma que permita a marcação de consultas online.
+-> 
+
+
+1834AE
+
+
+Eu proponho as seguintes ideias: 
+
+1º . Desenvolver plataforma de marcação online para doação de sangue. Principais serviços que poderão ter:
+- Authentication Service
+- Notification/SMS Service
+- IMS(Voz ou video) Service
+- Blood Donation Booking Management
+- Observability/Monitoring
+- Mobile UI / PWA
+
+2º . Desenvolver plataforma para marcação de consultas Online. Principais serviços que poderão ter:
+- Authentication Service
+- Notification/SMS Service
+- IMS(Voz ou video) Service
+- Appointments Booking Management
+- Observability/Monitoring
+- Mobile UI / PWA
+
+
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Oauth 2.0 Testing
+  description: EGS -  Oauth 2.0 Testing
+paths: {}

@@ -1,0 +1,31 @@
+1 - Smart Surveillance Systems (with Nvidia Jetson Nano 2GB)
+Nvidia Jetson Nano pode ser usado para desenvolver sistemas de vigilância inteligentes 
+que podem realizar detecção de objetos, reconhecimento facial e reconhecimento de placas(de carro) 
+em tempo real. Poderia-se utilizar soluções Cloud ou software Open Source que permita
+realizar estas deteções(caso do TensorFlow) ou então criar um algoritmo se possível.
+
+2 - Intelligent Traffic Systems (with Nvidia Jetson Nano 2GB)
+Aqui o Nvidia Jetson Nano pode ser usado para desenvolver sistemas de tráfego inteligentes 
+que podem analisar padrões de tráfego, otimizar o fluxo de tráfego e detectar e 
+prevenir acidentes. Pode-se utilizar câmeras e software para ajudar nestas tarefas.
+
+3 - Smart Network Security Appliance (with Raspberry Pi 4GB)
+Aqui o Raspberry Pi pode ser usado como um dispositivo de segurança de rede para monitorar o 
+tráfego de rede, bloquear tráfego indesejado e detectar invasões de rede. 
+Nest caso, pode-se utilizar software como Snort, Suricata ou Bro IDS para ajudar efetuar
+o monitoramento.
+
+
+4 - Wifi Mesh Networks(Community WiFi) - with Mikrotik R11e-5HnD 
+Este tipo de rede podem ser usadas para fornecer acesso WiFi gratuito ou de baixo 
+custo para comunidades, especialmente aquelas em áreas rurais ou de baixa renda. 
+Pode-se aplicar várias carateristicas com MiKrotik como VLANs, QoS, FireWalls, etc.
+
+5 - Wireless Network Load Balancing - with Mikrotik R11e-5HnD
+Com Mikrotik R11e-5HnD, o sistema(Network LB) pode equilibrar o tráfego de rede em vários 
+pontos de acesso sem fio para melhorar o desempenho e a confiabilidade da rede.
+Por exemplo,pode-se priorizar certos tipos de tráfego, como VoIP ou streaming de vídeo, 
+para garantir que se obtenha BW necessária. 
+
+
+São apenas ideias.....

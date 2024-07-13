@@ -1,0 +1,10 @@
+Sistemas embutidos
+- É um sistema General Purpose que possui deviersas funcionalidades e com uso especifico.
+- Usar ESP32
+- I2C/UART/SPI
+- Sensor a escolher até final de FEVEREIRO
+
+
+
+SPI LInk
+https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/spi_master.html
