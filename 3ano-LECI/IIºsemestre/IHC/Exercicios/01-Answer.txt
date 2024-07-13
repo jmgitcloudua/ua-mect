@@ -1,0 +1,49 @@
+1. É fundamental conhecer bem o perfil dos utilizadores alvo dum sistem interativo quando se inicia
+o processo de desenvolvimento porque, é através deste sistema que percebe-se o real sentido de como
+a informação é processada na memória e, como o substema cognitivo responde aos demais sexto sentido.
+
+2. Os aspectos dos perfis dos utilizadores que são mais relevantes para um design dum sistema interativo são:
+	- Subsistema Perceptivo (Memória: buffer percetivo e Processo: reconhecimento de padrões)
+	- Subsistema Cognitivo (Memória: STM, LTM e Processo:atenção seletiva, resolução do problema e aprendizagem...)
+	- Subsistema Motor
+
+3. Os deferentes tipos de Memória que inclui os aspectos do perfil do utilizador do SPIH são:
+	- STM: Short term/working memory - é a memória de curto prazo que se encontra no subsistema cognitivo. Também conhecidade HIPS bottleneck
+	- LTM: Long term/working memory - é a memória de longo prazo que se encontra no subsistema cognitivo
+
+4. Uma das memórias que é considerada bottleneck do SPIH é a memória STM(short term memory) porque a informação no subsistema cognitivo é
+de curta duração.
+
+5. A memória de longa duração é considerada um ponto forte do SPIH porque tem aproximadamente capacidade infinita.
+
+6. A memória de curta duração tem uma capacidade de 7+/-2 itens e, uma duração de +/- 18 segundos(ou 70ms).
+
+7. O fenómeno de chunking consiste numa abordagem cujo objetivo é fazer uso mais eficiente da memória de curta duração, agrupando infos.
+
+8. As principias carateristicas relevantes para o design de sistemas interativos do processo conhecido como reconhecimento de padrões são:
+	- É um processo muito poderoso
+	- É subconsciente
+	- Não usa apenas dados atuais/recentes
+	- Resolve ambiguidades
+	- Ocorre também em outros sentidos
+
+9. Para além da visão e audição, os outros sentidos humanos que podem ser relevantes em sistemas de realidade virtual são:
+	- O toque, através dele consegue-se importantes feedbacks, Sentidos-chave para pessoas com problemas de visão,
+Algumas áreas mais sensíveis (como os dedos)
+	- O Cheiro e sabor, através desses consegue-se sentir sentidos químicos mais complexos, latência alta,etc
+
+10. A memória de curta duração ou de trabalho é uma limitação que deve sertida em conta no design de interfaces de utilizador porque
+tem curta duração  que um tempo inferior à 30 segundos e, tem uma capacidade limitada de 7+/-2 elementos.
+
+11. Exemplo ilustrativo de como explorar o processo de atenção seletiva involuntário para melhorar a usabilidade de uma UI:
+Exemplo, quando bloqueamos determinados recursos do nosso ambiente e focamos em um recurso específico.
+
+12. Quando tem-se mais utilizadores com muita experiência da tarefa, mas pouca do sistema, necessitam de ajuda sintática.
+
+
+
+
+
+
+
+

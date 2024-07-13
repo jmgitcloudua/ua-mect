@@ -1,0 +1,3 @@
+tcp:mednat.ieeta.pt\SQLSERVER,8101
+
+p7g1 20222329@BD

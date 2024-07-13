@@ -1,0 +1,166 @@
+1- Introduction (System overview too)
+There are only a few platforms , with tools for building shared reality experiences where multiple users 
+with different devices can share the same augmented experience.
+
+The significant obstacles hindering a wide-scale adoption of AR are its unique user-interaction characteristics,
+data management needs, and platform fragmentation.
+
+In a shared reality setting, the workload generated at such a high rate by multiple clients can overwhelm the backend, 
+and result in dropped queries and lags on the user interface.
+Also, sometimes the amount of augmented objects on display is too much to provide a usefull and safe experience.
+
+What's DreamStore?
+Is an AR application data platform for addressing these issues. DreamStore provides a data-management API for application developers 
+to model AR application workflows facilitating porting of core 
+functionalities between different client platforms.
+Shortly, DreamStore is a data platform for AR applications. Figure 1 depicts the modules of the system and the interaction between them.
+[shown in fig 1]
+
+Motivation: 
+DreamStore can power shared AR experiences in a variety of settings with multiple users 
+accessing and interacting with the same AR objects through their personal AR client devices
+
+2 - Related Work
+Three related worked was speeched int that  conference:
+ - Data Platforms for Augmented Reality workloads, writen and discussed by Dieter Schmalstieg et al., 
+They present a 3-tier data model for handling AR workloads. This work demonstrates the usage of context-sensitive scene graph 
+data to construct views for AR apps from large databases of GIS XML data.
+
+ - Shared AR and Interactivity, writen and discussed by  M. Singh et al.,
+They present a study of Augmented Reality systems in which they describe a generic architecture for an AR application. 
+This architecture does not consider the problem of synchronization in a multi-client environment.
+ 
+ - Location-based Prefetching for Mobile Applications, writen and discussed by P. Geiger et al.,
+They introduced ideas for developing a generic location-based mobile augmented reality. 
+Their focus is on adding AR objects and tracking them through a user session based on camera-feed and device 
+position employing smart prefetching algorithms based on motion profiles 
+
+3 - Querying in AR
+All queries are mapped to DreamStore API calls,
+ which do not distinguish between the query modality and only specify the level of details requested for any specific object
+	- Dreamstore Data Interface 
+	The AR applications running on the DreamStore platform interact with the local client-side cache 
+ARView through data management API calls. These API calls can trigger communication with the backend data stores, support three operations
+	-> READ ({object_ids})- This augments the queried objects with the information from the ARView, and 
+	generates subscription requests for updates on these objects.
+	-> WRITE (object_id: object−value) - The editable fields (information from the primary key-value store) 
+	-> COMMIT()- All the ARView objects with a set dirty bit are pushed to the backend key-value store
+
+	- Query Priority Mapping
+	The user interface generates a READ query for each of the identified objects in the frame and passes 
+it onto the Interaction Mapper module.The interaction mapper periodically aggregates all these READ requests 
+and calculates the density or the count for each object query. So the expression of the density for each Object(Oi) is done by 
+P[ró init] = abs(Oi)/sum(Oi), where abs(Oi) is the number of queries.
+Morever, there are a lot level of interactions in general represented by Imin, Imedium and Ihigh.
+» All objects with an intent value lower than a developer configured threshold −Imin are discarded,
+» For value thresholding, the user defines a minimum intent threshold for high-priority assignment −Ihigh
+and a minimum intent threshold for medium priority as signment−Imedium
+
+4 - Prefetching for Interactivity
+[shown in fig 2]
+The interaction mapper predicts the set of AR objects to be prefetched from the backend data store to keep the DreamStore 
+client interactive, by ensuring objects that are likely to be queried in the near-future are available in the client-side cache.
+The prefetching mechanism was described  for a generic Indoor Positioning System (IPS) solution.
+«Algorithm used - 1»
+Function prefetch(position_context, motion_context):
+	pre fetch_region ← generate (position-context.mouoncomext)
+	pre fetch_set ← region_map.get(key = prefetch_region)
+	return pre fetch_set
+Description of the Algorithm:
+The algo, describes a generic prefetching logic utilizing the client device's position_context and motion_context. 
+The generate logic is entirely dependent on the deployed IPS solution
+[Try to explain in more details]
+
+5 - AR-View Maintenance
+[shown in fig 3]
+AR clients in the same shared physical space are required to acknowledge changes by each other while at the same time, 
+ensuring that they can function without explicitly tracking every other client in the system. Decoupling the clients enforces 
+scalability at the abstraction level by allowing them to operate independently of each other.
+[Try to explain in more details the fig3]
+
+«Algorithm used - 2»
+Function handle_message (client, message, registry):
+[Try to explain in details the algo]
+
+6 - Evaluation/Results
+Existing AR research is lacking in performance evaluation of large-scale shared reality experience deployments. 
+User evaluations focused on human perception and cognition in AR, user-performance, and user-interaction is
+important for evaluating AR applications. However, a user-study of this nature is impractical for studying 
+system performance with hundreds of users accessing the same shared AR space. DreamStore evaluation utilizes query-intensive workloads
+emulated from realistic AR application profiles.
+
+-> Workload Generation
+Because of a lack of open location-tagged AR workloads, Meraj Khan and Arnab Nandi used an indoor localization dataset 
+(referred to as IPS in the text) published by Mohammadi et al. to simulate AR application sessions. This dataset is generated 
+from a grid of iBeacons deployed in a campus library (200 ft x 180 ft).
+[Try to explain in more details]
+
+-> Test setup
+The data platform (Redis) and the WebSocket server were set up on an nl-highmem-4 Google Cloud instance (4 vCPUs, 26GB RAM). 
+The client workloads were divided evenly over two different nl-standard-4 Google cloud instances (4 vCPUs, 15GB RAM) 
+for each test scenario.
+Meraj Khan and Arnab evaluated the following test configurations for the three workloads - IPS, Generic, and Generic-MIXED
+	» Naive - In this setup, each DreamStore API call translates to a server call, triggering a backend request 
+for each implicit or explicit data interaction on the UI.
+	» Reduced - In this setup, we utilize the query thresholding described previously(about  Query Priority Mapping) 
+to reduce the generated READ calls to the backend.
+	» DreamStore - The clients cache objects on top of the query reduction in the previous setup.
+
+
+-> Performance Metrics
+They used metrics that are useful for evaluating interactive data exploration systems , in addition to metrics that 
+are performance indicators for specific DreamStore features. The principals are:
+Query Issue Rate, Latency/Response Time, Update Propagation Time, Cache Hit Ratio and Interactive Constraint Violation.
+[Try to explain in more details each features]
+
+-> Results
+Due to the time granularity (at least 2 seconds) of recording in the dataset that IPS workload emulates, 
+it resembles the reduced workload that would be generated by the DreamStore query reduction methods. 
+There are two important feature about results: Generic Workload, Generic-Mixed Workload and IPS Workload.
+	» Generic Workload  : Query Issue Rate, AverageLatencya and Interactive Constraint Violation
+	[Try to explain in more details each features in fig4]
+
+	» Generic-Mixed Workload: The Generic-MIXED workload shows performance characteristics similar 
+to that of the Generic workload. The important feature here is Update Propagation Time.
+	[Try to explain in more details this feature in fig4-table3 and fig5]
+
+	» IPS Workload 
+	The IPS workload has a wide variation in the client-session running times ranging from 18 seconds to 2972 seconds
+or about 50 minutes. We report the latency statistics and the cache hit rate over the entire workload.
+The important feature are: Cache Hit Rate, Average Latency.
+	[Try to explain in more details each feature in fig5-table5 ]
+
+6 - Discussion
+In contrast to the specialized data platforms for AR discussed in related work, DreamStore strips down the amount of
+information it needs at the backend by having a dedicated store for virtual object properties and relying on a different 
+visual recognition database for marking the placement of these objects in space
+
+» Query Workload Reduction: Reducing the query workload generated by the clients through query prioritization and thresholding 
+improves the average latency by about 4 times in the Generic and Generic-Mixed workloads.
+
+» Prefetching and Caching: The Generic and Generic-MIXED workloads access a small number of objects over the entire 
+session that can all be cached on each client.
+
+7 - Limitations
+Although DreamStore focuses on reducing visual clutter along with providing consistent and interactivity latency, 
+there are multiple design considerations from the perspective of human cognition and perception for AR visualization 
+that were not considered. An important issue that arises from this work would be visualizing updates on objects.
+Intuitively, certain objects and tasks should prefer the DreamStore style of pushing every object update to the interface. 
+For other objects and tasks, it could be useful to suppress the updates if the user's attention is required elsewhere and 
+the task is unaffected by the update in consideration, or emphasize the update by calling out users attention if that is 
+more helpful to the user task and performance. Another potential problem with the frequency of visualized updates in 
+DreamStore could be the system ignoring objects because of their low visual query frequency, even though the user might be 
+interested in them.
+
+8 - Conclusion and Future Work
+»» Through performance evaluation of query-intensive workloads that emulate multiple AR clients in a shared physical space, 
+They showed that DreamStore can reduce effective query-rate through workload-reduction by about 5 times, and along with client-side 
+caching, can bring down the average response time by an order of magnitude compared to the baseline setup.
+»» They show the effectiveness of an appropriate prefetching strategy, achieving a cache hit ratio of 0.91 with a directional 
+prefetching strategy for an indoor movement workload, improving the average query latency by an order of magnitude.
+»» In the future, they intend to release client -environment specific view-management libraries for popular AR platforms. 
+We are also working on further refining the interaction module and defining the interaction mapper for a broader set of user 
+actions for different interaction modalities
+
+
+	

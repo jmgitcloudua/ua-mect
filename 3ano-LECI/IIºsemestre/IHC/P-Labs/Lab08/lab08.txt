@@ -1,0 +1,3 @@
+Each group shall prepare a usability test with a paper prototype for the application under development (test should take +/- 15min). 
+To prepare this class, use the notes about prototyping available. 
+Main results of this evaluation shall be reported in the final presentation

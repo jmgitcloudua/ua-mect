@@ -1,0 +1,46 @@
+O testador - três tarefas
+
+(1)
+- ver icons apropriados de criar despesas
+- Algumas coisas precisam ser bem claras
+- Titulos nos papeis
+
+(2)
+- icones mais expressivos
+
+(3)
+- botao de retroceder
+- voltar para a pagina inicial a partir de qualquer janela
+- "o que é o menu?"
+- icones
+- bolinha de seleçao a esquerda de cada transaçao
+- outras formas de apagar os registos
+
+(4) 
+
+(5)
+- botao (+) no canto superior duvidoso
+- nome do q se está a fazer em cima da janela
+- opçao de apagar dentro de um registo
+- botao de "visto" em vez de (+) quando se edita uma transaçao
+- deadline em vez de period
+
+(professor)
+- verificar se o orçamento dentro de um periodo de tempo é positivo em vez de registar um objetivo/poupança
+
+(francisco)
+- icones + texto
+- botao (+) ou de ir para orçamentos redundantes
+- historico das poupanças
+- pie graph das categorias mais dinheiro total disponivel, com mais detalhe quando clicada em cada categoria
+- cor vermelha quando overspending
+
+(6)
+- setinhas para subir e diminuir preço
+- deadline (calendario) ou opçoes
+
+(7)
+(+) faz sentido para registar poupanças e nao pagamentos
+
+(8)
+- simbolo de adicionar poupança 

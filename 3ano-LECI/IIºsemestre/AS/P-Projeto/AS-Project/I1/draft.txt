@@ -1,0 +1,60 @@
+1	Introdução
+[Os comentários e algum conteúdo exemplificativo incluídos no documento destinam-se a apoiar na sua preparação e estão indicados a verde. 
+Remover todos os comentários na versão a entregar. 
+Nalgumas partes dos comentários, neste relatório, são apontadas secções de referências COMPLEMENTARES (não são obrigatórias):
+- Wiegers  trata-se do template  do Software Requirements Specification, do livro de Wiegers, exemplificado aqui , 
+- OpenUP  trata-se do template da Visão do OpenUP (vision_tpl.dot)]
+
+
+1.1	Referências e recursos suplementares
+Quais foram as fontes a que a equipa recorreu? Explicar como foi recolhida a informação/métodos para desenvolver a visão
+Explicar que entrevistas, workshops, análise documental,…. foram usados.
+Podem ser anexados/referidos documentos da organização que ajudem a suplementar os conteúdos aqui discutidos e a motivação para o desenvolvimento do novo sistema (e.g.: relatórios de estratégia, estudos de mercado,...)
+
+
+
+
+
+
+
+
+3.1 Posicionamento do produto
+
+[cliente que beneficia do produto] Yes
+[caracterização da necessidade ou oportunidade] 
+[designação do produto proposto]  Yes	
+[capacidade principal, benefício chave, razão convincente para levar à compra ou utilização] yes
+[confrontar com principal alternativa da concorrência, ou com o sistemas/processos atuais] yes
+[caraterização dos pontos essenciais de diferenciação e mais valia do novo produto] yes
+
+3.2	Funcionalidades principais
+
+[Enumerar as funcionalidades (features) principais do produto, enfatizando aquelas que o distinguem de produtos concorrentes ou anteriores. Só devem ser incluídas funcionalidades necessárias e que geram valor para o cliente, formuladas a alto nível.
+Ver também: Wiegers/secção 2.1 e OpenUP/secção 4.1]
+
+É uma enumeração de alto nível, relevante para a decisão do promotor, que permite apresentar o genericamente o âmbito e comparar com outros produtos; não é ainda uma lista concreta de requisitos. E.g.:
+Pesquisa integrada da oferta dos restaurantes associados;
+Encomendar comida de um ou vários restaurantes;
+Seguir a frota de estafetas de em tempo (quase) real. 
+
+
+3.3	Âmbito inicial e incrementos subsequentes
+[Quais são as prioridades para o desenvolvimento do produto? Quando é que as funcionalidades vão estar disponíveis? 
+Mapear as features anteriores em Releases, por exemplo, 2 ou 3). Ver exemplo em  Wiegers/secção 2.2E2.
+Seria lógico que a Release 1 do produto corresponda ao âmbito esperado implementar para a disciplina. 
+
+
+
+3.4	Perfis dos stakeholders
+Ver também: Wiegers/secção 3.1 (com adaptações)
+Gestores dos restaurantes parceiros	Aumentar o número de encomendas, pela exposição online.
+					Informação mais detalhada sobre o perfil dos clientes e comportamento dos pedidos.
+
+3.5	Limites e exclusões
+Clarificar as capacidades ou características que algum  stakeholder poderia esperar, mas que não serão incluídas no produto 
+(ou numa versão particular).Os assuntos/requisitos que foram falados, mas excluídos, devem ficar documentados. 
+Ver também: Wiegers/secção 2.3]
+
+
+
+

@@ -1,0 +1,7 @@
+﻿π fornecedor.nif, fornecedor.nome
+(
+	σ encomenda.fornecedor = null 
+	(
+		encomenda ⟖ (encomenda.fornecedor = fornecedor.nif) fornecedor
+	)
+)

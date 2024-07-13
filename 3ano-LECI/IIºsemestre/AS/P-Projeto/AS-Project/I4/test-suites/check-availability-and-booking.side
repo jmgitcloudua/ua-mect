@@ -1,0 +1,302 @@
+{
+  "id": "d00dcc0c-85db-45a0-8ee8-d20525e0f082",
+  "version": "2.0",
+  "name": "check-availability-and-booking",
+  "url": "https://www.campingspot.cf",
+  "tests": [{
+    "id": "7767f92e-dda9-476c-9447-df50027500ba",
+    "name": "as-cp-testing",
+    "commands": [{
+      "id": "b78d5aa5-c72e-4cf9-bee4-11303616b1c4",
+      "comment": "",
+      "command": "open",
+      "target": "/code/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "28e93297-041f-44f7-8c3a-c03b0fe79d6a",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1070x820",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8a786356-c6bc-4ac2-91f5-aa84d7149963",
+      "comment": "",
+      "command": "click",
+      "target": "id=start-date-1",
+      "targets": [
+        ["id=start-date-1", "id"],
+        ["name=start", "name"],
+        ["css=#start-date-1", "css:finder"],
+        ["xpath=//input[@id='start-date-1']", "xpath:attributes"],
+        ["xpath=//div[@id='flight-datepicker']/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a933028a-25ad-4057-9552-9183187cd6aa",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(4) > .day:nth-child(3)",
+      "targets": [
+        ["css=tr:nth-child(4) > .day:nth-child(3)", "css:finder"],
+        ["xpath=//tr[4]/td[3]", "xpath:position"],
+        ["xpath=//td[contains(.,'21')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bf23ef78-14ae-46fb-98eb-60015481c2e1",
+      "comment": "",
+      "command": "click",
+      "target": "id=end-date-1",
+      "targets": [
+        ["id=end-date-1", "id"],
+        ["name=end", "name"],
+        ["css=#end-date-1", "css:finder"],
+        ["xpath=//input[@id='end-date-1']", "xpath:attributes"],
+        ["xpath=//div[@id='flight-datepicker']/div/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "21e120e7-8a6d-40f1-b0b9-8e0745d8a880",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(4) > .day:nth-child(4)",
+      "targets": [
+        ["css=tr:nth-child(4) > .day:nth-child(4)", "css:finder"],
+        ["xpath=//tr[4]/td[4]", "xpath:position"],
+        ["xpath=//td[contains(.,'22')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cfc9682d-6024-47ae-9805-bdcc8732c550",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col-6:nth-child(1) > .nice-select",
+      "targets": [
+        ["css=.col-6:nth-child(1) > .nice-select", "css:finder"],
+        ["xpath=//div/div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "73c51b62-112f-4c91-b2f2-d2b2a4eb47d3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.open .option:nth-child(4)",
+      "targets": [
+        ["css=.open .option:nth-child(4)", "css:finder"],
+        ["xpath=//div/div/ul/li[4]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fdb3a3b3-63a4-44f5-8138-95bf93de37c3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col-6:nth-child(2) > .nice-select",
+      "targets": [
+        ["css=.col-6:nth-child(2) > .nice-select", "css:finder"],
+        ["xpath=//div[2]/div/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e362b17d-7704-45f9-a13b-7623340c4ebf",
+      "comment": "",
+      "command": "click",
+      "target": "css=.open .option:nth-child(2)",
+      "targets": [
+        ["css=.open .option:nth-child(2)", "css:finder"],
+        ["xpath=//div[2]/div/ul/li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'1')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d9222c0d-7f04-4476-a2fc-c9abe9adbb91",
+      "comment": "",
+      "command": "click",
+      "target": "id=book",
+      "targets": [
+        ["id=book", "id"],
+        ["css=#book", "css:finder"],
+        ["xpath=//a[contains(text(),'pesquisar disponibilidade')]", "xpath:link"],
+        ["xpath=//a[@id='book']", "xpath:attributes"],
+        ["xpath=//div[3]/div/div/div[3]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3aaf23b3-6f4b-4b1d-802b-a448f822f539",
+      "comment": "",
+      "command": "click",
+      "target": "id=pagamento",
+      "targets": [
+        ["id=pagamento", "id"],
+        ["css=#pagamento", "css:finder"],
+        ["xpath=//a[contains(text(),'Prosseguir')]", "xpath:link"],
+        ["xpath=//a[@id='pagamento']", "xpath:attributes"],
+        ["xpath=(//a[contains(@href, 'activity.html')])[2]", "xpath:href"],
+        ["xpath=//div[2]/div/div/div[2]/div/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8e318984-ba64-4541-acd0-20927e7945f6",
+      "comment": "",
+      "command": "click",
+      "target": "id=futebol",
+      "targets": [
+        ["id=futebol", "id"],
+        ["css=#futebol", "css:finder"],
+        ["xpath=//input[@id='futebol']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "36768e2b-68db-41c1-b75b-b8e1f3c17534",
+      "comment": "",
+      "command": "type",
+      "target": "id=futebol",
+      "targets": [
+        ["id=futebol", "id"],
+        ["css=#futebol", "css:finder"],
+        ["xpath=//input[@id='futebol']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "2"
+    }, {
+      "id": "a1d063d8-87be-497f-a0de-9257f9972058",
+      "comment": "",
+      "command": "click",
+      "target": "id=pagamento",
+      "targets": [
+        ["id=pagamento", "id"],
+        ["css=#pagamento", "css:finder"],
+        ["xpath=//input[@id='pagamento']", "xpath:attributes"],
+        ["xpath=//form/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4998533e-6551-45d1-a909-73006b48b86e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form_input:nth-child(1)",
+      "targets": [
+        ["css=.form_input:nth-child(1)", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ef11eefb-0132-411e-bf1a-d91d0337c491",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form_input:nth-child(1)",
+      "targets": [
+        ["css=.form_input:nth-child(1)", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Jodionisio"
+    }, {
+      "id": "0d53fc32-0945-4b1b-9c9e-1f3af42898ed",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form_input:nth-child(2)",
+      "targets": [
+        ["css=.form_input:nth-child(2)", "css:finder"],
+        ["xpath=(//input[@type='text'])[2]", "xpath:attributes"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "afd0e7e4-ef9a-4750-8767-eae696180ef1",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form_input:nth-child(2)",
+      "targets": [
+        ["css=.form_input:nth-child(2)", "css:finder"],
+        ["xpath=(//input[@type='text'])[2]", "xpath:attributes"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "Muachifi"
+    }, {
+      "id": "7d8977bf-8c78-4cc5-a72f-fee1be0d4f79",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form_input:nth-child(4)",
+      "targets": [
+        ["css=.form_input:nth-child(4)", "css:finder"],
+        ["xpath=(//input[@type='text'])[3]", "xpath:attributes"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e36942b5-5404-4941-a2c3-a33b48d94cfd",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form_input:nth-child(4)",
+      "targets": [
+        ["css=.form_input:nth-child(4)", "css:finder"],
+        ["xpath=(//input[@type='text'])[3]", "xpath:attributes"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": "test@ua.pt"
+    }, {
+      "id": "266e897b-f975-4022-bb9b-a2f48262d9c5",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form_input:nth-child(5)",
+      "targets": [
+        ["css=.form_input:nth-child(5)", "css:finder"],
+        ["xpath=(//input[@type='text'])[4]", "xpath:attributes"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a0e159aa-8ddf-45cd-8056-594630be3f43",
+      "comment": "",
+      "command": "type",
+      "target": "css=.form_input:nth-child(5)",
+      "targets": [
+        ["css=.form_input:nth-child(5)", "css:finder"],
+        ["xpath=(//input[@type='text'])[4]", "xpath:attributes"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "939450250"
+    }, {
+      "id": "8a65ec3f-2730-4e1f-888a-f14daa0a96f3",
+      "comment": "",
+      "command": "click",
+      "target": "id=paypal",
+      "targets": [
+        ["id=paypal", "id"],
+        ["name=fav_language", "name"],
+        ["css=#paypal", "css:finder"],
+        ["xpath=//input[@id='paypal']", "xpath:attributes"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bb16ed0c-01df-48f0-a4ec-42eeb42c5f72",
+      "comment": "",
+      "command": "click",
+      "target": "id=butao_de_pagar",
+      "targets": [
+        ["id=butao_de_pagar", "id"],
+        ["css=#butao_de_pagar", "css:finder"],
+        ["xpath=//input[@id='butao_de_pagar']", "xpath:attributes"],
+        ["xpath=//section/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "d6481b4c-7a69-4082-98b5-e38af01602cf",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["7767f92e-dda9-476c-9447-df50027500ba"]
+  }],
+  "urls": ["https://www.campingspot.cf/"],
+  "plugins": []
+}

@@ -1,0 +1,2 @@
+Each group shall prepare slides to support the presentation (10 minutes max.) of the application motivation, context, users (personas), 
+sample usage scenarios, tasks and main functional and non-functional requirements. 

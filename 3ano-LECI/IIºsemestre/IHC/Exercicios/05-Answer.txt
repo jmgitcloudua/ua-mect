@@ -1,0 +1,195 @@
+1. A avaliação de Experiência de Utilizador (UX) e usabilidade é fundamental no 
+processo de desenvolvimento de qualquer sistema interactivo porque é através desta avaliação poderá saber-se, se um determinado
+dispositivo ou sistema interativo é utilizável e qual a experiência acarretada pelo utilizador.
+
+2. – A avaliação Heurística é um método de avaliação analítico porque permite avaliar um sistema interativo(SI) de forma rápida,
+não onerso e fácil. Também é utilizado para facilmente encontrar os problemas de usabilidade no design para que possam ser atendidos 
+como parte de um processo de design iterativo.
+
+3. O resultado de uma avaliação heurística a ser fornecido à equipe de projecto é aquele que melhor se adequada aos problemas
+a serem solucionados nesta equipe.
+
+4. – A avaliação heurística é um método de avaliação subjectivo porque é parcialmente superado com avaliadores cada vez 
+mais experientes.
+
+5. Sim. É possível usar diferentes listas de heurísticas porque é através destas listas que permitir-se-a deferenciar as tarefas
+avaliadas de UI/UX separadamente para cada caso testado.
+
+6. Classificar um potencial problema de usabilidade através da heurística (ou heurísticas) que não é cumprida, tem a vantagem de
+SI ser melhorado e fornecer eficientes UI/UX para utilizador.
+
+7. O interesse em fornecer um grau de gravidade para cada problema, isto permite organizar os problemas dos mais graves aos 
+menos graves facilitando a resolução dos mesmos.
+	
+
+8. Para atribuir a gravidade de um problema de se ter em conta a combinação de 3 fatores:
+	• A frequência com que o problema ocorre
+	• O impacto do problema se ocorrer
+	• A persistência do problema
+
+9. os analistas devem trabalhar independentemente numa primeira fase porque permitirá o seguinte:
+	– Primeiro, ter uma ideia geral da interface do usuário
+	– Em seguida, executar uma inspeção detalhada usando um conjunto de heurísticas
+	– Listar problemas de usabilidade (heurística não seguida e grau de gravidade)
+
+10. O n. de avaliadores que devem fazer a avaliação heurística deve ser escolhido de acordo o seguinte critério:
+	– Complexidade da interface do usuário
+	– Experiência dos avaliadores
+	– Custos/benefícios esperados
+	– Criticidade do sistema (custo de erros do usuário)
+
+11. A avaliação heurística no processo de desenvolvimento de UI deve ser usada quando para testar se interface está sendo 
+desenvolvida de acordo com o planejado.
+
+12. Uma limitação importante da avaliação heurística é facto de não ser possível encontrar todos problemas de usabilidade.
+
+13. Para minorar o facto da avaliação heurística ser subjectiva é necessário ter mais avaliadores experientes.
+
+14. A avaliação heurística não deve ser usada como único método de avaliação de usabilidade porque tem suas limitações.
+
+15. Um método de avaliação de usabilidade empírico é aquele óbitdo pela experiência envolvendo utilizadores tais como:
+Obseravção, inquérito e experiência controladas.
+
+16. O Cognitive Walkthrough(CW) é um método analítico porque pode ser testado sem envolver utilizadores.
+
+17. O principal objectivo do Cognitive Walkthrough é avaliar a capacidade de aprendizado (ou seja, quão fácil é para novos usuários
+para realizar tarefas com o sistema).
+
+18. As duas regras a aplicar num teste de usabilidade em relação a ética são:	
+	1 - Segurança (evitar qualquer risco)
+	2 - Confidencialidade
+
+19. Os métodos de avaliação de usabilidade que são usados num teste de usabilidade são:
+	- Heuristic Evaluation
+	- Cognitive Walkthrough
+	-> Observation
+	-> Query
+
+20. Os métodos de inquérito podem ser questionários e entrevistas.
+	- Questionários vantagens: alcança mais pessoas; 
+	- Questionários desvantagens: É menos flexível
+	- Entrevistas vantagens: É mais flexível
+	- Entrevistas desvantagens: Não alcança maior número de pessoas
+
+21. As variáveis dependentes numa experiência controlada são variáveis de saída que permite-nos saber o que relament é medido.
+
+22. As variáveis independentes numa experiência controlada são variáveis de entrada que permite-nos saber o que realmente é controlado.
+
+23. O think-aloud é uma variante do método de observação. Tem este nome porque os utilizadores são questionados para explicar 
+o que estão fazendo.
+
+24. Uma desvantagem do método de observação think-aloud é facto de mudar o comportamento do utilizador.
+
+25. uma vantagem do método de observação think-aloud é facto de ser flexível, simples de aprender e aplicar.
+
+26. A utilização de protótipos de baixa fidelidade (de papel) na avaliação de usabilidade tem as vantagens:
+	- É barato e obtem-se feedback rapidamente
+	- Obter o feedback dos utilizadores sobre os aspectos gereais
+	- É simples de modificar remove-se o que não presta mesmo durante o teste de usabilidade
+	- É valioso para tester o modelo conceptual de UI
+
+27. O protocolo de uma experiência controlada é um método impirico do qual envolve utilizadores, i.e, define hipoteses,
+define o design experimental,etc.
+
+28. A diferença entre o design experimental entre-grupos e dentro-de-grupos numa experiência controlada é:
+	- O design experimental entre-grupos, cada participante usa apenas uma condição.
+	- O design experimental dentro-de-grupos, todos participantes usa as mesmas condições 
+	(geralmente em ordem aleatória para evitar viés).
+
+29. A hipótese numa experiência controlada é um conjunto procedimentos provisorimente prováveis para ser utilizado numa experiência.
+
+30. Os métodos de avaliação de usabilidade baseados em modelos são métodos análiticos onde não usa-se utilizadores para experiência.
+
+31. OS modelos QUE conheÇO que podem ser utilizados na avaliação de usabilidade baseada em modelos são:
+
+32. A diferença entre avaliações de campo e de laboratório é:
+	- Avaliações de campo utiliza método impirico para avaliação e é mais realistico.
+	- Avaliações de laboratório utiliza também método impirico e é mais controlado.
+
+33. As avaliações de campo relativamente às de laboratório têm as seguintes desvantagens:
+	- As avaliações de campo não têm controlo da experiência
+	- As avaliações de laboratório não é realistico
+
+34.As avaliações de campo relativamente às de laboratório têm as seguintes vantagens:
+	-
+	-
+
+35. A diferença entre métodos de avaliação de usabilidade empíricos e analíticos é:
+	- Métodos de avaliação de usabilidade empíricos envolvem utilizadores na experiência
+	- Métodos de avaliação de usabilidade analíticos não envolvem utilizadores na experiência
+
+36. O Streamlined Cognitive Walkthrough é uma versão simplificada do método originalmente proposto . As perguntas que devem ser 
+feitas em cada passo são:
+	1º - Will the user know what to do at this step?
+	2º - If the user does the right thing, will they know that they did the right thing, and are making 
+	progress towards their goal?
+
+37. Uma avaliação heurística se descreve da seguinte forma:
+	- É uma inspeção sistemática de um design para usabilidade
+	- Destina-se a encontrar os problemas de usabilidade no design para que eles possam
+	   ser atendido como parte de um processo de design iterativo
+	- Envolve um pequeno conjunto de analistas julgando a interface do usuário em relação a uma lista de
+		princípios de usabilidade ("heurística").
+
+38. O processo de desenvolvimento dum Sistema interactivo Cognitive Walkthrough deve ser usado quando a experiência não envolve
+utilizadores (é um método analitico)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

@@ -1,0 +1,4 @@
+﻿π item.codProd, item.unidades, encomenda.fornecedor 
+(
+	item ⨝ (item.numEnc = encomenda.numero) encomenda
+)

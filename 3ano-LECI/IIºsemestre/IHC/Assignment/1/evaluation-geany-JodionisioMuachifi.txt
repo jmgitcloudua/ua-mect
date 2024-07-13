@@ -1,0 +1,34 @@
+Some cons(issue) about Geany IDE
+•	Does not have code Templates??
+•	Does not support Error Markup
+•	Does not support remote file editing protocols
+•	Does not include Unit Testing
+•	UI is not more intuitive(some icons may not be needed)
+•	Does not have integrated Debugger
+•	Does not have collaborative editing 
+•	Does not have interactive console
+•	Does not include an Integrated Debugger
+•	Does not have a quickly help (JIT - Just In Time)
+•	Does not have a quickly continuous Delivery updates releases
+•	Does not support RTL (Right To Left – Arabic format)
+
+Heuristic Evaluation
+
+1.	Issue:  Does not have a quickly continuous Delivery updates releases
+Heuristic: Visibility of system status
+Severity: 2,3
+2.	Issue: Does not support Error Markup
+Heuristic: User control and freedom
+Severity: 2
+3.	Issue: Does not include Unit Testing/ Does not have integrated Debugger
+Heuristic: Error prevention
+Severity: 3,4
+4.	Issue:  Does not have collaborative editing
+Heuristic: Flexibility and efficiency of use
+Severity: 2
+5.	Issue:  UI is not more intuitive (some icons may not be needed)
+Heuristic: Aesthetic and minimalist design
+Severity: 2
+6.	Issue:  Does not have a quickly help
+Heuristic: Help and documentation
+Severity: 2

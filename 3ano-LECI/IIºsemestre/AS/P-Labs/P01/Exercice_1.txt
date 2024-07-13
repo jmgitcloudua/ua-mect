@@ -1,0 +1,13 @@
+Análise de Sistemas | Ano 2021-2022 | 2º Semestre | LECI
+
+-> A atividade começa recebendo-se o pedido de encomenda
+
+-> Se o pedido for aceito, este será preenchido, caso contrário será rejeitado e,
+por conseguinte fechado
+
+-> Depois do pedido de encomenda ter sido preenchido, de forma simultânea é gerado 
+uma fatura e enviada ao cliente
+
+-> O cliente faz o pagamento e, depois deste ter sido aceite, à encomenda é expedida(enviada) para o cliente
+
+-> Depois do processo ter sido terminado, o pedido de encomenda é fechado

@@ -1,0 +1,108 @@
+1. O assunto da ISO standard 13407(1999) é tratar de Human Centered(HCD) Design para sistemas interativos e, define HCD como: 
+Uma abordagem para o desenvolvimento de sistemas interativos que se concentra especificamente em tornar os sistemas utilizáveis. 
+É uma atividade multidisciplinar
+
+2. As principias carateristicas de UCD/HCD involve:
+	- Compreender as necessidades, motivações, contextos e atividades dos usuários.
+	- Compreender oportunidades de negócios, técnicas e de domínio, requisitos e restrições.
+	- Usando esse conhecimento como base para criar produtos cuja forma, conteúdo e comportamento sejam úteis, utilizáveis,
+ economicamente viáveis etecnicamente viável.
+	- Devemos conhecer os casos de sucesso (paradigmas de usabilidade).
+	- Entenda por que eles funcionam (princípios de usabilidade) .
+Nota: todos propósitos das metodologias de UCD são iterativos e incluem a avaliação de usabilidade em iterações.
+
+3. A usability é um requisito não-funcional porque em sua essência não especifica partes da funcionalidade do sistema, 
+apenas como essa funcionalidade deve ser percebida pelo usuário, por exemplo, quão fácil deve ser de aprender e quão eficiente 
+deve ser para realizar as tarefas do usuário. 
+
+4. Os tipos de requistitos não-funcionais são: capacidade, escabilidade, disponibilidade, confiabilidade, recurabilidade
+manutenibilidade, facilidade de manutenção, interoperabilidade, portabilidade, eficiência,etc.
+
+5. As principais carateristicas do design participativo são:
+	- É orientado para o trabalho e não orientado para o sistema.
+	- É colaborativo – os usuários contribuem em todas as fases.
+	- É iterativo – o design é avaliado e revisado em todas as fases.
+
+6.  Wizard of Oz method é um metódo que define um subconjunto real usado no design de linguagem natural.
+Exemplo: definição de um conjunti de gestos usados para usar em um jogo.
+
+7. As principias técnicas usadas no disign participativo para obter mais informação de utilizadores são:
+	– Brainstorming
+	– Scenarios
+	– Story boarding
+	– Workshops
+	– Paper and pencil exercises...
+
+8. Personas são personagens fictícios baseados em pesquisas para representar os diferentes tipos de usuários. Os benifícios de usar 
+Personas são:
+	- Oferecer uma maneira rápida e barata de testar e priorizar recursos durante todo o processo de desenvolvimento
+	- Ajuda a: Concentrar as decisões adicionando uma camada de consideração do mundo real; As partes interessadas avaliam
+	 novas ideias de recursos; Arquitetos de informação desenvolvem wireframes informados e comportamentos de interface;
+	 Designers criam a aparência geral; Engenheiros/desenvolvedores de sistemas decidem quais abordagens tomar
+		com base no comportamento do usuário;  Stakeholders avaliam novas ideias de recursos.
+
+9. As Personas são desenvolvidas da seguinte forma:
+	- Criar 2-4 Personas do público principal do produto/serviço.
+	- Fazer pesquisas com usuários: Quem são os usuários? Por que eles estão usando o sistema?
+	Que comportamentos, suposições e expectativas? .
+	- Desenvolver as descrições apropriadas de cada persona: histórico, motivações e expectativas.
+	- Não incluir informações muito pessoais.
+	- Seja relevante e sério
+
+10. A principal diferença que existem entre fictional Persona e outras Personas é que:
+fictional Persona apenas podem ser usados como um esboço inicial das necidades do utilizador. 
+Além disso, fictional Perosna são criados com base em suposições, não em pesquisas de usuários.
+
+11. O conjunto minímo de caraterísticas para descrever uma Persona são:
+	- As necessidades dos utilizadores
+	- Experiências  ""
+	- Comportamentos ""
+	- Objetivos	""
+
+12. Scenarios são histórias e contextos de como os grupos de utilizadores usam um produto/serviço.
+Os Scenarios são úteis em sistemas interativos porque graça a eles permite-se 
+	- comunicar as principais tarefas que um utilizador executará num sistema. 
+	- Eles também podem ajudar a definir o regime de testes de usabilidade.
+	- Criar cenários de utilizador é um processo simples e deve ser usado para desenvolver e iterar produtos interativos.
+
+13. As Personas se relacionam com os Scenarios da seguinte forma:
+	- Os cenários precisam ser baseados em pesquisas com utilizadors.
+	- Normalmente leva em conta os usuários mais comuns ou as motivações dos utilizadors.
+
+14. A diferença entre Scenarios, User stories e Use cases é a seguinte:
+	- Os Scanarios são criados por pesquisadores de utilizadores para ajudar na comunicação com a equipe de design.
+	- os User stories são criadas por gerentes de projeto/produto para definir os requisitos antes de um sprint
+	 no desenvolvimento ágil.
+	- Os Use case são criados para os desenvolvedores ajudarem com os testes.
+
+15. O que Scenarios, User stories e use cases têm em commum é que todos três podem ser representados na linguagem UML.
+
+16. As três fases da metologia proposta por D. Mayhew em 1999 sobre HCD/UCD são: 
+	- Análise de requisitos (1)
+	- Design/Teste/Desenvolvimento (2)
+	- Instalação (3)
+Através destas fases inconcluem o seguinte:
+	- (1) perfil do utilizador, análise de tarefa contextual, Definição de metas de usabilidade, 
+	Capacidades e restrições da plataforma, Princípios Gerais de Design.
+	- (2) Padrões de design de tela, Prototipagem de Padrões de Design de Tela, Avaliação de padrões de design de tela iterativa,
+	Desenvolvimento de guia de estilo, Design detalhado da interface do usuário, Avaliação iterativa da interface do usuário.
+	- (3) User Feedback
+
+17. Na primeira fase do ciclo de vida da Engenharia de Usabilidade na Análise de Requisitos é o User Profile,
+onde se estabelece caraterísticas do utilizador importantes para o design da interface do utilizador.
+
+18. 
+
+19. Model-View-Control
+	- Model é o componente central do padrão. Ele expressa o comportamento do aplicativo em termos do domínio do problema, 
+	independente da interface do usuário. Ele gerencia os dados, a lógica e as regras do aplicativo.
+	- View pode ser qualquer representação de saída de informações. Várias visualizações das mesmas informações são possíveis,
+	 como um gráfico de barras para gerenciamento e uma visualização tabular para contadores.
+	- Control aceita entrada e a converte em comandos para o modelo ou vista.
+
+20. O Model-View-Control tem benifícios pelo facto de possuir: segurança, sobustez, confiabilidade,
+eficiência, performance, simples de usar, simples de construir, escalabilidade, modularidade, portabilidade.
+
+
+
+

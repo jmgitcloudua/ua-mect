@@ -1,0 +1,1 @@
+γ item.numEnc; avg(item.unidades)->avg (item)

@@ -1,0 +1,9 @@
+D:\OneDrive\u-aveiro\livros-apostilas\3ºAno-LECI\IIºSemestre\BD\AulasPraticas\aula7\Aula7_VS_Forms_Material\ContactsC#\Contacts\bin\Debug\Contacts.exe
+D:\OneDrive\u-aveiro\livros-apostilas\3ºAno-LECI\IIºSemestre\BD\AulasPraticas\aula7\Aula7_VS_Forms_Material\ContactsC#\Contacts\bin\Debug\Contacts.pdb
+D:\OneDrive\u-aveiro\livros-apostilas\3ºAno-LECI\IIºSemestre\BD\AulasPraticas\aula7\Aula7_VS_Forms_Material\ContactsC#\Contacts\obj\x86\Debug\Contacts.csproj.AssemblyReference.cache
+D:\OneDrive\u-aveiro\livros-apostilas\3ºAno-LECI\IIºSemestre\BD\AulasPraticas\aula7\Aula7_VS_Forms_Material\ContactsC#\Contacts\obj\x86\Debug\Contacts.Form1.resources
+D:\OneDrive\u-aveiro\livros-apostilas\3ºAno-LECI\IIºSemestre\BD\AulasPraticas\aula7\Aula7_VS_Forms_Material\ContactsC#\Contacts\obj\x86\Debug\Contacts.Properties.Resources.resources
+D:\OneDrive\u-aveiro\livros-apostilas\3ºAno-LECI\IIºSemestre\BD\AulasPraticas\aula7\Aula7_VS_Forms_Material\ContactsC#\Contacts\obj\x86\Debug\Contacts.csproj.GenerateResource.cache
+D:\OneDrive\u-aveiro\livros-apostilas\3ºAno-LECI\IIºSemestre\BD\AulasPraticas\aula7\Aula7_VS_Forms_Material\ContactsC#\Contacts\obj\x86\Debug\Contacts.csproj.CoreCompileInputs.cache
+D:\OneDrive\u-aveiro\livros-apostilas\3ºAno-LECI\IIºSemestre\BD\AulasPraticas\aula7\Aula7_VS_Forms_Material\ContactsC#\Contacts\obj\x86\Debug\Contacts.exe
+D:\OneDrive\u-aveiro\livros-apostilas\3ºAno-LECI\IIºSemestre\BD\AulasPraticas\aula7\Aula7_VS_Forms_Material\ContactsC#\Contacts\obj\x86\Debug\Contacts.pdb

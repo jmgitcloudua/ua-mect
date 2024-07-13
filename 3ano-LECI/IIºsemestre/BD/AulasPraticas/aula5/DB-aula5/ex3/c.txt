@@ -1,0 +1,4 @@
+﻿σ prescricao.farmacia != null 
+(
+	γ prescricao.farmacia; count(prescricao.numPresc)->n_presc prescricao
+)

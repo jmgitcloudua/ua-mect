@@ -1,0 +1,95 @@
+1. Os modelos cognitivos GOMS e KLM modelam os aspectos do conhecimento do utilizador, as intencões ou processamento.
+	- GOMS é usado em objetos e hierarquis de tarefas
+	- KLM é usado em dispositivos e modelo físico
+
+2. GOMS tem a seguinte definição de cada letra:
+	- Goals, define o que o utilizador quer alcançar.
+	- Operators, define operações básicas que o utilizador deve realizar para utilizar o sistema.
+	- Methods, define possíveis decomposições do objetivo em subjetivos.
+	- Selection, define regras para selectionar os métodos possíveis(levando em considerção o tipo de utilizador e status
+	  do sistema).
+
+3. O modelo GOMS tem a seguinte limitação: Não fornece informações sobre o conhecimento do utilizador para estimar os 
+tempos de treinamento ou transferência.
+
+4. O prolema do fecho (closure problem) é um problema do qual o utilizador atinge a meta antes que a tarefa seja concluída.
+
+5. Analisando a estrutura de uma decompisição GOMS pode se obter o seguinte tipo de informação:
+	- Short Term Memory load(profundidade da estrutura do objetivo)
+	- Time needed (um tempo para cada operador)
+
+6. O modelo KLM(Keystroke-Level Model) modela :
+	- Tarefas de interação unitária(sequências de comandos simples <20s).
+ 	- O desempenho do utilizador com base nas caraterísticas do sistema motor.
+	- Apenas a fase de execução (o utilizador já decidiu como usar a tarefa).
+
+7. O medelo KLM usam 7 operadores tais como:
+	– K- Keystroke (varies with typing skill)
+	– B- Button press of the mouse
+	– P- Pointing at a target (Fitts’ law)
+	– H- Homming between mouse and keyboard
+	– D- Drawing using mouse
+	– M- Mentally preparing for physical action
+	– R- System Response (often may be ignored)
+
+8. O modelo KLM se aplica nas condições em que se pretende aproximar resultados obtidos de uma tarefa utilizados em dispositivos.
+
+9. A lei de Fitts é uma lei da aplicada na fase execução do operador P (Pointing at a target) no modelo KLM. A lei relata
+do modelo empírico explicando as características de troca de velocidade e precisão do movimento muscular humano com alguma analogia
+com o teorema da capacidade do canal de Shannon. 
+
+10. A principal aplicação da Lei Fitts é que permite estimar o tempo médio que um utilizador leva para selecionar um alvo 
+considerando a distância (D) do cursor e a Largura (W) do alvo. A expressão para calcular o tempo médio é dado por:
+	T = a + b log(2 D/W), onde a,b são cofiecients.
+
+11. Uma análise de tarefas é uma análise que descreve de como as pessoas realizam as tarefas, i.e,
+	- o que elas fazem
+	- o ques elas usam
+	- o que elas precisam
+
+12. 
+
+13. Task decomposition divide as tarefas em subtarefas que devem ser executado em uma sequência específica.
+O método Knowledge based considera o que os utilizadores precisam saber sobre os objetos e ações envolvidos na execução da 
+tarefa e como o conhecimento é organizado.
+
+14. A diferença que existe entre uma decompisição GOMS e Task Analysis é a seguinte:
+A Decomposição GOMS organiza as tarefas hierarquicamente enquanto que Task Analysis é uma técnica usada para 
+decompor as tarefas sequencialmente além de ser hierárquica.
+
+15. O método Hierarchical Task Analysis(HTA) é um método utilizado para decompor as tarefeas hierarquicamente, i.e,
+	- Produz uma hierarquia de tarefas e subtarefas.
+	- Produz planos com sequência e condições de execução.
+
+16. Os tipos de planos que podem ocorrer numa HTA são: sequência fixa, tarefas opcionais, aguardando eventos,
+ciclos, compartilhamento de tempo, aleatório, mistura de vários tipos.
+
+17. As principais fontes de informação que se podem usar para fazer uma análise de tarefas são:
+	- Documentação
+	- Observação (expensive)
+	- Entrevistas (expensive)
+
+18. As principsias aplicações da análise de tarefas são usadas em:
+	- Manuais e materiais didáticos.
+  	- Projeto de sistema de alto nível.
+  	- Projeto detalhado da interface do usuário do sistema.
+
+19. O métodos de análises de tatrefas são objetivos porque permite decompor assim tarefas em subtarefas e assim ter 
+melhor controlo do que está ser feito de forma especifica.
+
+20. A regra que pode ser utilizada para tomar a decisão de parar uma decomposição na utilização da HTA é:
+Um valor especifico deve ser maior que a probalidade(P) de cometer um erro vezes o custo do erro(C), i.e,
+Stop if P x C < a specific value
+
+
+
+
+
+
+
+
+
+
+
+
+

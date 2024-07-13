@@ -1,0 +1,4 @@
+﻿γ medico.especialidade; count(medico.numSNS)->nMedicos 
+(
+	prescricao ⨝ (prescricao.numMedico = medico.numSNS) medico
+)

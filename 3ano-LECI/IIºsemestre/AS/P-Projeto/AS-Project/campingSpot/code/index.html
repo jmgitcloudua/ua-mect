@@ -1,0 +1,619 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]>
+<!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+
+	<!-- Basic Page Needs
+	================================================== -->
+	<meta charset="utf-8">
+	<title>CampingSpot</title>
+	<meta name="description" content="Professional Creative Template" />
+	<meta name="author" content="IG Design">
+	<meta name="keywords"
+		content="ig design, website, design, html5, css3, jquery, creative, clean, animated, portfolio, blog, one-page, multi-page, corporate, business," />
+	<meta property="og:title" content="Professional Creative Template" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="" />
+	<meta property="og:image" content="" />
+	<meta property="og:image:width" content="470" />
+	<meta property="og:image:height" content="246" />
+	<meta property="og:site_name" content="" />
+	
+
+	<!-- Mobile Specific Metas
+	================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#6dc234" />
+	<meta name="msapplication-navbutton-color" content="#212121" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="#212121" />
+	  
+
+	<!-- Web Fonts 
+	================================================== -->
+	<link
+		href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+		rel="stylesheet" />
+	<link
+		href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
+		rel="stylesheet">
+
+	<!-- CSS
+	================================================== -->
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/font-awesome.min.css" />
+	<link rel="stylesheet" href="css/ionicons.min.css" />
+	<link rel="stylesheet" href="css/datepicker.css" />
+	<link rel="stylesheet" href="css/jquery.fancybox.min.css" />
+	<link rel="stylesheet" href="css/owl.carousel.css" />
+	<link rel="stylesheet" href="css/owl.transitions.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/colors/color.css" />
+
+	<!-- manifest.json -->
+	<link rel="manifest" href="./app.webmanifest" />
+	<link rel="apple-touch-icon" type="image/png" sizes="32x32" href="./img/campingspot_logo_512.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="./img/maskable_icon_x192.png">
+
+	<!-- Favicons
+	================================================== -->
+	<link rel="icon" type="image/png" href="img/favicon-32x32.png">
+
+
+</head>
+
+<body>
+
+	<div class="loader">
+		<div class="loader__figure"></div>
+	</div>
+
+	<svg class="hidden">
+		<svg id="icon-nav" viewBox="0 0 152 63">
+			<title>navarrow</title>
+			<path
+				d="M115.737 29L92.77 6.283c-.932-.92-1.21-2.84-.617-4.281.594-1.443 1.837-1.862 2.765-.953l28.429 28.116c.574.57.925 1.557.925 2.619 0 1.06-.351 2.046-.925 2.616l-28.43 28.114c-.336.327-.707.486-1.074.486-.659 0-1.307-.509-1.69-1.437-.593-1.442-.315-3.362.617-4.284L115.299 35H3.442C2.032 35 .89 33.656.89 32c0-1.658 1.143-3 2.552-3H115.737z" />
+		</svg>
+	</svg>
+
+
+	<!-- Nav and Logo
+	================================================== -->
+
+	<nav id="menu-wrap" class="menu-back cbp-af-header">
+		<div class="menu-top background-black">
+			<div class="container">
+				<div class="row">
+					<div class="col-6 px-0 px-md-3 pl-1 py-3">
+						<span class="call-top"></span> <a href="#" class="call-top">CampingSpot</a>
+					</div>
+					<div class="col-6 px-0 px-md-3 py-3 text-right">
+						<a href="#" class="social-top">fb</a>
+						<a href="#" class="social-top">pt</a>
+						<div class="lang-wrap">
+							eng
+						</div>
+						<div class="lang-wrap">
+							<img src="img/user.svg" alt="" srcset="">
+							
+						</div>
+						<div class="widget-header dropdown" style="margin-top:-5%;">
+								<a href="#" data-toggle="dropdown" class="dropdown-toggle">
+									
+									<span class="sr-only">Ações</span>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right">
+									<a class="dropdown-item" href="account.html">Minha Conta</a>
+									<hr class="dropdown-divider">
+									<a class="dropdown-item" href="#">Definições</a>
+									<hr class="dropdown-divider">
+									<button type="submit" class="btn btn-primary btn-block mt-4" id="logout-btn"><em     class="fa fa-power-off"></em>      Terminar sessão</button>
+								</div> <!--  dropdown-menu .// -->
+							</div>  <!-- widget-header .// -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="menu">
+			<a href="index.html">
+				<div class="logo">
+					<img src="img/cp-logo.png" alt="">
+				</div>
+			</a>
+			<ul>
+				<li>
+					<a class="curent-page" href="index.html">home</a>
+
+				</li>
+				<li>
+					<a href="activity.html">atividades</a>
+				</li>
+				<li>
+					<a href="about.html">sobre nós</a>
+				</li>
+				<li>
+					<a href="contact.html">contactos</a>
+				</li>
+				<li>
+					<a href="search.html"><span>Reserve já</span></a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<!-- Primary Page Layout
+	================================================== -->
+
+	<div class="section background-dark over-hide">
+
+		<div class="hero-center-section">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-10 col-sm-8 parallax-fade-top">
+						<div class="hero-text">Descubra o seu paraíso no nosso parque de campismo</div>
+					</div>
+					<div class="col-12 mt-3 mb-5 parallax-fade-top">
+						<div class="hero-stars">
+							<em     class="fa fa-star-o"></em>     
+							<em     class="fa fa-star-o"></em>     
+							<em     class="fa fa-star-o"></em>     
+							<em     class="fa fa-star-o"></em>     
+							<em     class="fa fa-star-o"></em>     
+						</div>
+					</div>
+					<div class="col-12 mt-3 parallax-fade-top">
+						<div class="booking-hero-wrap">
+							<div class="row justify-content-center">
+								<div class="col-5 no-mob">
+									<div class="input-daterange input-group" id="flight-datepicker">
+										<div class="row">
+											<div class="col-6">
+												<div class="form-item">
+													<span class="fontawesome-calendar"></span>
+													<input class="input-sm" type="text" autocomplete="off"
+														id="start-date-1" name="start" placeholder="check-in date"
+														data-date-format="DD, MM d" onchange="getInfo()" />
+													<span class="date-text date-depart"></span>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="form-item">
+													<span class="fontawesome-calendar"></span>
+													<input class="input-sm" type="text" autocomplete="off"
+														id="end-date-1" name="end" placeholder="check-out date"
+														data-date-format="DD, MM d" onchange="getInfo()" />
+													<span class="date-text date-return"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-5 no-mob">
+									<div class="row">
+										<div class="col-6">
+											<select name="adults" class="wide" id="type" onchange="getInfo()">
+												<option data-display="Seleciona tipo"></option>
+												<option value="1">Tenda</option>
+												<option value="2">Caravana</option>
+												<option value="3">Camping RV</option>
+											</select>
+										</div>
+										<div class="col-6">
+											<select name="children" class="wide" id="nPeople" onchange="getInfo()">
+												<option data-display="Quantidade"></option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<!--<div class="col-6  col-sm-4 col-lg-2">
+									<a class="booking-button" id="book" onclick="book()">pesquisar disponibilidade</a>
+								</div>-->
+								<div class="col-6  col-sm-4 col-lg-2">
+									<a class="booking-button " id="book"  onclick="disponibilidade()" >pesquisar disponibilidade </a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="slideshow">
+			<div class="slide slide--current parallax-top">
+				<figure class="slide__figure">
+					<div class="slide__figure-inner">
+						<div class="slide__figure-img" style="background-image: url(img/slide_01.jpg)"></div>
+						<div class="slide__figure-reveal"></div>
+					</div>
+				</figure>
+			</div>
+			<div class="slide parallax-top">
+				<figure class="slide__figure">
+					<div class="slide__figure-inner">
+						<div class="slide__figure-img" style="background-image: url(img/slide_02.jpg)"></div>
+						<div class="slide__figure-reveal"></div>
+					</div>
+				</figure>
+			</div>
+			<div class="slide parallax-top">
+				<figure class="slide__figure">
+					<div class="slide__figure-inner">
+						<div class="slide__figure-img" style="background-image: url(img/slide_03.jpg)"></div>
+						<div class="slide__figure-reveal"></div>
+					</div>
+				</figure>
+			</div>
+			<!-- revealer -->
+			<div class="revealer">
+				<div class="revealer__item revealer__item--left"></div>
+				<div class="revealer__item revealer__item--right"></div>
+			</div>
+			<nav class="arrow-nav fade-top">
+				<button class="arrow-nav__item arrow-nav__item--prev">
+					<svg class="icon icon--nav">
+						<use xlink:href="#icon-nav"></use>
+					</svg>
+				</button>
+				<button class="arrow-nav__item arrow-nav__item--next">
+					<svg class="icon icon--nav">
+						<use xlink:href="#icon-nav"></use>
+					</svg>
+				</button>
+			</nav>
+			<!-- navigation -->
+			<nav class="nav fade-top">
+				<button class="nav__button">
+					<span class="nav__button-text"></span>
+				</button>
+				<h2 class="nav__chapter">descubra o seu paraíso</h2>
+				<div class="toc">
+					<a class="toc__item" href="#entry-1">
+						<span class="toc__item-title">descubra o seu paraíso</span>
+					</a>
+					<a class="toc__item" href="#entry-2">
+						<span class="toc__item-title">conforto despretensioso</span>
+					</a>
+					<a class="toc__item" href="#entry-3">
+						<span class="toc__item-title">alegria ao rubro</span>
+					</a>
+				</div>
+			</nav>
+			<!-- little sides -->
+			<div class="slideshow__indicator"></div>
+			<div class="slideshow__indicator"></div>
+		</div>
+	</div>
+
+
+
+
+	<div class="section padding-top-bottom over-hide" style="background-color: #f3f3f3;">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-8 align-self-center">
+					<div class="subtitle with-line text-center mb-4">acomodações elegantes</div>
+					<h3 class="text-center padding-bottom-small">caraterísticas especiais</h3>
+				</div>
+				<div class="section clearfix"></div>
+				<div class="col-sm-6 col-lg-4">
+					<div class="services-icon text-center">
+						<img src="img/home.svg" alt="">
+						<h5 class="mt-2">Serviço de acampamento exclusiva</h5>
+						<p class="mt-3">Lanches, refrigerantes, lembranças, presentes, suprimentos, lenha, gelo (sem
+							tabaco ou álcool disponível)</p>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-4 mt-5 mt-sm-0">
+					<div class="services-box text-center">
+						<img src="img/happy_family.jpg" alt="">
+
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-4 mt-5 mt-lg-0" >
+					<div class="services-icon text-center">
+						<img src="img/wifi.svg" alt="">
+						<h5 class="mt-2">Internet Wifi gratuita</h5>
+						<p class="mt-3">Dispomos de 5 antenas wifi no terreno para cobrir o campismo e assim permitir
+							que se mantenha “ligado” através da nossa rede</p>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-4 mt-5" style="margin-right:65%;">
+					<div class="services-icon text-center">
+						<img src="img/fire.png" alt="">
+						<h5 class="mt-2">Fogueira de grupo noturna</h5>
+						<p class="mt-3">Junte-se a nós para dias de canto, cozinha na fogueira, jogos, artes e ofícios
+							únicos e muito mais!</p>
+
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-4 mt-5"  style="position: absolute;margin-left:50%; top:60%;">
+					<div class="services-icon text-center">
+						<img src="img/smile.svg" alt="">
+						<h5 class="mt-2">playground</h5>
+						<p class="mt-3">Venha desfrutar de atividades tradicionais de playground, incluindo artes e
+							esportes artesanais e passeios de dia-a-dia.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="section padding-top-bottom over-hide background-grey">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-8 align-self-center">
+					<div class="subtitle with-line text-center mb-4">Conforto</div>
+					<h3 class="text-center padding-bottom-small">Nossa vista de preços</h3>
+				</div>
+				<div class="section clearfix"></div>
+				<div class="col-md-6">
+					<div class="room-box background-white">
+						<div class="room-name">tenda premium</div>
+						<div class="room-per">
+							<em     class="fa fa-star"></em>     
+							<em     class="fa fa-star"></em>     
+							<em     class="fa fa-star"></em>     
+							<em     class="fa fa-star"></em>     
+							<em     class="fa fa-star"></em>     
+						</div>
+						<img src="img/camping_tent.jpg" alt="">
+						<div class="room-box-in">
+							<h5 class="">tenda de campismo</h5>
+							<p class="mt-3">Tenda Premium com áreas amplas, bem definidas e confortáveis para si.
+								Acampar em tendas pode ser uma ótima atividade para famílias, mas também é uma maneira
+								ideal para casais e
+								amigos passarem tempo de qualidade juntos.
+							</p>
+							<a class="mt-1 btn btn-primary" href="search.html">book from 18€</a>
+							<div class="room-icons mt-4 pt-4">
+								<img src="img/wifi.svg" alt="">
+								<img src="img/fire.png" alt="">
+								<img src="img/shower.png" alt="">
+								<img src="img/laundry-machine.png" alt="" srcset="">
+								<img src="img/paypal-logo.png" alt="" srcset="">
+								<img src="img/no-smoking.png" alt="">
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 mt-4 mt-md-0">
+					<div class="room-box background-white">
+						<div class="room-name">caravana</div>
+						<div class="room-per">
+							<em     class="fa fa-star"></em>     
+							<em     class="fa fa-star"></em>     
+							<em     class="fa fa-star"></em>     
+							<em     class="fa fa-star"></em>     
+							<em     class="fa fa-star-o"></em>     
+						</div>
+						<img src="img/camping_caravan_1-891x891.jpg" alt="">
+						<div class="room-box-in">
+							<h5 class="">caravana de campismo</h5>
+							<p class="mt-3">Existem infinitas maneiras de desfrutar de um acampamento. Esteja você
+								munido uma tenda ou puxando seu trailer,
+								cada grupo de campistas tem sua própria preferência sobre como maximizar sua experiência
+								de acampamento.</p>
+							<a class="mt-1 btn btn-primary" href="search.html">book from 50€</a>
+							<div class="room-icons mt-4 pt-4">
+								<img src="img/wifi.svg" alt="">
+								<img src="img/fire.png" alt="">
+								<img src="img/shower.png" alt="">
+								<img src="img/laundry-machine.png" alt="" srcset="">
+								<img src="img/paypal-logo.png" alt="" srcset="">
+								<img src="img/no-smoking.png" alt="">
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 mt-4">
+					<div class="room-box background-white">
+						<div class="room-name">Camping RV</div>
+						<div class="room-per">
+							<em     class="fa fa-star"></em>     
+							<em     class="fa fa-star"></em>     
+							<em     class="fa fa-star"></em>     
+							<em     class="fa fa-star"></em>     
+							<em     class="fa fa-star"></em>     
+						</div>
+						<img src="img/camping_rv.jpg" alt="">
+						<div class="room-box-in">
+							<h5 class="">Campismo de RV</h5>
+							<p class="mt-3">Nossos locais de RV possuem uma variedade de tamanhos,
+								formas e com diferentes comodidades, dependendo de suas necessidades.
+								Oferecemos conexões, TV via satélite, Wi-Fi e muitas atividades junto com o campo de
+								trailers.</p>
+							<a class="mt-1 btn btn-primary" href="search.html">book from 90€</a>
+							<div class="room-icons mt-4 pt-4">
+								<img src="img/wifi.svg" alt="">
+								<img src="img/fire.png" alt="">
+								<img src="img/shower.png" alt="">
+								<img src="img/laundry-machine.png" alt="" srcset="">
+								<img src="img/paypal-logo.png" alt="" srcset="">
+								<img src="img/no-smoking.png" alt="">
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 mt-4">
+					<div class="room-box background-white">
+						<div class="room-name">Camping RV</div>
+						<div class="room-per">
+							<em     class="fa fa-star"></em>     
+							<em     class="fa fa-star"></em>     
+							<em     class="fa fa-star"></em>     
+							<em     class="fa fa-star"></em>     
+							<em     class="fa fa-star"></em>     
+						</div>
+						<img src="img/camping_rv_2-891x891.jpg" alt="">
+						<div class="room-box-in">
+							<h5 class="">Campismo de RV</h5>
+							<p class="mt-3">Nossos locais de RV possuem uma variedade de tamanhos,
+								formas e com diferentes comodidades, dependendo de suas necessidades.
+								Oferecemos conexões, TV via satélite, Wi-Fi e muitas atividades junto com o campo de
+								trailers.</p>
+							<a class="mt-1 btn btn-primary" href="search.html">book from 90€</a>
+							<div class="room-icons mt-4 pt-4">
+								<img src="img/wifi.svg" alt="">
+								<img src="img/fire.png" alt="">
+								<img src="img/shower.png" alt="">
+								<img src="img/laundry-machine.png" alt="" srcset="">
+								<img src="img/paypal-logo.png" alt="" srcset="">
+								<img src="img/no-smoking.png" alt="">
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="section padding-top z-bigger">
+		<div class="container">
+			<div class="row justify-content-center padding-bottom-smaller">
+				<div class="col-md-8">
+					<div class="subtitle with-line text-center mb-4">entrar em contato</div>
+					<h3 class="text-center padding-bottom-small">Deixe-nos uma mensagem</h3>
+				</div>
+				<div class="section clearfix"></div>
+				<div class="col-md-6 col-lg-4">
+					<div class="address">
+						<div class="address-in text-left">
+							<p class="color-black">Endereço:</p>
+						</div>
+						<div class="address-in text-right">
+							<p>Rua do Santiago, 3810</p>
+						</div>
+					</div>
+					<div class="address">
+						<div class="address-in text-left">
+							<p class="color-black">Cidade:</p>
+						</div>
+						<div class="address-in text-right">
+							<p>Aveiro</p>
+						</div>
+					</div>
+					<div class="address">
+						<div class="address-in text-left">
+							<p class="color-black">Check-In:</p>
+						</div>
+						<div class="address-in text-right">
+							<p>8h00</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-4">
+					<div class="address">
+						<div class="address-in text-left">
+							<p class="color-black">Telefone:</p>
+						</div>
+						<div class="address-in text-right">
+							<p>+351 933 374 537</p>
+						</div>
+					</div>
+					<div class="address">
+						<div class="address-in text-left">
+							<p class="color-black">Email:</p>
+						</div>
+						<div class="address-in text-right">
+							<p>info@campingspot.pt</p>
+						</div>
+					</div>
+					<div class="address">
+						<div class="address-in text-left">
+							<p class="color-black">Check-Out:</p>
+						</div>
+						<div class="address-in text-right">
+							<p>22h00</p>
+						</div>
+					</div>
+				</div>
+				<div class="section clearfix"></div>
+				<div class="col-md-8 text-center mt-5" data-scroll-reveal="enter bottom move 50px over 0.7s after 0.2s">
+					<p class="mb-0"><em>disponível das: 8h00 - 22h00</em></p>
+					<h2 class="text-opacity">+351 933 602 537</h2>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+	<div class="section padding-top-bottom-small background-black over-hide footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 text-center text-md-left">
+					<img src="img/cp-logo.png" alt="">
+					<p class="color-grey mt-4">Rua do Santiago, 3810-193<br>Aveiro</p>
+				</div>
+				<div class="col-md-4 text-center text-md-left">
+					<h6 class="color-white mb-3">informações</h6>
+					<a href="#">terms &amp; condições</a>
+					<a href="#">atividades</a>
+					<a href="#">testemunhos</a>
+					<a href="#">galeria &amp; imagens</a>
+				</div>
+				<div class="col-md-5 mt-4 mt-md-0 text-center text-md-left logos-footer">
+					<h6 class="color-white mb-3">sobre nós</h6>
+					<p class="color-grey mb-4">Somos estudantes pertencentes ao departamento de Eletrónica, Telecoms e
+						Informática</p>
+					<img src="img/logos/1.png" alt="">
+					<img src="img/logos/2.png" alt="">
+					<img src="img/logos/3.png" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="section py-4 background-dark over-hide footer-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 text-center text-md-left mb-2 mb-md-0">
+					<p>2022 © CampingSpot. Todos direitos reservados.</p>
+				</div>
+				<div class="col-md-6 text-center text-md-right">
+					<a href="#" class="social-footer-bottom">facebook</a>
+					<a href="#" class="social-footer-bottom">twitter</a>
+					<a href="#" class="social-footer-bottom">instagram</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="scroll-to-top"></div>
+
+
+	<!-- JAVASCRIPT
+    ================================================== -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/flip-slider.js"></script>
+	<script src="js/reveal-home.js"></script>
+	<script src="js/custom.js"></script>
+	<script src="js/account.js"></script>
+	<script src="./sw.js"></script>
+	<script src="./app.js"></script>
+	<script src="js/sistema_reservas.js"></script>
+	<!-- End Document
+================================================== -->
+</body>
+
+</html>

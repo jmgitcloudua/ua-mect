@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]>
+<!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+
+	<!-- Basic Page Needs
+	================================================== -->
+	<meta charset="utf-8">
+	<title>Cart | CampingSpot</title>
+	<meta name="description" content="Professional Creative Template" />
+	<meta name="author" content="IG Design">
+	<meta name="keywords"
+		content="ig design, website, design, html5, css3, jquery, creative, clean, animated, portfolio, blog, one-page, multi-page, corporate, business," />
+	<meta property="og:title" content="Professional Creative Template" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="" />
+	<meta property="og:image" content="" />
+	<meta property="og:image:width" content="470" />
+	<meta property="og:image:height" content="246" />
+	<meta property="og:site_name" content="" />
+
+	<!-- Mobile Specific Metas
+	================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="theme-color" content="#212121" />
+	<meta name="msapplication-navbutton-color" content="#212121" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="#212121" />
+
+	<!-- Web Fonts 
+	================================================== -->
+	<link
+		href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+		rel="stylesheet" />
+	<link
+		href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
+		rel="stylesheet">
+
+	<!-- CSS
+	================================================== -->
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/font-awesome.min.css" />
+	<link rel="stylesheet" href="css/ionicons.min.css" />
+	<link rel="stylesheet" href="css/datepicker.css" />
+	<link rel="stylesheet" href="css/jquery.fancybox.min.css" />
+	<link rel="stylesheet" href="css/owl.carousel.css" />
+	<link rel="stylesheet" href="css/owl.transitions.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/colors/color.css" />
+
+	<!-- Favicons
+	================================================== -->
+	<link rel="icon" type="image/png" href="img/favicon-32x32.png">
+
+
+
+</head>
+
+<body onload = "getAtividades(); completarTabela()">
+
+	<div class="loader">
+		<div class="loader__figure"></div>
+	</div>
+
+	<svg class="hidden">
+		<svg id="icon-nav" viewBox="0 0 152 63">
+			<title>navarrow</title>
+			<path
+				d="M115.737 29L92.77 6.283c-.932-.92-1.21-2.84-.617-4.281.594-1.443 1.837-1.862 2.765-.953l28.429 28.116c.574.57.925 1.557.925 2.619 0 1.06-.351 2.046-.925 2.616l-28.43 28.114c-.336.327-.707.486-1.074.486-.659 0-1.307-.509-1.69-1.437-.593-1.442-.315-3.362.617-4.284L115.299 35H3.442C2.032 35 .89 33.656.89 32c0-1.658 1.143-3 2.552-3H115.737z" />
+		</svg>
+	</svg>
+
+
+	<!-- Nav and Logo
+	================================================== -->
+
+	<nav id="menu-wrap" class="menu-back cbp-af-header">
+		<div class="menu-top background-black">
+			<div class="container">
+				<div class="row">
+					<div class="col-6 px-0 px-md-3 pl-1 py-3">
+						<span class="call-top"></span> <a href="#" class="call-top">CampingSpot</a>
+					</div>
+					<div class="col-6 px-0 px-md-3 py-3 text-right">
+						<a href="#" class="social-top">fb</a>
+						<a href="#" class="social-top">pt</a>
+						<div class="lang-wrap">
+							eng
+						</div>
+						<div class="lang-wrap">
+							<img src="img/user.svg" alt="" srcset="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="menu">
+			<a href="index.html">
+				<div class="logo">
+					<img src="img/cp-logo.png" alt="">
+				</div>
+			</a>
+			<ul>
+				<li>
+					<a class="curent-page" href="index.html">home</a>
+
+				</li>
+				<li>
+					<a href="activity.html">atividades</a>
+				</li>
+				<li>
+					<a href="about.html">sobre nós</a>
+				</li>
+				<li>
+					<a href="contact.html">contactos</a>
+				</li>
+				<li>
+					<a href="search.html"><span>reserve já</span></a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<!-- Primary Page Layout
+	================================================== -->
+
+	<div class="section big-55-height over-hide z-bigger">
+
+		<div class="parallax parallax-top" style="background-image: url('img/slide_03.jpg')"></div>
+		<div class="dark-over-pages"></div>
+
+		<div class="hero-center-section pages">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-12 parallax-fade-top">
+						<div class="hero-text"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<section class="section-content padding-y bg" style="min-height:84vh">
+        <div class="container">
+        
+            <div>
+                <aside >
+					<div class="titulos" id ="titulo1">Detalhes da reserva</div>
+					<table >
+					<tr><td class = "coluna1">Check-In :</td><td id = "check_in" class = "coluna2">teste</td></tr>
+					<tr><td class = "coluna1">Check-Out :</td><td id = "check_out" class = "coluna2">teste</td></tr>
+					<tr><td class = "coluna1">Quantidade :</td><td id = "qtd" class = "coluna2" >teste</td></tr>
+					<tr><td class = "coluna1">Atividades :</td><td id = "atividades" class = "coluna2" >Nenhuma</td></tr>
+					<tr><td class = "coluna1">Preço Total :</td><td id = "precototal" class = "coluna2" >teste</td></tr>
+
+					</table>
+					<div class="titulos" >Suas Informações </div>
+					<form action="index.html"><
+						<div class="formulario">
+						<input  type="text" placeholder="  Primeiro Nome"  class="form_input"required/>
+						<input type="text" placeholder="  Último Nome" class="form_input"required/>
+						<br />
+						<input  type="text" placeholder="  Email" class="form_input"required/>
+						<input  type="text" placeholder="  Telemóvel" class="form_input"required/>
+						</div>
+					<div class="titulos" >Método de pagamento </div>
+						<br>
+						<div class="pagamento">
+							<!-- <form action="/action_page.php"> -->
+								<input required type="radio" id="paypal" name="fav_language" value="PAYPAL">
+								<label  for="paypal">Paypal</label><br>
+								<input  type="radio" id="mbway" name="fav_language" value="MBWAY">
+								<label for="mbway">MBWay</label><br>
+								<input  type="radio" id="multibanco" name="fav_language" value="MULTIBANCO">
+								<label for="multibanco">Multibanco</label><br><br>
+							<!-- </form>  -->
+							
+						</div >
+					</div >
+					<input type="submit" class="button button5" id="butao_de_pagar" value="Pagar" onclick="book()"/>
+                    </form>
+				</div>
+                </aside>
+                <!--
+					<aside class="col-lg-3">
+                    <div class="pt-3 sticky-top">
+                        <div class="card shadow mb-4">
+                            <div class="card-body pb-2">
+                                <div class="form-group">
+                                    <label class="mb-3">Tem um cupão de desconto?</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="coupon" placeholder="Código do cupão">
+                                        <span class="input-group-append"> 
+                                            <button class="btn btn-primary">Aplicar</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <dl class="dlist-align">
+                                    <dt class="h4">Total:</dt>
+                                    <dd class="h4 font-weight-bolder text-right sc-cart-subtotal"></dd>
+                                </dl>
+                                <hr class="mb-4">
+                                
+                                <a href="buy" class="btn btn-light btn-block">Continuar a comprar</a>
+                                <button class="btn btn-danger btn-block sc-cart-clear" type="button">Limpar carrinho</button>
+                                <a class="sc-cart-checkout" href="checkout"><button class="btn btn-primary btn-block mt-2 sc-cart-checkout" type="button">Checkout <i class="fas fa-clipboard-check ml-1"></i></button></a>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+				-->
+            </div>
+        
+        </div> <!-- container .//  -->
+    </section>
+
+
+	<div class="section padding-top-bottom-small background-black over-hide footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 text-center text-md-left">
+					<img src="img/cp-logo.png" alt="">
+					<p class="color-grey mt-4">Rua do Santiago, 3810-193<br>Aveiro</p>
+				</div>
+				<div class="col-md-4 text-center text-md-left">
+					<h6 class="color-white mb-3">informações</h6>
+					<a href="#">terms &amp; condições</a>
+					<a href="#">atividades</a>
+					<a href="#">testemunhos</a>
+					<a href="#">galeria &amp; imagens</a>
+				</div>
+				<div class="col-md-5 mt-4 mt-md-0 text-center text-md-left logos-footer">
+					<h6 class="color-white mb-3">sobre nós</h6>
+					<p class="color-grey mb-4">Somos estudantes pertencentes ao departamento de Eletrónica, Telecoms e
+						Informática</p>
+					<img src="img/logos/1.png" alt="">
+					<img src="img/logos/2.png" alt="">
+					<img src="img/logos/3.png" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="section py-4 background-dark over-hide footer-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 text-center text-md-left mb-2 mb-md-0">
+					<p>2022 © CampingSpot. Todos direitos reservados.</p>
+				</div>
+				<div class="col-md-6 text-center text-md-right">
+					<a href="#" class="social-footer-bottom">facebook</a>
+					<a href="#" class="social-footer-bottom">twitter</a>
+					<a href="#" class="social-footer-bottom">instagram</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="scroll-to-top"></div>
+
+
+	<!-- JAVASCRIPT
+    ================================================== -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/custom.js"></script>
+	<script src="js/sistema_reservas.js"></script>
+    <script src="js/smart-cart.js"></script>
+	<!-- End Document
+================================================== -->
+<script>
+    $(document).ready(function(){
+        $('#smartcart').smartCart();
+    });
+
+    $(".sc-cart-clear").click(function(){
+        $('#smartcart').smartCart('clear');
+    });
+</script>
+</body>
+
+</html>

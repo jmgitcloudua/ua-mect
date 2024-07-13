@@ -1,0 +1,6 @@
+servername: XCLOUD\SQLEXPRESS
+username: XCLOUD\cloud
+pwd: 
+
+
+use [Northwind] EXEC sp_changedbowner 'sa'  -- para ter db scheme na DB

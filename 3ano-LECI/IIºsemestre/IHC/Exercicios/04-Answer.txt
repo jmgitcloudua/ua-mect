@@ -1,0 +1,163 @@
+1. As caraterísticas que podem influenciar a usabilidade do sistema em que o teclado for incluído no que concerne
+o design de sistemas interativos são:
+	- Keyboard size, quando o tamanho do teclado é pequeno, há menos conforto na disposição das mãos.
+	- Hand resting area, permite que as mãos estejam relaxadas por algum tempo e depois continuar a teclar.
+	- Key spacing, permite ter melhor visibilidade das teclas e melhor experiência de usablidade.
+	- Home row indicators, permitem facilmente combinar com outras teclas e assim experimentar a agilidade
+	de navegação .
+
+2. A disposição das teclas num teclado QWERTY foi desenvolvida para ultrapassar um problema tecnológico.
+QWERTY foi concebido para evitar congestionamentos nas primeiras máquinas de escrever.
+
+3. A diferença entre os teclados por acordes e os teclados comummente utilizados nos nossos computadores é :
+Teclado por acordes são usados em wearable computing enquanto que os utilizados nos nossos computadores não.
+
+4. O rato e joystick são dispositivos apontadores de controlo indirecto, porque são eficazes de como foram concebidos
+para seu uso especifico como rapidez.
+
+5. Do ponto de vista de usabilidade do rato como dispositivo de entrada tem vantagens e suas desvantagens.
+	- Vantagens: relação direta entre a velocidade de movimento da mão e do cursor; permitir direção de controle de velocidade e
+	permitir movimento contínuo em todas as direções.
+	- Desvantagens: exigir movimento da mão entre o mouse e o teclado; espaço adicional (pegada) e coordenação olho-mão.
+
+6. Os touchscreens são dispositivos apontadores de controlo directo, porque são ópticos, sónicos e capacitivos.
+
+7. Do ponto de vista de usabilidade do touchscreen como dispositivo de entrada, eles também possuem vantagens e desvantagens.
+	- Vantagens: resistivos pela sua flexibilidade; Capacitivos; têm menos oun não têm botons
+	- Desvantagens: é caro; o ecran fica muito sujo; O ecran tem que ser grande o suficiente para poder tocar nos botões sem perder.
+
+
+8. Sim. Para além de dispositivos móveis, pode ser adequado usar um touchscreen como dispositivo de entrada. Exemplo:
+touchscreen TV, Car display touchscreen, smart watch,etc
+
+9. Os dispositivos apontadores podem, em geral, ser utilizados para várias tarefas de entrada tais como:
+	- Apontar um alvo
+	- Selecionar um alvo
+	- Posicionamento de objetos
+	- Orientar e girar objetos
+	- Definir caminhs entre objetos
+	- Manusear textos
+	- etc...
+
+10. A principal regra a seguir, quanto a usabilidade, na escolha de dispositivos de entrada para um sistema 
+interactivo é: escolher um dispositivo após uma análise cuidadosa da tarefa e teste.
+
+11. É importante minimizar os movimentos das mãos e dos olhos na utilização dum sistema interativo porque isto permite
+o sistema funcionar de forma eficiente.
+
+12.  Os sistemas de reconhecimento de voz têm limitações tecnológicas que influenciam a sua usabilidade como 
+dispositivos de entrada em sistemas interactivos, tais como:
+	- Ambiente barulhento
+	– Privacidade
+	– Extensão do vocabulário
+	– Custo do erro
+
+13. Mesmo quando existirem sistemas de reconhecimento de voz perfeitos tecnologicamente, subsistirão problemas 
+de usabilidade que os tornam não usáveis em muitas situações, tais como:
+	– A voz é transitória
+	– Não tem feedback natural
+	- Pode incomodar outras pessoas
+	– Pode resultar em falta de privacidade
+	– Pode ser mais lento e cansativo (sobrecarregando STM)
+
+14. Tendo em consideração a pergunta anterior, temos os segunites dois cenários de utilização em que não se deva
+considerar a utilização de voz como entrada num sistema interactivo:
+	- Exemplo 1: Google Assistente
+	- Exemplo 2: Amazon Alexa
+
+15. Um sistema interactivo deve a voz ser considerada como possível entrada nos seguintes senários de utilização:
+	– A frequência de uso é alta
+	- A velocidade é importante
+
+16. Tendo em consideração a pergunta anterior, temos os segunites dois cenários de utilização em que se deva considerar a 
+utilização de voz como entrada num sistema interactivo:
+	- Exemplo 1 : Uso do Microfone
+	- Exemplo 2: Uso do alto falante ou megafone
+
+17. Há várias directivas para o design de interfaces de utilizador que envolvam a utilização de voz, tais como:
+	1 - Fornece diálogo de saída com estrutura para guiar a entrada
+  	2 - Use um vocabulário distinto e familiar para evitar erros
+
+18. Dispositivos de interacção “hapticos” são dispositivos que permitem a interação manual com ambientes virtuais (VEs) ou sistemas remotos teleoperados.
+Eles são empregados para tarefas que geralmente são realizadas com as mãos no mundo real, como exploração manual 
+e manipulação de objetos.
+
+19. Em interfaces de utilizador 3D (por exemplo ambientes virtuais) a utilização de trackers é frequente. Eles enviam informação
+que podem ser do tipo magnética, óptica, ultrasónica, etc.
+
+20. As interfaces gestuais estão a ser cada vez mais usadas. Os tipos de dispositivos que podem ser usados para detectar gestos são:
+	- Depth cameras
+	- Cyber Glove
+	- Tangible interfaces and pedals
+
+21. As seis directivas importantes para guiar a escolha de dispositivos de entrada para um sistema interactivo são:
+	- Escolher um dispositivo após uma análise cuidadosa da tarefa e teste
+		• Minimize os movimentos das mãos e dos olhos
+		• Use as teclas do cursor para tarefas envolvendo:
+	– Muita manipulação de texto
+	– Atravessando uma matriz estruturada de objetos discretos
+	- Use telas sensíveis ao toque quando
+		• Não há treinamento
+		• Os alvos são grandes, discretos e dispersos
+		• Espaço é importante
+		• Nenhuma (ou pouca) entrada de texto
+		• Não são usados por muito tempo
+
+22. Os displays que se utilizam como dispositivos de saída em sistemas interactivos podem dividir-se em displays para 
+utilização pessoal ou de grupo. Exemplo: monitores, HDM-Head Mounted Displays(VR/AR)
+
+23. Os monitores usados actualmente nos nossos sistemas computacionais têm várias limitações quanto ao realismo 
+das imagens que fornecem. As duas principais limitações são:
+	– Pequena gama de intensidades e cores
+	- Falta de distância de foco
+
+24. Um display estereoscópico é aquele que apenas pode ser visto em único olho.
+
+25. As principais vantagens e desvantagens, do ponto de vista de usabilidade, da utilização de voz como saída num sistema 
+interactivo são:
+	- Vantagens: 
+		• deficiência física
+		• mover-se
+		• mãos e olhos ocupados
+		• Condições adversas: baixa visibilidade, baixo O2, alto Gs
+	- Desvantages: 
+		• É cansativo e desconfortável por longos períodos
+		• É transitório (imposto STM)
+		• Pode ter problemas de privacidade
+		• Pode incomodar outras pessoas
+
+26. Há várias directivas para o design de interfaces de utilizador que envolvam a utilização de voz, tais como:
+	• Considere a saída de voz como uma alternativa quando o usuário precisar se mover
+	ao redor, tem mãos e olhos ocupados
+	• Evite saída de voz em ambientes abertos, quando a privacidade e segurança são questões importantes e a 
+	frequência de uso é alta
+	• Use aprox. 180 palavras por minuto
+	• Quando as mensagens não são esperadas, comece com palavras não críticas que forneçam contexto
+
+27. Cenários de utilização em que a saída por voz seja especialmente interessante do ponto de vista 
+de usabilidade:
+	- Google Duplex
+	- Amazon Alexa
+
+28.  Cenários de utilização em que a saída por voz seja especialmente pouco adequada do ponto de 
+vista de usabilidade.
+	- Alto falante/megafone
+	- Camera de saída de som
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

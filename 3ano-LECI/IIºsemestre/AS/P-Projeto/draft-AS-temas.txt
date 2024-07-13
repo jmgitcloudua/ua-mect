@@ -1,0 +1,14 @@
+Proposta de temas para Projeto Análise de Sistemas
+
+1 - Sistem de gestão para Doação de Sangue (Blood Donation System) *
+
+2 - Gestão da Galeria de Arte (Art Gallery Management)
+
+3 - Sistema de reservas de cinema (Cinema booking system)
+
+4 - Solução para Gestão de folha de pagamento (Payroll Management Solution)
+
+5 - Sistema de Gerenciamento de Abastecimento de Água (Water Supply Management System)
+
+
+* : optei nesta escolha porque é interessante e mais simples de modelar além de ser incomum . 

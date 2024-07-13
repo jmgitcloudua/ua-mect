@@ -1,0 +1,34 @@
+1- VR based Power Wheelchair Simulator: Usability Evaluation through a
+Clinically Validated Task with Regular Users
+
+2 - The Impact of Implicit and Explicit Feedback on Performance and
+Experience during VR-Supported Motor Rehabilitation 
+
+3 - Using Fuzzy Logic to Involve Individual Differences for Predicting
+Cybersickness during VR Navigation
+
+4 - I Feel More Engaged When I Move!: Deep Learning-based Backward
+Movement Detection and its Application 
+
+5 - Text Entry in Virtual Environments using Speech and a Midair Keyboard Jiban Adhikary Keith V
+
+6 - DreamStore: A Data Platform for Enabling Shared Augmented Reality
+
+Comments and evaluation(1-6):
+
+1 - Achei muito interessante por ser uma solução que visa ajudar pessoas que têm
+pouca mobilidade.(6)
+
+2 - Achei um artigo pertinente poque ajuda o indivíduo a fazer reabilitação motora
+ou seja fazendo fisioterapia em tempo real.(5)
+
+3 - É um artigo que achei essencial, pois aborda estratégias para minimizar cyberdoenças(4)
+
+4 - É um artigo imprescíndivel, pois realça como o indivíduo pode movimentar-se 
+em espaços limitados usando VR. (4.5)
+
+5 - Achei este artigo muito interessante porque permite visualizar as mãos do usuário e,
+também faz auto-correção usando o teclado midair. (5.5)
+
+6 - Achei o artigo importante pois permite armazenar dados usando VR e AR.
+pemrite reduzir a taxa de consulta reduzindo workloads em cerca de 5 vezes. (5.8)

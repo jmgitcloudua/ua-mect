@@ -1,0 +1,8 @@
+π farmaco.nome
+(
+	σ presc_farmaco.numPresc = null
+	(
+		(σ presc_farmaco.numRegFarm = 906 presc_farmaco) ⟖ presc_farmaco.nomeFarmaco = farmaco.nome 
+		(σ farmaco.numRegFarm = 906 farmaco)
+	)
+)

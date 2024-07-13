@@ -1,0 +1,43 @@
+21/04 -  Requirements Analysis
+
+05/05 - Prototipo Papel para Teste em Aula (PPT na aula 10minutos)
+
+02/06 - Prototipo funcional para Teste na aula (Prototipo e Teste preparado - apresentação 10minutos)
+
+14&21/06 - Apresentações finais (entrega PPT + código  - 23/06/2022)
+
+
+ Definir (05/05)
+
+- Personas
+- Scenarios
+- Task Analysis (escolher uma tarefa)
+- Requirements
+
+
+>>> step1 Personas - end users
+ ---- Fazer poupança finaceira com finalidade de viagem
+ 1 - Pessoas que não saibam gerir seu dinheiro pessoal
+ 2 - Pessoas que saibam gerir seu dinheiro mas que usam softwares com UI/UX péssimo(not user friendly)
+
+>>>step2 Scenarios
+ 1 - adicionar movimentos
+ 2 - alterar orçamento
+ 3 - categorizar movimento
+ 4 - ver o cumprimento do orçamento
+ 5 - alterar o plano do orçamento
+----- Pessoa que pretende fazer poupança finaceira com finalidade de viagem
+
+>>>step3 Tasks
+ 1 - registar as receitas
+ 2 - registar as depesas diárias
+ 3 - registar empréstimos
+ 4 - registar nova subscrição(ex: primeVideo)
+ 5 - criar novo plano de poupança
+
+>>>step4 requirements
+ 1 - Apps Mobile simples
+ 2 - Rápida e fácil de usar
+ 3 - Garantir segurança
+ 4 - exportar dados no formato CSV
+ 

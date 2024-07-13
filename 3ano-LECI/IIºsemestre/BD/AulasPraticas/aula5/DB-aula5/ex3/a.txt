@@ -1,0 +1,6 @@
+π paciente.numUtente, paciente.nome (
+	σ prescricao.numPresc = null (
+		paciente ⟕ (paciente.numUtente = prescricao.numUtente) 
+		prescricao
+	)
+)
