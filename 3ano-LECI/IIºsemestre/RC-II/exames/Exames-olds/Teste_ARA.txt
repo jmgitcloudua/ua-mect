@@ -1,0 +1,17 @@
+Teste 1
+
+1. O que é um overlay?
+2. Quais são as diferenças entre uma CDN e uma rede P2P?
+3. O que é o DOCSIS?
+4. Compare o RSVP-TE com o CR-LDP.
+5. Discute a sua visão das redes públicas, tanto em termos de administração como de arquitetura.
+6. Discute 3 atributos BGP de sua escolha.
+
+
+
+1 - A estrutura actual da Internet Ž hierarquica?
+2 - Apresente a arquitectura geral de uma rede ADSL.
+3 - Discuta os conceitos da ATM adaptation Layer.
+4 - Discuta o estabelecimento de um LSP em MPLS.
+5 - Identifique os problemas associados a Server Farms e Caching Proxies.
+6 - Compare, em BGP, Route Maps e filtragem. Quando usa um deles preferencilamente ao outro?
