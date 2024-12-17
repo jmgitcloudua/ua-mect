@@ -1,0 +1,20 @@
+LocalOutlierFactor (LOF):
+        Tipo: Deteção de outlier baseada em densidade.
+        Abordagem: Mede o desvio da densidade local de um ponto de dados em relação aos seus vizinhos. Os pontos com densidade significativamente mais baixa são considerados outliers.
+        Pontos fortes: eficaz na deteção de outliers locais e no tratamento de clusters de densidade variável.
+        Limitações: Sensível à escolha de parâmetros e pode não ter um bom desempenho com outliers globais.
+
+    IsolationForest:
+        Tipo: Método baseado em conjuntos para deteção de anomalias.
+        Abordagem: Isola os outliers seleccionando aleatoriamente características e construindo árvores de isolamento. As anomalias são identificadas por seus comprimentos médios de caminho mais curtos nas árvores.
+        Pontos fortes: Eficiente para dados de alta dimensão, escala bem e geralmente funciona bem sem ajuste fino.
+        Limitações: Pode não funcionar tão bem em dados com dependências complexas ou outliers altamente estruturados.
+
+    OneClassSVM:
+        Tipo: Método baseado na Máquina de Vetor de Suporte para classificação de uma classe.
+        Abordagem: Constrói um hiperplano que separa a maioria dos pontos de dados da região que contém potenciais outliers. O objetivo é encontrar um limite que englobe as instâncias normais.
+        Pontos fortes: Pode lidar com limites lineares e não lineares e é eficaz para dados de alta dimensão.
+        Limitações: Sensível à escolha dos parâmetros, e o desempenho pode degradar-se na presença de ruído ou quando os dados não estão bem separados.
+
+
+Então, podemos intercalar ao falar. Não sei, se vamos nos atrapalhar. Mas seria assim: eu falo 1-6, tu 7-13, eu 14-21, tu 22-restante.

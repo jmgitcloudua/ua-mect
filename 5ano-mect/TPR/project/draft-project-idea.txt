@@ -1,0 +1,35 @@
+For educational porpuses, give me a simulation for RIP(Routing information protocol) Protocol DDoS attack (include CVE and CWE) and how to mitigate it. Step by step
+
+https://quic.nginx.org/
+
+QUIC protocol: DDoS attack 
+https://www.cloudflare.com/learning/ddos/what-is-a-quic-flood/
+https://blog.cloudflare.com/the-road-to-quic/
+https://cloudplatform.googleblog.com/2018/06/Introducing-QUIC-support-for-HTTPS-load-balancing.html
+https://blog.apnic.net/2019/03/04/a-quick-look-at-quic/
+https://blog.cloudflare.com/ddos-attack-trends-for-2021-q1/
+https://stormwall.network/ddos-report-stormwall-h1-2023
+https://www.nginx.com/blog/quic-http3-support-openssl-nginx/ -------
+https://www.keysight.com/blogs/tech/nwvs/2022/06/08/is-quic-on-its-way-to-becoming-the-transport-of-modern-internet
+https://link.springer.com/article/10.1007/s10207-022-00630-6
+https://blog.apnic.net/2019/03/04/a-quick-look-at-quic/
+https://patents.google.com/patent/US20210099482A1/en
+
+
+https://ieee-dataport.org/documents/ieee-p2668-compliant-multi-layer-iot-ddos-dataset-ieee-p2668-mlidd *************datasets
+
+
+QUIC protocol: DDoS attack/hijacking
+CVE-2020-3165
+https://www.ciscolive.com/c/dam/r/ciscolive/global/docs/2016/CP-1015.pdf
+https://www.ciscolive.com/c/dam/r/ciscolive/global/docs/2016/CP-1015.pdf
+https://archive.nanog.org/sites/default/files/wed.general.trafficdiversion.serodio.10.pdf
+https://www.cloudflare.com/learning/security/glossary/bgp-hijacking/
+
+
+RIP/OSPF protocol: DDoS attack
+CVE-2022-26143 
+https://microlab.red/2018/05/03/practical-routing-attacks-2-3-ospf/
+https://www.networkworld.com/article/2943873/attackers-abuse-legacy-routing-protocol-to-amplify-distributed-denialofservice-attacks.html
+https://www.pcworld.com/article/428399/attackers-abuse-legacy-routing-protocol-to-amplify-distributed-denialofservice-attacks.html
+https://hamzamhirsi.medium.com/common-attacks-on-routing-protocols-and-how-to-mitigate-them-11ec0cad08d7

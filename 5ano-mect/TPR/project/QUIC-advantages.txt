@@ -1,0 +1,109 @@
+Main advantages over TCP (QUIC+HTTP/3 vs TCP+TLS+HTTP/2)
+
+- Faster handshakes
+- Improved congestion feedback
+- Multiplexing without head-of-line blocking
+- Built-in security
+- Connection migration support
+- Optional unreliable or partially reliable delivery
+
+
+
+You summarized the main advantages of QUIC over TCP very well:
+
+- Faster handshakes due to 0-RTT connection establishment, avoiding TCP's 3-way handshake.
+
+- Improved congestion control through more timely and granular feedback in QUIC.
+
+- Multiplexing without head-of-line blocking because of QUIC's streams abstraction unlike TCP's sequential bytestream.
+
+- Built-in security with TLS 1.3 encryption instead of TLS over TCP.
+
+- Connection migration allows changing endpoint IP/port without interrupting applications.
+
+- Delivery options like unreliability and partial reliability not possible in TCP.
+
+Additionally, some other benefits are:
+
+- Improved connection resilience with connection IDs.
+
+- Cross-layer optimizations possible as QUIC combines transport and crypto layers. 
+
+- Coding structure more optimized for Internet traffic compared to TCP's generic byte streaming.
+
+So in summary, QUIC provides several major improvements in key areas like performance, security, and flexibility compared to the traditional TCP+TLS+HTTP/2 stack.
+--------------------------------------------------
+
+Você resumiu muito bem as principais vantagens do QUIC sobre o TCP:
+
+- Apertos de mão mais rápidos devido ao estabelecimento de conexão 0-RTT, evitando o aperto de mão de 3 vias do TCP.
+
+- Melhoria do controlo do congestionamento através de um feedback mais atempado e granular no QUIC.
+
+- Multiplexação sem bloqueio de cabeça de linha devido à abstração de fluxos do QUIC, ao contrário do bytestream sequencial do TCP.
+
+- Segurança incorporada com encriptação TLS 1.3 em vez de TLS sobre TCP.
+
+- A migração de conexões permite mudar o IP/porta do endpoint sem interromper as aplicações.
+
+- Opções de entrega, como a falta de fiabilidade e a fiabilidade parcial, que não são possíveis no TCP.
+
+Além disso, alguns outros benefícios são:
+
+- Melhoria da resiliência da conexão com IDs de conexão.
+
+- Otimizações entre camadas possíveis, pois o QUIC combina camadas de transporte e criptografia. 
+
+- Estrutura de codificação mais otimizada para o tráfego da Internet em comparação com o fluxo de bytes genéricos do TCP.
+
+Portanto, em resumo, o QUIC fornece várias melhorias importantes em áreas-chave como desempenho, segurança e flexibilidade em comparação com a pilha tradicional TCP+TLS+HTTP/2.
+
+---------------------------------------------------
+QUIC (Quick UDP Internet Connections) with HTTP/3 offers several advantages over the traditional combination of TCP with TLS and HTTP/2:
+
+1. Faster Handshakes:
+   - QUIC reduces handshake latency by combining the transport and security handshakes into a single step, saving round trips compared to TCP/TLS.
+
+2. Improved Congestion Feedback:
+   - QUIC provides more fine-grained and timely congestion feedback, allowing for better control over network congestion and optimizing throughput.
+
+3. Multiplexing without Head-of-Line Blocking:
+   - HTTP/3, which is built on top of QUIC, enables true multiplexing without head-of-line blocking. This means that if one stream is blocked or delayed, it won't prevent others from being processed, enhancing overall efficiency.
+
+4. Built-in Security:
+   - QUIC inherently includes encryption (using TLS 1.3) and authentication, making it more secure by default and reducing the risk of attacks associated with plaintext communication.
+
+5. Connection Migration Support:
+   - QUIC supports the migration of a connection from one network path to another (e.g., from Wi-Fi to cellular), providing a seamless user experience and maintaining the connection without disruption.
+
+6. Optional Unreliable or Partially Reliable Delivery:
+   - QUIC allows for the creation of unreliable or partially reliable streams, which can be useful for certain real-time applications, such as online gaming or live streaming, where absolute reliability is not always necessary.
+
+In summary, QUIC with HTTP/3 offers numerous improvements over the traditional TCP/TLS with HTTP/2 stack, including faster connections, improved congestion control, better multiplexing, enhanced security, connection migration support, and flexible delivery options. These benefits make it a compelling choice for modern web applications and services.
+-------------------------------------------------------------
+O QUIC (Quick UDP Internet Connections) com HTTP/3 oferece várias vantagens em relação à combinação tradicional de TCP com TLS e HTTP/2:
+
+1. Handshakes mais rápidos:
+   - O QUIC reduz a latência do handshake combinando o transporte e os handshakes de segurança em uma única etapa, economizando viagens de ida e volta em comparação com o TCP/TLS.
+
+2. Melhoria do feedback de congestionamento:
+   - O QUIC fornece um feedback de congestionamento mais preciso e oportuno, permitindo um melhor controle sobre o congestionamento da rede e otimizando o rendimento/débito.
+
+3. Multiplexação sem bloqueio de cabeça de linha:
+   - O HTTP/3, que é construído sobre o QUIC, permite uma verdadeira multiplexação sem bloqueio de cabeça de linha. Isto significa que, se um fluxo estiver bloqueado ou atrasado, não impedirá que outros sejam processados, aumentando a eficiência global.
+
+4. Segurança incorporada:
+   - O QUIC inclui inerentemente encriptação (utilizando TLS 1.3) e autenticação, tornando-o mais seguro por defeito e reduzindo o risco de ataques associados à comunicação em texto simples.
+
+5. Suporte à migração de conexões:
+   - O QUIC suporta a migração de uma conexão de um caminho de rede para outro (por exemplo, de Wi-Fi para celular), proporcionando uma experiência de usuário perfeita e mantendo a conexão sem interrupções.
+
+6. Entrega opcional não confiável ou parcialmente confiável:
+   - O QUIC permite a criação de fluxos não fiáveis ou parcialmente fiáveis, o que pode ser útil para determinadas aplicações em tempo real, como jogos em linha ou transmissão em direto, em que a fiabilidade absoluta nem sempre é necessária.
+
+
+---------------------------------------------------------------
+Em resumo, o TLS 1.3 é mais rápido e mais seguro do que o TLS 1.2. Uma das alterações que torna o TLS 1.3 mais rápido é uma atualização da forma como funciona um aperto de mão TLS: 
+Os handshakes TLS no TLS 1.3 requerem apenas uma viagem de ida e volta (ou comunicação de ida e volta) em vez de duas, encurtando o processo em alguns milissegundos. E, 
+nos casos em que o cliente já se ligou a um sítio Web anteriormente, o aperto de mão TLS terá zero viagens de ida e volta. Isto torna as ligações HTTPS mais rápidas, reduzindo a 
+latência e melhorando a experiência geral do utilizador.

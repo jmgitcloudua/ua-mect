@@ -1,0 +1,74 @@
+  1. GNS3 GUI + GNS3-VM
+  2. Just GNS3 GUI
+
+ If you have more than at least 16GB RAM then method-1: `GNS3 + GNS3-VM` is perfect
+ fit for your hardware condition, else follow method-2 which allows to practice
+ networking in low hardware machine too.
+
+
+ In my earlier video I configured GNS3 in 2nd method:
+  -   
+
+ • How to add linux Operating System in ...  
+
+
+---------[ Configuration Steps ]---------
+
+- Connect Router with GNS3 NAT cloud
+
+ R1(config)# interface f2/0         : interface connected to NAT clould
+ R1(config-if)# ip address dhcp
+ R1(config-if)# no shutdown
+
+ R1(config)# interface f0/0         : interface connected to LAN 1
+ R1(config-if)# ip address 192.168.1.1 255.255.255.0
+ R1(config-if)# no shutdown
+
+ R1# show ip interface brief        : check interface status
+
+
+
+ R1(config)# do show ip route    : Shows LAN network + NAT network too + add default route
+
+ R1(config)# interface f0/0         : interface connected to LAN 1
+ R1(config-if)# ip nat inside
+
+ R1(config)# interface f2/0         : interface connected to NAT clould
+ R1(config-if)# ip nat outside
+
+ R1(config)# ip nat inside source list NAT pool clould overload
+
+ R1(config)# ip nat pool clould 192.168.122.1 192.168.122.255 netmask 255.255.255.0
+ R1(config)# ip access-list extended NAT
+ R1(config-ext-acl)# permit ip 192.168.1.0 0.0.0.255 any
+
+ R1# show ip nat translations        : See the NAT ing translations
+
+
+[root@PC-1 /]# vi /etc/network/interfaces
+
+ # Static config for eth0
+ auto eth0
+ iface eth0 inet static
+    address 192.168.1.10
+    netmask 255.255.255.0
+    gateway 192.168.1.1
+    up echo nameserver 192.168.122.1  &gt;  /etc/resolv.conf
+
+
+ . Stop PC in GNS3 and restart to get IP address updated
+
+
+[root@PC-1 /]# ping google.com                : Ping By domain-name
+[root@PC-1 /]# ping 142.250.193.238       : Ping By ip
+
+
+in CentOS-8 repository dead, so we need to change repository to install any packges:
+ - Run Bellow command to change package managers
+
+ # cd /etc/yum.repos.d/
+
+ # sed i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS*
+ # sed i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS*
+
+ # yum update -
