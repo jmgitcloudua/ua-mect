@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - nginx-config:/etc/nginx
+      - nginx-logs:/var/log/nginx
+      - nginx-data:/usr/share/nginx/html
+
+volumes:
+  nginx-config:
+  nginx-logs:
+  nginx-data:
