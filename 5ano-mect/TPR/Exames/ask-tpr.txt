@@ -1,0 +1,58 @@
+Disciplina lecionada: Técnicas de Perceção de Redes (Network Awareness Technique)
+Considere isto: Todas as perguntas que seguem devem ser respondidas utilizando português de Portugal.
+Nota:  Justifique cuidadosamente todas as respostas.
+
+1. Uma rede empresarial de grandes dimensões foi comprometida e múltiplos servidores
+estão infetados com software ilícito que permite o seu controlo remoto com permissões
+de administração e assume-se que serão usados para a mineração de cripto-moedas.
+a) Proponha um conjunto de metodologias de aquisição de dados ao nível da rede ou
+dos servidores passíveis de ser usados para a identificação dos servidores
+comprometidos.
+b) Proponha um conjunto de métricas e features (calculadas a partir das métricas) que
+poderão permitir distinguir a comunicação lícita da ilícita com estes servidores.
+Assuma que os serviços continuam ativos e a servir clientes lícitos.
+c) Assumindo que os controladores ilícitos dos servidores recebem comandos do
+exterior de forma periódica (de 10 em 10 segundos) e o software de mineração faz o
+download e upload de dados também de forma periódica (de 2 em 2 minutos),
+proponha uma metodologia de tratamento de dados que permita obter dados relevantes para a sua deteção.
+
+--------------------------------------
+Disciplina lecionada: Técnicas de Perceção de Redes (Network Awareness Technique)
+Considere isto: Todas as perguntas que seguem devem ser respondidas utilizando português de Portugal.
+Nota:  Justifique cuidadosamente todas as respostas.
+
+
+1. Uma rede empresarial de grandes dimensões possui um sistema de acesso remoto para
+gestão da infraestrutura, serviços e dos sistemas de armazenamento de dados.
+a) Proponha um conjunto de metodologias de aquisição e de tratamento de dados
+passíveis de serem usadas para a identificação de acessos externos ilegais ao
+sistema de gestão, justificando o propósito das mesmas. Deve assumir que os
+acessos ilegais são feitos usando credenciais válidas que de alguma forma foram
+comprometidas.
+b) Assumindo que a rede foi comprometida e múltiplas máquinas estão infetadas
+(terminais e servidores) com software ilícito que criou uma BotNet interna. Os
+elementos da Botnet interna vão comunicar entre si para coordenar ataques.
+Proponha um conjunto de metodologias de aquisição de dados ao nível da rede
+passíveis de ser usados para a identificação das máquinas comprometidas,
+justificando o propósito das mesmas. 
+c) Após a coordenação dos elementos da Botnet estes vão exfiltrar dados para apenas
+um servidor externo usando HTTPS. Num determinado momento, apenas um
+elemento da BotNet transmite dados e os outros estão silenciosos. O elemento
+transmissor irá mudar aleatoriamente. Proponha uma metodologias de identificação
+das máquinas comprometidas.
+2. Durante um ataque de DDoS a um servidor HTTP/HTTPS explique qual a importância
+de identificar os cliente lícitos e os ilícitos. Proponha possíveis metodologias de os
+diferenciar.
+------------------------------------------
+Disciplina lecionada: Técnicas de Perceção de Redes (Network Awareness Technique)
+Considere isto: Todas as perguntas que seguem devem ser respondidas utilizando português de Portugal.
+Nota:  Justifique cuidadosamente todas as respostas.
+
+1. Uma rede empresarial de grandes dimensões foi comprometida e múltiplas máquinas estão infetadas (terminais e servidores) com software ilícito que criou uma BotNet interna. Os elementos da BotNet podem a qualquer momento efetuar uma das seguintes atividades: (i) comunicar diretamente entre si para sincronismos de ações, (ii) receber
+comandos do exterior da rede via ligações HTTPS e (iii) participar no envio de e-mail em quantidades elevadas (Spam) usando o servidor da empresa. 
+a) Proponha um conjunto de metodologias de aquisição de dados ao nível da rede passíveis de ser usados para a identificação das máquinas comprometidas durante as três possíveis atividades das mesmas.
+b) Proponha um conjunto de métricas e features (calculadas a partir das métricas) que poderão permitir distinguir a comunicação lícita da ilícita entre máquinas na rede.
+c) Assumindo que os elementos da BotNet recebem comandos do exterior de forma periódica (de 30 em 30 segundos), proponha uma metodologia de tratamento de dados que permita obter dados relevantes para a sua deteção.
+d) Proponha um método para a criação de um perfil de envio de e-mails lícitos por parte dos terminais/servidores da empresa que permita detetar anomalias no envio de Spam. Nota: assuma que servidores comprometidos podem no passado ter
+enviado grandes quantidades de e-mails lícitos.
+2. No contexto da criação de perfis comportamentais de entidades de rede, explique a diferença entre um problema de classificação de comportamentos e um problema de deteção de comportamentos anómalos. Apresente alguns exemplos.
