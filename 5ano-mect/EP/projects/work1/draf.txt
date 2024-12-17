@@ -1,0 +1,179 @@
+
+# The format in file weights.txt and saved_weights.txt of the neural networks must be as folow:
+I H O
+
+int:int int:int float
+int:int int:int float
+...
+int:int int:int float
+
+Example:
+2 3 1
+1:1 2:1 0.234
+1:1 2:2 -0.3456
+1:1 2:3 1.124
+1:2 3:1 0.098
+1:2 2:2 -1.9877
+
+
+// nn_base.h
+
+#ifndef NN_BASE_H
+#define NN_BASE_H
+
+typedef struct Connection {
+    int from_unit;   // Source unit number
+    int to_unit;     // Destination unit number
+    double weight;   // Weight value
+} Connection_t;
+
+typedef struct NeuralNetwork {
+    int I;      // Number of input units
+    int H;      // Number of hidden units
+    int O;      // Number of output units
+    double* input_units;   // Array to store input values
+    double* hidden_units;  // Array to store hidden unit values
+    double* output_units;  // Array to store output unit values
+    Connection_t* connections;  // Array to store connections (weights)
+} NeuralNetwork;
+
+NeuralNetwork* create_nn(int I, int H, int O);
+void destroy_nn(NeuralNetwork* nn);
+void initialize_weights(NeuralNetwork* nn);
+int load_weights(NeuralNetwork* nn, const char* filename);
+int save_weights(NeuralNetwork* nn, const char* filename);
+void propagate_input(NeuralNetwork* nn);
+
+
+#endif
+Could you implement this functions (in file nn_base.c)?
+
+
+# The format in file weights.txt and saved_weights.txt of the neural networks must be as folow:
+I H O
+
+int:int int:int float
+int:int int:int float
+...
+int:int int:int float
+
+Example:
+2 3 1
+1:1 2:1 0.234
+1:1 2:2 -0.3456
+1:1 2:3 1.124
+1:2 3:1 0.098
+1:2 2:2 -1.9877
+
+Could you implement this functions (in file nn_base.c)?
+
+
+
+
+int main(){
+    FILE *fp;
+    //char ch;
+    int I, H, O;
+    int li, ui, lo, uo;
+    double w;
+    fp = fopen("weights.txt", "r");
+    if (fp == NULL){
+        fprintf(stderr, "Error occured on trying to open a file \n");
+        return 1;
+    }
+    fscanf(fp, "%d %d %d", &I, &H, &O);
+    printf("I = %d, H = %d, O = %d\n", I, H, O);
+    while (fscanf(fp,"%d:%d %d:%d %lf", &li, &ui, &lo, &uo, &w) == 5)
+    {
+        // process the data
+        printf("Li -> %d:%d %d:%d %f\n", li, ui, lo, uo, w);
+    }
+    
+    // while ((ch = fgetc(fp)) != EOF){
+    //     printf("%c", ch);
+    // }
+    fclose(fp);
+    return 0;
+}
+reimplent int load_weights(NeuralNetwork* nn, const char* filename) and int save_weights(NeuralNetwork* nn, const char* filename) as above 
+described
+
+
+
+
+
+Develop a C module, denoted nn_base.h/nn_base.c, to:
+• Construct a data structure for holding a neural network with I inputs, a layer of H hidden
+units, and O outputs. The units of the neural network should implement a linear function(this will be changed later).
+• Construct a data structure for holding the values of the connections (weights) between the
+neural network units. Assume a fully connected network, with all weights initialized to zero.
+• Load the weights from a file (according to the format specified below), such that, for example, “1:1 2:3 1.124” means that the connection from unit number one of the input
+layer to unit number three of the hidden layer has value 1.124.
+• Implement a function to propagate an array of I input values, from the input layer to the output layer.
+• Implement a function to write to a file the parameters of a neural network existing in memory,according to the format described above.
+
+
+
+
+
+
+
+
+int main(){
+    FILE *fp;
+    //char ch;
+    int I, H, O;
+    int li, ui, lo, uo;
+    double w;
+    fp = fopen("weights.txt", "r");
+    if (fp == NULL){
+        fprintf(stderr, "Error occured on trying to open a file \n");
+        return 1;
+    }
+    fscanf(fp, "%d %d %d", &I, &H, &O);
+    printf("I = %d, H = %d, O = %d\n", I, H, O);
+    while (fscanf(fp,"%d:%d %d:%d %lf", &li, &ui, &lo, &uo, &w) == 5)
+    {
+        // process the data
+        printf("Li -> %d:%d %d:%d %f\n", li, ui, lo, uo, w);
+    }
+    
+    // while ((ch = fgetc(fp)) != EOF){
+    //     printf("%c", ch);
+    // }
+    fclose(fp);
+    return 0;
+}
+
+int load_weights(NeuralNetwork *nn, Weight *weights, const char *filename)
+{
+    FILE *fp = fopen(filename, "r");
+    if (fp == NULL)
+    {
+        fprintf(stderr, "Error occurred while trying to open the file\n");
+        return 1;
+    }
+
+    int I, H, O;
+    if (fscanf(fp, "%d %d %d", &I, &H, &O) != 3 || I != nn->I || H != nn->H || O != nn->O)
+    {
+        fprintf(stderr, "Invalid architecture in the file\n");
+        fclose(fp);
+        return 1;
+    }
+
+    int num_weights = I * H + H * O;
+    for (int i = 0; i < num_weights; i++)
+    {
+        if (fscanf(fp, "%d:%d %d:%d %lf", &weights[i].from_layer, &weights[i].from_unit, &weights[i].to_layer, &weights[i].to_unit, &weights[i].weight) != 5)
+        {
+            fprintf(stderr, "Invalid weight format in the file\n");
+            fclose(fp);
+            return 1;
+        }
+    }
+
+    fclose(fp);
+    return 0;
+}
+Please implement correctly load_weights like is implemented in main and finaly print the content form file(reimplent base.c to test it)

@@ -1,0 +1,1035 @@
+# C language
+
+Implement a command-line interface for playing tic-tac-toe. The program should be able to:
+• Print the current state of the game (i.e., the board)
+• Ask the current player to provide a move and validate it
+• Determine if there is a winner
+• Start the game from a predefined state (that is passed as a command line argument and
+appropriately validated)
+
+— Files for the code you will write are: ttt.h, ttt.c and game_play.c
+— Save the game state to the file name states_game.ttt in C using the information given previously(information are already given on file ttt.c, game_play.c)
+
+
+Please consider this below (the user must choose to play with dual/rand), dual for two player and rand the computer choose randomly:
+	usage: ./game_play galo dual/rand
+
+
+
+Could you change game_play.c in order for the usage to be like this:
+	usage: ./game_play galo  dual/rand
+
+- Use sockets for this time to write a code to have server/client (ttt).
+
+
+Could save the game state to the file name states_game.ttt in C using the information given previewsly(information are already given on file ttt.c, game_play.c)
+
+
+When I test ./game_play galo dual it's return me Usage: ./game_play galo dual/rand is not. Could solve it?
+
+
+Now Could you write a program that can act as a server for the tic-tac-toe game and accept connections from two clients who will play against each other in C and save it as ttt_thread.c. 
+Create also the client called ttt_client.c.
+
+Now Could you write a program that can act as a server for the tic-tac-toe game and accept connections from two clients who will play against each other in Python and save it as ttt_thread.py. 
+Create also the client called ttt_client.py.
+
+
+
+------------------------------------------------------------------------------------------------
+
+I didn't see this message below when I've tested.
+
+-------------------------------------------------------
+
+void print_statistics()
+{
+    printf("\n                --- Statistics Table ---\n");
+    printf("| Total Games | Rand Player X Wins  | Rand Player Y Wins     | Draws |\n");
+    printf("|-------------|---------------------|------------------------|-------|\n");
+    printf("| %-11d | %-8d \033[36mP = %.2f%% \033[0m| %-11d \033[35mP = %.2f%%\033[0m | %-5d |\n", totalGames, randPlayerWins, ((double)randPlayerWins / totalGames) * 100, autoRandPlayerWins, ((double)autoRandPlayerWins / totalGames) * 100, draws);
+    printf("---------------------------------------------------------------------\n");
+}
+
+
+Could you display this statistics below inspiring in as above described
+
+
+Do also table for below
+
+// Add a function to display game statistics
+void display_statistics(game_t *game)
+{
+    printf("\n=== Game Statistics ===\n");
+    printf("Average Game Duration: %.2f seconds\n", game->averageDuration);
+    printf("Fastest Win Duration: %.2f seconds (in %d moves)\n", game->fastestWinDuration, game->fastestWinMoves);
+    printf("Longest Game Duration: %.2f seconds (in %d moves)\n", game->longestGameDuration, game->longestGameMoves);
+    printf("Average Moves Per Game: %.2f\n", (double)game->movesPerGame);
+    printf("=======================\n\n");
+}
+
+
+ It is X's turn. 0 moves have been made.
+
+ It is O's turn. 1 moves have been made.
+
+ 
+Using the neural network funcionalities implemented in the previous descriptions (I've provided), Could you train an agent
+against which we can play tic-tac-toe. Put the code in the file agent_play.c. You can create other file file if needed.
+rember about the states that are saved in states_dsets.ttt. Set some dataset to test it, please. The probability must be gotten from datasets to match the winner.
+The winner must be like: printf("\033[32m Player %c wins with a probability of %.4f! \033[0m\n", winner, best_score);
+
+Could now create ttt_agent.h , ttt_agent.c and ttt_agent_play.c in order to test tic-tac-toe neural network agent?
+-----------------
+
+check if the makefile is correct to compile correctly
+
+
+# Makefile
+
+CC = gcc
+CFLAGS = -Wall -O3 -Wextra -std=c99
+LDFLAGS = -lm
+
+all: game_play ttt_agent
+
+game_play: ttt.o game_play.o
+	$(CC) $(CFLAGS) -o game_play ttt.o game_play.o
+
+ttt.o: ttt.c ttt.h
+	$(CC) $(CFLAGS) -c ttt.c
+
+ttt_agent: ttt_agent.o ttt.o nn_base.o
+	$(CC) $(CFLAGS) $(LDFLAGS) -o ttt_agent ttt_agent.o ttt.o nn_base.o
+
+game_play.o: game_play.c ttt.h
+	$(CC) $(CFLAGS) -c game_play.c
+
+clean:
+	rm -f game_play *.o
+	rm -f ttt_agent *.o
+	rm -f states_game.ttt
+
+
+Result after execution:~
+Invalid state 
+-------------------------------
+Could you change game_play.c in order to save the state in each step of playing? Please make necessary improvements to work perfectly.
+
+Now, I want the state to be saved as shown in the example below(in each step):
+		  1 2 3
+		A X X . 
+		B O . X 
+		C O . O
+
+
+ input_array[i * board_size + j] = (game->board[i][j] == 'X') ? 1.0 : 0.0;
+
+-------------------------------------
+
+Organize the file below
+
+CC = gcc
+CFLAGS = -Wall -O3 -Wextra -std=c99
+LDFLAGS = -lm
+
+all: game_play ttt_agent ttt_agent_play
+
+game_play: ttt.o game_play.o
+	$(CC) $(CFLAGS) -o game_play ttt.o game_play.o
+
+ttt_agent: ttt_agent.o ttt.o nn_base.o
+	$(CC) $(CFLAGS) -o ttt_agent ttt_agent.o ttt.o nn_base.o $(LDFLAGS)
+
+ttt_agent_play: ttt_agent_play.o ttt_agent.o ttt.o nn_base.o
+	$(CC) $(CFLAGS) -o ttt_agent_play ttt_agent_play.o ttt_agent.o ttt.o nn_base.o $(LDFLAGS)
+
+game_play.o: game_play.c ttt.h
+	$(CC) $(CFLAGS) -c game_play.c
+
+ttt_agent.o: ttt_agent.c ttt.h nn_base.h
+	$(CC) $(CFLAGS) -c ttt_agent.c
+
+ttt_agent_play.o: ttt_agent_play.c ttt.h nn_base.h
+	$(CC) $(CFLAGS) -c ttt_agent_play.c
+
+nn_base.o: nn_base.c nn_base.h
+	$(CC) $(CFLAGS) -c nn_base.c
+
+clean:
+	rm -f game_play *.o
+	rm -f ttt_agent *.o
+	rm -f ttt_agent_play *.o
+#	rm -f states_game.ttt
+	rm -f states_dual.ttt
+	rm -f states_rand.ttt
+-------------------------------------
+
+// ttt_agent_play.c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "nn_base.h"
+#include "ttt.h"
+
+
+
+
+gcc -Wall -O3 -Wextra -std=c99 -c ttt.c
+gcc -Wall -O3 -Wextra -std=c99 -c game_play.c
+gcc -Wall -O3 -Wextra -std=c99 -o game_play ttt.o game_play.o
+make: *** No rule to make target 'ttt_agent_play.c', needed by 'ttt_agent_play.o'.  Stop.
+
+--------------------------------------------
+When I've execute ./ttt_agent_paly, the result was as follow:
+
+Received state: .........
+Turn: X, Moves: 0
+Enter a move (e.g. A1): A1
+Enter a move (e.g. A1): B1
+Enter a move (e.g. A1): C1
+ Square is already occupied. Try again. 
+Enter a move (e.g. A1):
+
+Could you improve the output, please? (show the board and train improve de moves output). You can improve other features.
+------------------------------------------------
+
+Could make some changes in game_play.c in order to save also the states as illustrated below?
+
+-------------------
+Principal files given previously:
+base.h, base.c
+ttt.h, ttt.c
+game_play.c
+agent_play.c
+
+Now instead of saving states_dual.ttt, states_rand.ttt(that are in file game_play.c) as shown below, please save the states in binary format (composed by 0s and 1s). The format will be the targets to
+be used for neural network agent (inf file agent_play.c). Please, cOnsider this mapping about the board: X -> 1, Y -> -1 and empty(.) -> 0. The winner is achieved when got hight probality.
+You can make the necessary changes in file agent_play.c to work perfectly as espected.
+  1 2 3
+A X . . 
+B . . . 
+C . . . 
+-------------
+
+I've liked the output below of the change you've done. Now, could you do the necessary change in agent_play.c in order to use this file as datasets? The winner would be where shall be the 
+higher probability. Don't forget to calculate the probability. In each steps for this agent must learn the states and save this on this save file to quickly achieve the purpose. The datasets it the target. 
+
+states_dual.txt
+1 0 0 0 0 0 0 0 0 
+1 0 0 -1 0 0 0 0 0 
+1 0 0 -1 0 0 0 0 1 
+1 0 0 -1 0 0 -1 0 1 
+1 0 0 -1 0 1 -1 0 1 
+1 0 -1 -1 0 1 -1 0 1 
+1 0 -1 -1 0 1 -1 1 1 
+1 -1 -1 -1 0 1 -1 1 1 
+1 -1 -1 -1 1 1 -1 1 1 
+------------------------------------------------
+
+A add the calculation of probability in game_play.c file using function save_game_numbers() and the save as described below (don't forget to update play_dual() and play_rand()). Could you do it please?
+
+I recall you that the probability is in the file below. Can i get the probability for the winner in the file?
+
+The probability is the last column as shown below. -1 represents O, 1 represents X and 0 reporents EMPTY.
+states_dsets.ttt
+1 0 0 0 0 0 0 0 0 0.111111
+1 0 0 0 -1 0 0 0 0 0.222222
+1 0 0 0 -1 0 0 0 1 0.333333
+1 0 -1 0 -1 0 0 0 1 0.444444
+1 0 -1 0 -1 1 0 0 1 0.555556
+1 -1 -1 0 -1 1 0 0 1 0.666667
+1 -1 -1 1 -1 1 0 0 1 0.777778
+1 -1 -1 1 -1 1 0 -1 1 0.888889
+0 0 0 0 0 0 0 0 1 0.111111
+0 0 0 0 0 -1 0 0 1 0.222222
+1 0 0 0 0 -1 0 0 1 0.333333
+1 0 0 0 -1 -1 0 0 1 0.444444
+1 0 1 0 -1 -1 0 0 1 0.555556
+1 -1 1 0 -1 -1 0 0 1 0.666667
+1 -1 1 1 -1 -1 0 0 1 0.777778
+1 -1 1 1 -1 -1 0 -1 1 0.888889
+1 0 0 0 0 0 0 0 0 0.111111
+1 -1 0 0 0 0 0 0 0 0.222222
+1 -1 0 0 1 0 0 0 0 0.333333
+1 -1 0 0 1 0 0 -1 0 0.444444
+1 -1 1 0 1 0 0 -1 0 0.555556
+1 -1 1 0 1 0 -1 -1 0 0.666667
+1 -1 1 0 1 1 -1 -1 0 0.777778
+1 -1 1 0 1 1 -1 -1 -1 0.888889
+0 0 0 0 0 0 0 0 1 0.111111
+0 0 0 0 0 -1 0 0 1 0.222222
+1 0 0 0 0 -1 0 0 1 0.333333
+1 0 0 0 0 -1 0 -1 1 0.444444
+1 0 1 0 0 -1 0 -1 1 0.555556
+1 -1 1 0 0 -1 0 -1 1 0.666667
+1 -1 1 0 1 -1 0 -1 1 0.777778
+1 0 0 0 0 0 0 0 0 0.111111
+1 0 0 -1 0 0 0 0 0 0.222222
+1 0 0 -1 0 0 1 0 0 0.333333
+1 0 0 -1 0 0 1 0 -1 0.444444
+1 0 0 -1 0 1 1 0 -1 0.555556
+1 0 -1 -1 0 1 1 0 -1 0.666667
+1 1 -1 -1 0 1 1 0 -1 0.777778
+1 1 -1 -1 -1 1 1 0 -1 0.888889
+1 1 -1 -1 -1 1 1 1 -1 1.000000
+0 0 0 0 0 0 0 0 1 0.111111
+-1 0 0 0 0 0 0 0 1 0.222222
+-1 0 0 0 0 0 0 1 1 0.333333
+-1 0 0 0 0 -1 0 1 1 0.444444
+-1 0 0 0 1 -1 0 1 1 0.555556
+-1 0 -1 0 1 -1 0 1 1 0.666667
+-1 0 -1 0 1 -1 1 1 1 0.777778
+0 0 0 0 0 0 0 1 0 0.111111
+0 0 0 0 -1 0 0 1 0 0.222222
+1 0 0 0 -1 0 0 1 0 0.333333
+1 0 -1 0 -1 0 0 1 0 0.444444
+1 0 -1 0 -1 0 1 1 0 0.555556
+1 -1 -1 0 -1 0 1 1 0 0.666667
+1 -1 -1 0 -1 1 1 1 0 0.777778
+1 -1 -1 -1 -1 1 1 1 0 0.888889
+1 -1 -1 -1 -1 1 1 1 1 1.000000
+
+
+
+
+1 0 0 0 0 0 0 0 0 0.995329
+0 1 0 0 0 0 0 0 0 0.995326
+0 0 1 0 0 0 0 0 0 0.992717
+0 0 0 1 0 0 0 0 0 0.995368
+0 0 0 0 1 0 0 0 0 0.995454
+0 0 0 0 0 1 0 0 0 0.992725
+0 0 0 0 0 0 1 0 0 0.995530
+0 0 0 0 0 0 0 1 0 0.995215
+0 0 0 0 0 0 0 0 1 0.995197
+-1 1 0 0 0 0 1 0 0 0.995403
+-1 0 1 0 0 0 1 0 0 0.992914
+-1 0 0 1 0 0 1 0 0 0.995430
+-1 0 0 0 1 0 1 0 0 0.995528
+-1 0 0 0 0 1 1 0 0 0.993029
+-1 0 0 0 0 0 1 1 0 0.995361
+-1 0 0 0 0 0 1 0 1 0.995389
+-1 1 0 0 1 -1 1 0 0 0.996716
+-1 0 1 0 1 -1 1 0 0 0.995449
+-1 0 0 1 1 -1 1 0 0 0.996635
+-1 0 0 0 1 -1 1 1 0 0.996835
+-1 0 0 0 1 -1 1 0 1 0.996722
+-1 1 -1 0 1 -1 1 1 0 0.997624
+-1 0 -1 1 1 -1 1 1 0 0.997560
+-1 0 -1 0 1 -1 1 1 1 0.997621
+---------------------------
+
+Could you add to the file agent_play.c the feature :  printf("\033[32m Player %c wins with a probability of %.4f! \033[0m\n" ...., please?
+-----------------------------------------
+
+
+I've the function below implemented in the file game_play.c. Could you use this
+
+
+
+// A function to load the game state from a text file with numbers (1, -1, 0)
+void load_game_numbers(game_t *game, char *filename)
+{
+    // Open the file in read mode
+    FILE *file = fopen(filename, "r");
+
+    // Check if the file is opened successfully
+    if (file == NULL)
+    {
+        fprintf(stderr, "Cannot open file %s\n", filename);
+        exit(1);
+    }
+
+    // Read the game state and probability from the file
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            int value;
+            if (fscanf(file, "%d", &value) != 1)
+            {
+                fprintf(stderr, "Error reading game state from file %s\n", filename);
+                exit(1);
+            }
+
+            // Map the numbers (1, -1, 0) to X, Y, and empty
+            if (value == 1)
+            {
+                game->board[i][j] = X;
+            }
+            else if (value == -1)
+            {
+                game->board[i][j] = Y;
+            }
+            else
+            {
+                game->board[i][j] = EMPTY;
+            }
+        }
+
+        // Read the probability value
+        double probability;
+        if (fscanf(file, "%lf", &probability) != 1)
+        {
+            fprintf(stderr, "Error reading probability from file %s\n", filename);
+            exit(1);
+        }
+
+        // Assign the probability to the game structure
+        // Adjust this based on how probabilities are represented in your game_t structure
+        // For now, we'll just print it
+        printf("Probability for row %d: %lf\n", i + 1, probability);
+    }
+
+    // Close the file
+    fclose(file);
+
+    // Print a message to indicate success
+    printf("Game state and probabilities loaded from %s\n", filename);
+}
+----------------
+Concenring agent_agent.c, in function play_agent(nn_t *nn), get probability form file(states_dsets.ttt) to where player wins (best probability for the winner).
+
+
+
+Look on file below, instead of writing on file, only read from file.
+
+void play_agent(nn_t *nn)
+{
+    double best_score = 0.0;
+    FILE *fp = fopen("states_dsets.ttt", "a"); // Open file in append mode
+    if (fp == NULL)
+    {
+        fprintf(stderr, "Error: cannot open states_dual.txt file\n");
+        exit(1);
+    }
+
+    game_t *game = (game_t *)malloc(sizeof(game_t));
+    if (game == NULL)
+    {
+        fprintf(stderr, "Error: memory allocation failure\n");
+        fclose(fp);
+        exit(1);
+    }
+
+    init_game(game, ".........");
+
+    print_game(game);
+
+    while (1)
+    {
+        if (game->turn == X)
+        {
+            int best_row = -1;
+            int best_col = -1;
+            best_score = -2.0;
+
+            for (int i = 0; i < SIZE; i++)
+            {
+                for (int j = 0; j < SIZE; j++)
+                {
+                    if (game->board[i][j] == EMPTY)
+                    {
+                        game_t *copy = (game_t *)malloc(sizeof(game_t));
+                        if (copy == NULL)
+                        {
+                            fprintf(stderr, "Error: memory allocation failure\n");
+                            fclose(fp);
+                            free(game);
+                            exit(1);
+                        }
+                        memcpy(copy, game, sizeof(game_t));
+
+                        make_move(copy, i, j);
+
+                        double *input = (double *)malloc(I * sizeof(double));
+                        if (input == NULL)
+                        {
+                            fprintf(stderr, "Error: memory allocation failure\n");
+                            fclose(fp);
+                            free(game);
+                            free(copy);
+                            exit(1);
+                        }
+                        board_to_input(copy->board, input);
+
+                        load_input_vector_from_array(nn, input);
+
+                        go_forward(nn);
+
+                        double score = nn->u_o[0].out;
+
+                        // Calculate probability
+                        double probability = (1.0 + score) / 2.0; // Sigmoid activation
+
+                        // Save state and probability to file
+                        fprintf(fp, "%d %d %d %d %d %d %d %d %d %f\n", (int)input[0], (int)input[1], (int)input[2],
+                                (int)input[3], (int)input[4], (int)input[5], (int)input[6], (int)input[7], (int)input[8], probability);
+
+                        free(copy);
+                        free(input);
+
+                        if (score > best_score)
+                        {
+                            best_row = i;
+                            best_col = j;
+                            best_score = score;
+                        }
+                    }
+                }
+            }
+
+            if (best_row != -1 && best_col != -1)
+            {
+                make_move(game, best_row, best_col);
+            }
+        }
+        else
+        {
+            int row, col;
+            get_move(game, &row, &col);
+            make_move(game, row, col);
+        }
+
+        print_game(game);
+
+        // Check for a winner or a draw
+        char winner = check_winner(game);
+        if (winner != 'N')
+        {
+            if (winner == 'D')
+            {
+                printf("\033[33m The game is a draw! \033[0m\n");
+            }
+            else
+            {
+                printf("\033[32m Player %c wins with a probability of %.4f! \033[0m\n", winner, best_score);
+            }
+            break;
+        }
+    }
+
+    fclose(fp);
+    free(game);
+}
+--------------------------------------------------------------------------------------------------------------------
+
+Instead of separating game_play.c and agent_play.c, I want to include agent_play.c into game_play.c. Could you add a function nn_play into game_play.c in order to play as agent?
+Don't forget to add another option called nnet in the argument passed in the command line.
+----
+Could you take all functions created in agent_play.c and put it into nn_agent.h/nn_agent.c, please?
+After this, you can now use this and create  nn_play function into file game_play.c.
+Don't forget to add another option called nnet in the argument passed in the command line.
+------------------------------------------
+
+Complete the Makefile below to work correctly
+
+
+#Makefile
+
+CC = gcc
+
+CFLAGS = -Wall -O3 -std=c99 -lrt
+
+LDFLAGS = -lm -O0
+
+SOURCES = game_play.c ttt.c nn_base.c agent_play.c 
+
+OBJECTS = $(SOURCES:.c=.o)
+
+EXECUTABLES = game_play agent_play
+
+all: $(EXECUTABLES)
+
+game_play: game_play.o ttt.o
+	$(CC) $(CFLAGS) -o game_play game_play.o ttt.o
+
+agent_play: agent_play.o ttt.o nn_base.o
+	$(CC) $(CFLAGS) -o agent_play agent_play.o ttt.o nn_base.o $(LDFLAGS)
+
+game_play.o: game_play.c ttt.h
+	$(CC) $(CFLAGS) -c game_play.c
+
+agent_play.o: agent_play.c ttt.h nn_base.h
+	$(CC) $(CFLAGS) -c agent_play.c
+
+nn_base.o: nn_base.c nn_base.h
+	$(CC) $(CFLAGS) -c nn_base.c
+
+ttt.o: ttt.c ttt.h
+	$(CC) $(CFLAGS) -c ttt.c
+
+.c.o:
+	$(CC) $(CFLAGS) -c $<
+
+clean:
+	rm -f $(OBJECTS) 
+	rm -f $(EXECUTABLES)
+#	rm -f states_dual.ttt
+#	rm -f states_rand.ttt
+
+----------------------------------------
+
+Create nn_play function in game_play.c to work as nn agent.
+Don't forget to add another option called nnet in the argument passed in the command line.
+
+
+
+// game_play.c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include "ttt.h"
+
+// A function to calculate the probability of the current game state
+double calculate_probability(game_t *game)
+{
+    // Calculate the probability based on the number of moves made
+    // Adjust this logic based on your specific requirements and strategy
+
+    // Get the total number of possible moves on the board
+    int total_possible_moves = SIZE * SIZE;
+
+    // Get the current number of moves made in the game
+    int moves_made = game->moves;
+
+    // Calculate the probability as the fraction of moves made to total possible moves
+    double probability = (double)moves_made / total_possible_moves;
+
+    return probability;
+}
+
+// A function to save the game state to a text file with numbers (1, -1, 0) and probability
+void save_game_numbers(game_t *game, char *filename)
+{
+    // Open the file in write mode
+    FILE *file = fopen(filename, "a");
+
+    // Check if the file is opened successfully
+    if (file == NULL)
+    {
+        fprintf(stderr, "Cannot open file %s\n", filename);
+        exit(1);
+    }
+
+    // Write the numbers (1, -1, 0) to the file
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            int value = 0;
+            if (game->board[i][j] == X)
+            {
+                value = 1;
+            }
+            else if (game->board[i][j] == Y)
+            {
+                value = -1;
+            }
+
+            fprintf(file, "%d ", value);
+        }
+    }
+
+    // Write the probability to the file
+    fprintf(file, "%f\n", calculate_probability(game));
+
+    // Close the file
+    fclose(file);
+
+    // Print a message to indicate success
+    printf("Game state saved to %s\n", filename);
+}
+
+// A function to load the game state from a text file with numbers (1, -1, 0)
+void load_game_numbers(game_t *game, char *filename)
+{
+    // Open the file in read mode
+    FILE *file = fopen(filename, "r");
+
+    // Check if the file is opened successfully
+    if (file == NULL)
+    {
+        fprintf(stderr, "Cannot open file %s\n", filename);
+        exit(1);
+    }
+
+    // Read the game state and probability from the file
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            int value;
+            if (fscanf(file, "%d", &value) != 1)
+            {
+                fprintf(stderr, "Error reading game state from file %s\n", filename);
+                exit(1);
+            }
+
+            // Map the numbers (1, -1, 0) to X, Y, and empty
+            if (value == 1)
+            {
+                game->board[i][j] = X;
+            }
+            else if (value == -1)
+            {
+                game->board[i][j] = Y;
+            }
+            else
+            {
+                game->board[i][j] = EMPTY;
+            }
+        }
+
+        // Read the probability value
+        double probability;
+        if (fscanf(file, "%lf", &probability) != 1)
+        {
+            fprintf(stderr, "Error reading probability from file %s\n", filename);
+            exit(1);
+        }
+
+        // Assign the probability to the game structure
+        // Adjust this based on how probabilities are represented in your game_t structure
+        // For now, we'll just print it
+        printf("Probability for row %d: %lf\n", i + 1, probability);
+    }
+
+    // Close the file
+    fclose(file);
+
+    // Print a message to indicate success
+    printf("Game state and probabilities loaded from %s\n", filename);
+}
+
+// A function to play the game against another human player
+void play_dual(char *state)
+{
+    // Declare a game variable
+    game_t game;
+
+    // Initialize the game from the state
+    init_game(&game, state);
+
+    // Declare variables for the move
+    int row, col;
+
+    // Declare a variable for the result
+    char result;
+
+    // Loop until the game is over
+    while (1)
+    {
+        // Print the game state
+        print_game(&game);
+
+        // Get the move from the current player
+        get_move(&game, &row, &col);
+
+        // Make the move
+        make_move(&game, row, col);
+
+        // Save the game state to the file after each move
+        save_game_numbers(&game, "states_dsets.ttt");
+
+        // Check the winner
+        result = check_winner(&game);
+
+        // If there is a winner or a draw, break the loop
+        if (result != 'N')
+        {
+            break;
+        }
+
+        // Save the game state to the file
+        // save_game(&game, "states_game.ttt");
+    }
+
+    // Print the final game state
+    print_game(&game);
+
+    // Print the result
+    if (result == 'D')
+    {
+        printf("\033[31m It is a draw. \033[0m\n");
+    }
+    else
+    {
+        printf("\033[32m %c is the winner. \033[0m\n", result);
+    }
+}
+
+// A function to play the game against a random computer player
+void play_rand(char *state)
+{
+    // Declare a game variable
+    game_t game;
+
+    // Initialize the game from the state
+    init_game(&game, state);
+
+    // Declare variables for the move
+    int row, col;
+
+    // Declare a variable for the result
+    char result;
+
+    // Initialize the random number generator
+    srand(time(NULL));
+
+    // Loop until the game is over
+    while (1)
+    {
+        // Print the game state
+        print_game(&game);
+
+        // Check if it is the human player's turn
+        if (game.turn == X)
+        {
+            // Get the move from the human player
+            get_move(&game, &row, &col);
+        }
+        else
+        {
+            // Get a random move from the computer player
+            do
+            {
+                row = rand() % SIZE;
+                col = rand() % SIZE;
+            } while (game.board[row][col] != EMPTY);
+            printf("\033[34m The computer plays %c%d. \033[0m\n", 'A' + row, col + 1);
+        }
+
+        // Make the move
+        make_move(&game, row, col);
+
+        // Save the game state to the file after each move
+        save_game_numbers(&game, "states_dsets.ttt");
+
+        // Check the winner
+        result = check_winner(&game);
+
+        // If there is a winner or a draw, break the loop
+        if (result != 'N')
+        {
+            break;
+        }
+
+        // Save the game state to the file
+        // save_game(&game, "states_game.ttt");
+    }
+
+    // Print the final game state
+    print_game(&game);
+
+    // Print the result
+    if (result == 'D')
+    {
+        printf("\033[33m It is a draw.\033[0m\n");
+    }
+    else
+    {
+        printf("\033[32m %c is the winner.\033[0m\n", result);
+    }
+}
+
+// The main function
+int main(int argc, char *argv[])
+{
+    // Check if a state and a mode are provided as arguments
+    if (argc == 3)
+    {
+        // Check if the first argument is galo
+        if (strcmp(argv[1], "ttt") == 0)
+        {
+            // Check if the second argument is dual or rand
+            if (strcmp(argv[2], "dual") == 0)
+            {
+                // Play the game against another human player from the default state
+                play_dual(".........");
+            }
+            else if (strcmp(argv[2], "rand") == 0)
+            {
+                // Play the game against a random computer player from the default state
+                play_rand(".........");
+            }
+            else
+            {
+                fprintf(stderr, "\033[31m Invalid mode \033[0m\n");
+                exit(1);
+            }
+        }
+        else
+        {
+            fprintf(stderr, "\033[31m Invalid game \033[0m\n");
+            exit(1);
+        }
+    }
+    else
+    {
+        fprintf(stderr, "\033[33m Usage: ./game_play ttt <mode>\033[0m\n");
+        printf("Memo: \033[33m<mode>\033[0m can be \033[34m dual \033[0m or \033[34m rand \033[0m\n");
+        exit(1);
+    }
+
+    // Return 0 to indicate success
+    return 0;
+}
+----------------------------------------------------------------------------
+Could you now create the code to play automaticaly (rand player with rand player). Add into game_play.c another function called auto_rand() do to it. 
+Don't forget to add another option called auto_rand in the argument passed in the command line.
+----------------------------------------------------------------------------
+is it possible to add feature to permit playing continuously without exit? and stop only when achieave at least 20 games.
+------------------------------------
+Could you now create a statistics features table to compare the two players?
+---------------------------------------
+I want to plot each graph separeately. Could you improve it?
+
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+def read_statistics_file(file_path):
+    data = np.loadtxt(file_path)
+    return data
+
+def plot_performance(data):
+    games = np.arange(1, data.shape[0] + 1)
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(games, data[:, 0], label='Average Game Duration')
+    #plt.plot(games, data[:, 1], label='Fastest Win Duration')
+    #plt.plot(games, data[:, 2], label='Longest Game Duration')
+    plt.plot(games, data[:, 3], label='Average Moves Per Game')
+
+    plt.xlabel('Toal Games Played')
+    plt.ylabel('Duration (seconds) / Moves')
+    plt.legend()
+    plt.title('Performance Over Time')
+    plt.grid(True)
+    plt.show()
+
+if __name__ == "__main__":
+    stats_data = read_statistics_file("performance_stats.txt")
+    plot_performance(stats_data)
+
+----------------------------------------
+
+performance_stats.txt
+
+0.00 inf 2147483647 0.00 0 4.00 9
+0.50 inf 2147483647 1.00 6 3.00 6
+1.00 inf 2147483647 2.00 7 3.00 7
+1.50 inf 2147483647 3.00 8 4.00 8
+2.00 inf 2147483647 4.00 5 2.00 5
+2.50 inf 2147483647 5.00 9 4.00 9
+3.00 inf 2147483647 6.00 5 2.00 5
+3.50 inf 2147483647 7.00 7 3.00 7
+4.00 inf 2147483647 8.00 9 4.00 9
+4.50 inf 2147483647 9.00 7 3.00 7
+5.00 inf 2147483647 10.00 9 4.00 9
+5.50 inf 2147483647 11.00 9 4.00 9
+6.00 inf 2147483647 12.00 9 4.00 9
+6.50 inf 2147483647 13.00 9 4.00 9
+7.00 inf 2147483647 14.00 6 3.00 6
+7.50 inf 2147483647 15.00 7 3.00 7
+8.00 inf 2147483647 16.00 7 3.00 7
+8.50 inf 2147483647 17.00 7 3.00 7
+9.00 inf 2147483647 18.00 9 4.00 9
+9.50 inf 2147483647 19.00 8 4.00 8
+10.00 inf 2147483647 20.00 9 4.00 9
+10.50 inf 2147483647 21.00 5 2.00 5
+
+
+Sorry plot all in the same graph
+-------------------------------------
+Could you now plot bar chart (bar graph) for it?
+---------------------------------------------------
+I want to plot probability and time in grapth. How to do it using python?
+Bar char as well.
+--------------------------------------------------------------------------------
+Project: 
+
+1. Implement a command-line interface for playing tic-tac-toe. The program should be able to:
+• Print the current state of the game (i.e., the board)
+• Ask the current player to provide a move and validate it
+• Determine if there is a winner
+• Start the game from a predefined state (that is passed as a command line argument and
+appropriately validated)
+2. Add an option to allow playing against a random agent (the seed of the pseudo-random generator
+should be passed as a command-line argument).
+3. Using the neural network funcionalities implemented in the previous mini-projects, train an agent
+against which we can play tic-tac-toe.
+
+4. Elaborate a small report, where you describe all the relevant steps and decisions taken in all
+the items of the work. Also, provide experimental results, such as some examples of playing
+situations, critically commented.
+
+Chapter 2 
+
+2 Parte I
+
+Exercise No. 1
+
+Please, write short description about part 1.
+
+In this section, we will delve into the specific steps taken to design and implement the CLI, addressing challenges encountered and decisions made during the process. The goal is to create a robust and efficient interface that seamlessly integrates with the subsequent components of the project, providing a solid basis for an interactive and engaging tic-tac-toe experience.
+The initial focus is on the fundamental aspects of a tic-tac-toe game, emphasizing clarity and ease of use for players interacting with the CLI. This exercise lays the foundation for subsequent enhancements, setting the stage for the incorporation of random agents and the training of an intelligent agent using neural network functionalities in the following exercises.
+
+The primary objectives include creating a user-friendly environment that allows players to engage in the game seamlessly. The implemented CLI should be capable of displaying the current state of the tic-tac-toe board, soliciting and validating moves from the current player, determining if there is a winner, and facilitating the initiation of the game from a predefined state specified as a command-line argument.
+-------------------------------
+Tell me if the text below is well-written. Please make the improvements or correction if necessary.
+
+There are other functions that we created, but in this report, we described only some important functions that include essential features used in the functions mentioned above.
+Throughout the section, the report provides in-depth insights into the technical aspects of integrating neural networks into the tic-tac-toe framework. The methodology for training the agent, challenges faced during the process, and decisions made to enhance the agent's learning capabilities are thoroughly discussed. 
+
+We tried several times this scenario and we constated that, the X player always wins or has always the probability to wins by the time on playing with Y rand player as illustrated in Figure 5.
+"We have attempted this scenario multiple times and observed that the X player consistently wins or always has the probability of winning when playing against the Y random player, as illustrated in Figure 5.
+
+To To implement this exercise, we created a function called play_dual(char *state) in our game_play.c file. In this function, we also saved all the game states in a file where the file is referenced in red in the second argument of the save_game_numbers(&game, "states_dsets.ttt") function.
+
+As we can see in Figure 2, the format TTT is different from what we are used to seeing. We decided to use this format just to get out the common standard.
+
+As depicted in Figure 2, the format 'TTT' deviates from the familiar convention. We have intentionally adopted this format to diverge from the common standard.
+------------------------------------
+states_dsets.ttt
+game_t *game, double duration
+
+No.1 Command-Line Interface Implementation
+No.2 Playing Against a Random Agent
+No.3 Training an Intelligent Agent with Neural Networks
+No.4 Playing using a Random Agent for both Players.
+
+Please, now write a short description about part 4 (Playing using a Random Agent for both Players).
+
+Part 4. 
+void play_dual(char *state)
+save_game_numbers(&game, "states_dsets.ttt")
+
+
+The challenge lies in adapting the existing CLI to accommodate interactions with both human players
+------------------------------------------------------------------------------------------------------
+game_t *game, char *filename
+Part III of the project marks a significant advancement by leveraging neural network functionalities to train an intelligent agent for tic-tac-toe. Building upon the groundwork laid in the previous exercises, this section explores the intersection of machine learning and game-playing strategies. The goal is to create an agent capable of making informed and strategic moves, challenging human players with a higher level of sophistication.
+--------------------------------
+
+Could you add more comment in text below?
+
+As shown in Figure 8, Player X's probability of winning is 0.55556, which is a feature discussed earlier in this report. This probability was calculated as we described in previous section.
+
+
+As illustrated in Figure 8, the probability of Player X winning stands at 0.55556, a crucial feature discussed in earlier sections of this report. This probability calculation aligns with the detailed methodology outlined in the preceding section, providing a comprehensive understanding of how these probabilities are derived from the implemented neural network functionalities. 
+
+
+Playing Using a Random Agent for Both Players
+
+
+Part IV introduces a distinctive gameplay scenario by pitting two random agents against each other in a tic-tac-toe match. Unlike previous exercises involving human players or a human player against a random agent, this exercise explores the dynamics of a fully automated game where both players' moves are determined randomly.
+
+---------------------------------------------
+Using the neural network functionalities implemented in the previous descriptions (I've provided), Could you train an agent against which we can play tic-tac-toe?. Create a function void nn_play()  (in game_play.c file) function to make it workable. This agent must be fast to win. You can add to it the necessary features you think are important.
+
+
+
+In function void nn_play(), are there train_agent(nn) and play_agent(nn) functions. Cloud you develop the last both function to make neural network workable and correctly to predict? 

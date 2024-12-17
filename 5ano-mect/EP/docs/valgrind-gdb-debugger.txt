@@ -1,0 +1,44 @@
+Valgrind
+
+To check for memory leaks in a program called "program":
+valgrind --tool=memcheck --leak-check=full ./program
+
+To track down an invalid read or write error:
+valgrind --tool=memcheck ./program
+
+To profile a program and find hotspots:
+valgrind --tool=callgrind ./program
+
+To debug hard to find race conditions between threads:
+valgrind --tool=helgrind ./program
+
+To detect leaks and errors in dynamically loaded libraries:
+valgrind --trace-children=yes ./program
+
+------------------------------------------------------------------
+
+gdb
+
+Run gdb on a program:
+gdb ./program
+
+Set a breakpoint at main:
+b main
+
+Run the program inside gdb:
+run
+
+Print a variable value:
+print variable_name
+
+Step through code line-by-line:
+next
+
+Continue execution:
+continue
+
+Examine stack trace:
+bt
+
+Examine memory:
+x/16xb memory_address

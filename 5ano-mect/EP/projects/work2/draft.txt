@@ -1,0 +1,76 @@
+Now,  Train a neural network to implement a XOR boolean function. The file name is test_XOR_nn.c
+Optimize it to give good results. For (0,1) and (1,0) must aproximate to one; for (0,0) and (1,1) must aproximate to zero.
+Calculate also total_time_taken (Backpropagation took) and total_execution_time (Total execution time for all iterations). 
+
+
+Could you now Optimize it to give good results, use for this time random weight (RAND_MAX)
+
+
+-------------------------------------------------------------------------------------------
+Retaking about neural network (the file test_XOR_nn.c). Don't forget the files nn_base.h and nn_base.c.
+- The state of the neural network(after propagation) must be saved in train.net.
+- The training file is xor.train (you can put here the training data)
+- The seed  is the random weights to be randomly when nn is created. 
+- When the weights are created in first time randomly, it must not be overide, i.e., 
+in the next steps, the trains must use the previews results to train it.
+Now, restructurate test_XOR_nn.c to do differently as described below:
+		Usage:
+                    train 
+			[ - h hidden_units (def 10)]
+			[ - n n_iterations (def 1000)]
+			[ - lr learning_rate (def 0.01)]
+			[ - s seed]
+			training_file
+
+
+
+
+Instead of have output as described below
+Iteration 0, Mean Squared Error: 0.321782
+Iteration 100, Mean Squared Error: 0.281988
+Iteration 200, Mean Squared Error: 0.260519
+Iteration 300, Mean Squared Error: 0.252787
+Iteration 400, Mean Squared Error: 0.250492
+Iteration 500, Mean Squared Error: 0.249851
+Iteration 600, Mean Squared Error: 0.249668
+Iteration 700, Mean Squared Error: 0.249610
+Iteration 800, Mean Squared Error: 0.249584
+Iteration 900, Mean Squared Error: 0.249567
+Backpropagation took 0.009849 seconds
+Testing the trained XOR network:
+[0.000 0.000 ] -> 0.478 
+[0.000 1.000 ] -> 0.500 
+[1.000 0.000 ] -> 0.509 
+[1.000 1.000 ] -> 0.527
+
+I want the output be like (all iteration must be displayed):
+Backpropagation took [the value here] seconds
+[0.000 0.000 ] ->  value here
+[0.000 1.000 ] ->  value here 
+[1.000 0.000 ] ->  value here 
+[1.000 1.000 ] ->  value here 
+iteration value here: value of MSE here
+
+Backpropagation took [the value here] seconds
+[0.000 0.000 ] ->  value here
+[0.000 1.000 ] ->  value here 
+[1.000 0.000 ] ->  value here 
+[1.000 1.000 ] ->  value here 
+iteration value here: value of MSE here
+
+
+Backpropagation took [the value here] seconds
+[0.000 0.000 ] ->  value here
+[0.000 1.000 ] ->  value here 
+[1.000 0.000 ] ->  value here 
+[1.000 1.000 ] ->  value here 
+iteration value here: value of MSE here
+
+   .
+   .
+   .
+
+--------------------------------------------------
+Now I want to plot several graphf (MSE and iteration, learning rate), and (MESE and time Backpropagation tooked).
+How to do it using C language?
+

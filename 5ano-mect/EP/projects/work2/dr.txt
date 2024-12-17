@@ -1,0 +1,448 @@
+According to the code given, please change it to get datas from file xor.train (where the 1st line is the number of
+vector and 2nd line is the number of inputs and outputs of neural networks respectively in  this order). The others lines is for XOR training data.
+I want the input and output to be get from file and the number of vector as well. Could you do it to correctly and optimized?
+
+
+//xor.train
+  4
+2 1
+0 0 0
+0 1 1
+1 0 1
+1 1 0
+
+// train_nn.c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include "nn_base.h"
+
+#define DEFAULT_HIDDEN_UNITS 10
+#define DEFAULT_ITERATIONS 1000
+#define DEFAULT_LEARNING_RATE 0.01
+
+unsigned validate_hidden_units(int input);
+unsigned validate_iterations(int input);
+double validate_learning_rate(double input);
+void print_usage();
+
+int main(int argc, char *argv[])
+{
+    // Default values
+    unsigned hidden_units = DEFAULT_HIDDEN_UNITS;
+    unsigned n_iterations = DEFAULT_ITERATIONS;
+    double learning_rate = DEFAULT_LEARNING_RATE;
+    unsigned seed = 0; // Seed for random weights
+    char *training_file = NULL;
+
+    // Parse command-line arguments
+    for (int i = 1; i < argc; i++)
+    {
+        if (strcmp(argv[i], "-h") == 0 && i + 1 < argc)
+        {
+            hidden_units = validate_hidden_units(atoi(argv[i + 1]));
+        }
+        else if (strcmp(argv[i], "-n") == 0 && i + 1 < argc)
+        {
+            n_iterations = validate_iterations(atoi(argv[i + 1]));
+        }
+        else if (strcmp(argv[i], "-lr") == 0 && i + 1 < argc)
+        {
+            learning_rate = validate_learning_rate(atof(argv[i + 1]));
+        }
+        else if (strcmp(argv[i], "-s") == 0 && i + 1 < argc)
+        {
+            seed = atoi(argv[i + 1]);
+        }
+        else if (i == argc - 1)
+        {
+            training_file = argv[i];
+        }
+    }
+
+    // Check if any of the parameters failed validation
+    if (hidden_units == 0 || n_iterations == 0 || learning_rate == 0 || seed == 0 || training_file == NULL)
+    {
+        print_usage();
+        exit(1);
+    }
+    {
+        print_usage();
+        exit(1);
+    }
+
+    // Create neural network with specified seed
+    nn_t *nn = create_nn(2, hidden_units, 1, seed);
+
+    // Define XOR training data
+    double input_data[4][2] = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
+
+    // Training loop
+    clock_t start_time, end_time;
+    double total_time_taken;
+
+    // Before the training loop
+    FILE *csv_file = fopen("training_data.csv", "w");
+    fprintf(csv_file, "Iteration,MSE,Time\n");
+    fclose(csv_file);
+    for (unsigned iteration = 0; iteration < n_iterations; iteration++)
+    {
+        double total_error = 0.0;
+
+        // Open training file
+        FILE *train_file = fopen(training_file, "r");
+        if (train_file == NULL)
+        {
+            fprintf(stderr, "Error: Unable to open training file '%s'\n", training_file);
+            exit(1);
+        }
+
+        for (unsigned i = 0; i < 4; i++)
+        {
+            // Load input vector and target from training file
+            if (!load_input_vector(train_file, nn))
+            {
+                fprintf(stderr, "Error: Failed to read input from training file\n");
+                fclose(train_file);
+                exit(1);
+            }
+
+            double target;
+            if (fscanf(train_file, "%lf", &target) != 1)
+            {
+                fprintf(stderr, "Error: Failed to read target from training file\n");
+                fclose(train_file);
+                exit(1);
+            }
+
+            // Forward pass
+            go_forward(nn);
+
+            // Backpropagation
+            backpropagation(nn, &target, learning_rate);
+
+            // Calculate total error for monitoring
+            total_error += mean_squared_error(nn, &target);
+        }
+
+        fclose(train_file); // Close training file
+
+        // Print iteration information
+        puts("======================================");
+        printf("Backpropagation took ");
+        start_time = clock();
+
+        printf("%f seconds\n", total_time_taken);
+
+        //  Test the trained neural network
+        printf("Testing the trained XOR network:\n");
+        for (int i = 0; i < 4; i++)
+        {
+            load_input_vector_from_array(nn, input_data[i]);
+            go_forward(nn);
+            
+            printf("[%f %f] -> %f\n", nn->inp[0], nn->inp[1], nn->u_o[0].out);
+        }
+
+        end_time = clock();
+        total_time_taken = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+
+        // Append iteration, MSE, and time taken to CSV file
+        FILE *csv_file = fopen("training_data.csv", "a");
+        fprintf(csv_file, "%u,%f,%f\n", iteration, total_error / 4.0, total_time_taken);
+        fclose(csv_file);
+
+        start_time = clock(); // Reset start time for the next iteration
+
+        printf("[Iteration : MSE] -> %u : %f\n", iteration, total_error / 4.0);
+    }
+
+    // Save the state of the neural network
+    FILE *save_file = fopen("train.net", "w");
+    if (save_file == NULL)
+    {
+        fprintf(stderr, "Error: Unable to open save file 'train.net'\n");
+        exit(1);
+    }
+
+    save_nn(save_file, nn);
+    fclose(save_file);
+
+    free_nn(nn); // Free allocated memory
+
+    return 0;
+}
+
+// Function to validate and set hidden_units
+unsigned validate_hidden_units(int input)
+{
+    if (input < 0)
+    {
+        fprintf(stderr, "Error: Hidden units cannot be negative. Using default value.\n");
+        return DEFAULT_HIDDEN_UNITS;
+    }
+    return (unsigned)input;
+}
+
+// Function to validate and set n_iterations
+unsigned validate_iterations(int input)
+{
+    if (input < 0 || input < 1000 || input > 100000000000)
+    {
+        fprintf(stderr, "Error: Iterations must be a positive integer between 1000 and 100000000000. Using default value.\n");
+        return DEFAULT_ITERATIONS;
+    }
+    return (unsigned)input;
+}
+
+// Function to validate and set learning_rate
+double validate_learning_rate(double input)
+{
+    if (input <= 0 || input > 1)
+    {
+        fprintf(stderr, "Error: Learning rate must be a positive number between 0 and 1. Using default value.\n");
+        return DEFAULT_LEARNING_RATE;
+    }
+    return input;
+}
+void print_usage()
+{
+    printf("Usage: train -h hidden_units -n n_iterations -lr learning_rate -s seed training_file\n");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Please adapt the code below according to all previews code informations to work correctly.
+
+
+//unit_tests.c
+#include <stdio.h>
+#include <assert.h>
+#include "nn_base.h"
+
+int tests_passed = 0;
+int tests_failed = 0;
+
+void test_create_and_free_neural_network()
+{
+    NeuralNetwork_t *nn = create_neural_network(2, 3, 1);
+    assert(nn != NULL);
+    assert(nn->I == 2);
+    assert(nn->H == 3);
+    assert(nn->O == 1);
+    free_neural_network(nn);
+    tests_passed++;
+}
+
+void test_create_and_free_weights()
+{
+    Weight_t *weights = create_weights(10);
+    assert(weights != NULL);
+    free_weights(weights);
+    tests_passed++;
+}
+
+void test_load_and_save_weights()
+{
+    // Create a neural network
+    NeuralNetwork_t *nn = create_neural_network(2, 2, 1);
+
+    // Create some example weights
+    Weight_t example_weights[6] = {
+        {0, 0, 1, 0, 0.5},
+        {0, 1, 1, 0, 0.6},
+        {0, 0, 1, 1, 0.7},
+        {0, 1, 1, 1, 0.8},
+        {1, 0, 2, 0, 0.9},
+        {1, 1, 2, 0, 1.0}};
+
+    // Save weights to a file
+    assert(save_weights(nn, example_weights, "test_weights_saved.txt") == 0);
+
+    // Load weights from the file
+    Weight_t *loaded_weights = NULL;
+    assert(load_weights(nn, &loaded_weights, "test_weights.txt") == 0);
+
+    // Verify that the loaded weights match the example weights
+    for (int i = 0; i < 6; i++)
+    {
+        assert(loaded_weights[i].from_layer == example_weights[i].from_layer);
+        assert(loaded_weights[i].from_unit == example_weights[i].from_unit);
+        assert(loaded_weights[i].to_layer == example_weights[i].to_layer);
+        assert(loaded_weights[i].to_unit == example_weights[i].to_unit);
+        assert(loaded_weights[i].weight == example_weights[i].weight);
+    }
+
+    free_weights(loaded_weights);
+    free_neural_network(nn);
+    tests_passed++;
+}
+
+void test_propagate_input()
+{
+    // Create a neural network
+    NeuralNetwork_t *nn = create_neural_network(2, 2, 1);
+
+    // // Create example weights
+    Weight_t example_weights[6] = {
+        {0, 0, 1, 0, 0.5},
+        {0, 1, 1, 0, 0.6},
+        {0, 0, 1, 1, 0.7},
+        {0, 1, 1, 1, 0.8},
+        {1, 0, 2, 0, 0.9},
+        {1, 1, 2, 0, 1.0}};
+    // Save weights to a file
+    assert(save_weights(nn, example_weights, "test_weights_saved.txt") == 0);
+
+    // Load the example weights
+    Weight_t *loaded_weights = NULL;
+    assert(load_weights(nn, &loaded_weights, "test_weights.txt") == 0);
+
+    // Test the propagation of input
+    double input[2] = {0.2, 0.3};
+    double output[1] = {0.0}; // Initialize the output
+    propagate_input(nn, loaded_weights, input, output);
+    assert(output[0] > 0.0); // The output should not be zero
+
+    free_weights(loaded_weights);
+    free_neural_network(nn);
+    tests_passed++;
+}
+
+int main()
+{
+    test_create_and_free_neural_network();
+    test_create_and_free_weights();
+    test_load_and_save_weights();
+    test_propagate_input();
+
+    printf("Tests Passed: %d\n", tests_passed);
+    printf("Tests Failed: %d\n", 4 - tests_passed);
+
+    if (tests_failed > 0)
+    {
+        printf("Some tests failed.\n");
+    }
+    else
+    {
+        printf("All tests passed.\n");
+    }
+
+    return 0;
+}
+
+
+
+Please add to code below to count tests_passed and tests_failed .
+
+#include <stdio.h>
+#include <assert.h> // Include the assert header
+#include "nn_base.h"
+
+void test_create_nn()
+{
+    printf("Running test_create_nn...\n");
+
+    nn_t *nn = create_nn(2, 3, 1, 123);
+
+    // Check if nn is not NULL
+    assert(nn != NULL);
+
+    // Check if the sizes are correctly set
+    assert(nn->I == 2);
+    assert(nn->H == 3);
+    assert(nn->O == 1);
+
+    free_nn(nn);
+
+    printf("test_create_nn passed!\n");
+}
+
+void test_load_save_nn()
+{
+    printf("Running test_load_save_nn ...\n");
+
+    nn_t *nn = create_nn(2, 3, 1, 123);
+
+    // Save the original weights for later comparison
+    double **original_w_ih = nn->w_ih;
+    double **original_w_ho = nn->w_ho;
+
+    FILE *save_file = fopen("test_nn_save.txt", "w");
+    save_nn(save_file, nn);
+    fclose(save_file);
+
+    FILE *load_file = fopen("test_nn_load.txt", "r");
+    nn_t *loaded_nn = create_nn(2, 3, 1, 123); // Use the same seed
+    load_header(load_file, &loaded_nn->I, &loaded_nn->H, &loaded_nn->O);
+    load_weights(load_file, loaded_nn);
+    fclose(load_file);
+
+    // Check if sizes are correctly loaded
+    assert(loaded_nn->I == 2);
+    assert(loaded_nn->H == 3);
+    assert(loaded_nn->O == 1);
+
+    // Check if weights are correctly loaded
+    for (unsigned i = 0; i < nn->I; i++)
+    {
+        for (unsigned h = 0; h < nn->H; h++)
+        {
+            assert(nn->w_ih[i][h] == original_w_ih[i][h]);
+        }
+    }
+
+    for (unsigned h = 0; h < nn->H; h++)
+    {
+        for (unsigned o = 0; o < nn->O; o++)
+        {
+            assert(nn->w_ho[h][o] == original_w_ho[h][o]);
+        }
+    }
+
+    free_nn(nn);
+    free_nn(loaded_nn);
+
+    printf("test_load_save_nn passed!\n");
+}
+
+int main()
+{
+    test_create_nn();
+    test_load_save_nn();
+
+    return 0;
+}
+
+
+The result are:
+
+Backpropagation took 0.000016  seconds 
+Testing the trained XOR network:
+[0.000000 0.000000] -> 0.004853
+[0.000000 1.000000] -> 0.996945
+[1.000000 0.000000] -> 0.996935
+[1.000000 1.000000] -> 0.998769
+ [Iteration : MSE] -> 99999 : 0.000011 
+
+I see that the last state([1.000000 1.000000] ) is not approximate to 0.0000.
+How to solve it?
